@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/layout_header"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="45dp"-->
+    <!--android:background="@color/black"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/back"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:contentDescription="@string/app_name"-->
+    <!--android:padding="10dp"-->
+    <!--android:src="@drawable/back" />-->
+
+    <!--<com.tanzil.steelhub.customUi.MyTextView-->
+    <!--android:id="@+id/txt_header"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/new_requirements"-->
+    <!--android:textColor="@color/colorWhite"-->
+    <!--android:textSize="@dimen/large_text_size"-->
+    <!--customfontdemo:fontName="@string/raleway_medium" />-->
+    <!--</RelativeLayout>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/profile_layout_margin"
+                android:background="@drawable/layout_grey_bg"
+                android:orientation="vertical"
+                android:padding="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.tanzil.steelhub.customUi.MyTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/specifications"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/new_req_edit_text_size"
+                        customfontdemo:fontName="@string/raleway_medium" />
+
+                    <LinearLayout
+                        android:id="@+id/default_quantity_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_quantity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_corner_bg"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/quantity"
+                            android:inputType="numberDecimal"
+                            android:padding="7dp"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_diameter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_corner_bg"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/diameter"
+                            android:inputType="numberDecimal"
+                            android:padding="7dp"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <ImageView
+                            android:id="@+id/icon_remove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:contentDescription="@string/accept"
+                            android:padding="5dp"
+                            android:src="@drawable/reply"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_add_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/colorWhite"
+                        android:orientation="vertical" />
+
+                    <com.tanzil.steelhub.customUi.MyButton
+                        android:id="@+id/btn_add_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:background="@color/add_more_color"
+                        android:padding="5dp"
+                        android:text="@string/add_more"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/edit_text_size"
+                        customfontdemo:fontName="@string/raleway_medium" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_grade_required"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:id="@+id/txt_grade_required"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/grade_required"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <ImageView
+                            android:id="@+id/ic_grade_required"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/check_on" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_physical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:id="@+id/txt_physical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/physical"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <ImageView
+                            android:id="@+id/ic_physical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/check_on" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_chemical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:id="@+id/txt_chemical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/chemical"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <ImageView
+                            android:id="@+id/ic_chemical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/check_on" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/length"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/standard_bg"
+                            android:orientation="horizontal"
+                            android:padding="1dp">
+
+                            <com.tanzil.steelhub.customUi.MyTextView
+                                android:id="@+id/txt_straight"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingTop="5dp"
+                                android:text="@string/straight"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/new_req_edit_text_size"
+                                customfontdemo:fontName="@string/raleway_medium" />
+
+                            <com.tanzil.steelhub.customUi.MyTextView
+                                android:id="@+id/txt_bend"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@color/colorWhite"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingTop="5dp"
+                                android:text="@string/bend"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/new_req_edit_text_size"
+                                customfontdemo:fontName="@string/raleway_medium" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/type"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/standard_bg"
+                            android:orientation="horizontal"
+                            android:padding="1dp">
+
+                            <com.tanzil.steelhub.customUi.MyTextView
+                                android:id="@+id/txt_standard"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingTop="5dp"
+                                android:text="@string/standard"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/new_req_edit_text_size"
+                                customfontdemo:fontName="@string/raleway_medium" />
+
+                            <com.tanzil.steelhub.customUi.MyTextView
+                                android:id="@+id/txt_random"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@color/colorWhite"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingTop="5dp"
+                                android:text="@string/random"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/new_req_edit_text_size"
+                                customfontdemo:fontName="@string/raleway_medium" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_preferred_brands"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/preferred_brands"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_grade_required"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/grade_required"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_city"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/city"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_state"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/state"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_budget_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/budget_amount"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.tanzil.steelhub.customUi.MyButton
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_sign_up_green_bg"
+        android:text="@string/submit"
+        android:textColor="@color/menu_text_color"
+        android:textSize="@dimen/large_text_size"
+        customfontdemo:fontName="@string/raleway_medium" />
+</RelativeLayout>

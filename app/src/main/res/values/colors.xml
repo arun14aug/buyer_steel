@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#08BCD3</color>
+    <color name="colorPrimaryDark">#AA000000</color>
+    <color name="colorAccent">#08BCD3</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="dark_grey">#818181</color>
+    <color name="bg_color">#dedfd1</color>
+    <color name="grey_text">#9f9fa2</color>
+    <color name="black">#000000</color>
+    <color name="red">#ff0000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="login_start_color">#0095A5</color>
+    <color name="login_end_color">#028391</color>
+    <color name="sign_up_start_color">#08BCD3</color>
+    <color name="sign_up_end_color">#0098A8</color>
+
+    <color name="standard_start_color">#5F7C8A</color>
+    <color name="standard_end_color">#475D67</color>
+
+    <color name="hint_color">#dedfd1</color>
+    <color name="edit_text_color">#FFFFFF</color>
+    <color name="add_more_color">#2BAECC</color>
+    <color name="line_color">#5ED0DF</color>
+    <color name="menu_text_color">#D6F9Fc</color>
+</resources>

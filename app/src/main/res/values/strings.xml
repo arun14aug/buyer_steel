@@ -1,0 +1,115 @@
+<resources>
+    <string name="app_name">SteelHub</string>
+    <string name="action_settings">Settings</string>
+    <string name="tag_line">The Real Steel Dealers</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>Home</item>
+        <item>New Requirement</item>
+        <item>History</item>
+        <item>Change Password</item>
+        <item>Contact Us</item>
+        <item>Logout</item>
+    </string-array>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="title_change_pass">Change Password</string>
+    <string name="title_history">History</string>
+    <string name="title_notification">Notifications</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_home">Home</string>
+    <string name="title_new_requirement">New Requirement</string>
+    <string name="title_contact_us">Contact Us</string>
+
+    <string name="raleway_medium">Raleway-Medium.ttf</string>
+    <string name="please_wait">Please Wait....</string>
+    <string name="please_enter_username">Please enter username</string>
+    <string name="please_enter_password">Please enter password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
+    <string name="please_enter_correct_password">Your both passwords does not match</string>
+    <string name="please_enter_email">Please enter email</string>
+    <string name="please_enter_company">Please enter company name</string>
+    <string name="please_enter_contact">Please enter contact</string>
+    <string name="please_enter_address">Please enter address</string>
+    <string name="please_enter_state">Please enter state</string>
+    <string name="please_enter_city">Please enter city</string>
+    <string name="please_enter_zip">Please enter zip</string>
+    <string name="please_enter_tin">Please enter tin</string>
+    <string name="please_enter_pan">Please enter pan</string>
+    <string name="please_enter_expected_req">Please enter expected requirement for monthly</string>
+
+    <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to send downstream messages to this app.</string>
+    <string name="registering_message">Generating InstanceID token....</string>
+    <string name="token_error_message">An error occurred while either fetching the InstanceID token, sending the fetched token to the server or subscribing to the PubSub topic. Please try running the sample again.</string>
+
+    <!-- Login Screen-->
+    <string name="welcome">WELCOME!</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forget_password">Forgot password?</string>
+    <string name="login">Login</string>
+    <string name="sign_up">SignUp</string>
+
+    <!-- Registration Screen-->
+    <string name="complete_your_profile">COMPLETE YOUR PROFILE</string>
+    <string name="contact">Contact</string>
+    <string name="company_name">Company Name</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="address">Address</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="zip">ZIP</string>
+    <string name="tin">TIN</string>
+    <string name="pan">PAN</string>
+    <string name="expected_req_monthly">Expected req (Monthly) in Tons</string>
+    <string name="submit">Submit</string>
+
+    <!-- New Requirement Screen-->
+    <string name="quantity">Quantity</string>
+    <string name="diameter">Diameter</string>
+    <string name="grade_required">Grade Required</string>
+    <string name="physical">Physical</string>
+    <string name="chemical">Chemical</string>
+    <string name="test_cert_required">Test Cert Required</string>
+    <string name="length">Length</string>
+    <string name="standard">Std.</string>
+    <string name="random">Rdm.</string>
+    <string name="type">Type</string>
+    <string name="straight">Straight</string>
+    <string name="bend">Bend</string>
+    <string name="preferred_brands">Preferred Brands</string>
+    <string name="required_by_date">Required By Date</string>
+    <string name="rate">Rate</string>
+    <string name="approx_order_value">Approx Order Value</string>
+    <string name="deliver_location">Delivery Location</string>
+    <string name="bargain">BARGAIN</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="option_from_seller">OPTIONS FROM SELLER</string>
+    <string name="next">NEXT</string>
+    <string name="specifications">Specifications</string>
+
+
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="reset_your_password">Reset Password</string>
+    <string name="send">Send</string>
+    <string name="requirements">REQUIREMENTS</string>
+    <string name="new_requirements">NEW REQUIREMENT</string>
+    <string name="budget_amount">Budget Amount (In Rupees)</string>
+    <string name="add_more">Add More</string>
+
+    <string name="please_enter_budget_amount">Please enter budget amount</string>
+    <string name="please_enter_quantity">Please enter quantity</string>
+    <string name="please_enter_diameter">Please enter diameter</string>
+    <string name="please_enter_preferred_brands">Please enter preferred brands</string>
+    <string name="please_enter_grade_required">Please enter grade required</string>
+
+
+    <string name="no_record_found">No record found!!!</string>
+    <string name="oops_something_went_wrong">Oops! something went wrong. Please try again later.</string>
+</resources>

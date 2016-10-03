@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_grey_bg"
+    android:orientation="horizontal"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.tanzil.steelhub.customUi.MyTextView
+            android:id="@+id/txt_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/zip"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/zip"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:text="@string/quantity"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <com.tanzil.steelhub.customUi.MyTextView
+            android:id="@+id/txt_state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/mm"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/mm"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:text="@string/quantity"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <com.tanzil.steelhub.customUi.MyTextView
+            android:id="@+id/txt_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/date"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/date"
+            android:gravity="start|center_vertical"
+            android:text="@string/quantity"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <com.tanzil.steelhub.customUi.MyTextView
+            android:id="@+id/txt_budget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="start|center_vertical"
+            android:text="@string/quantity"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/small_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <ImageView
+            android:id="@+id/img_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:padding="5dp"
+            android:src="@drawable/reply" />
+    </LinearLayout>
+</LinearLayout>
