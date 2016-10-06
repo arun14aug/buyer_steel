@@ -46,6 +46,7 @@ public class AuthManager {
                             if (state) {
                                 Preferences.writeBoolean(activity, Preferences.LOGIN, true);
                                 Preferences.writeString(activity, Preferences.USER_ID, response.getString("user_id"));
+                                Preferences.writeString(activity, Preferences.USER_TOKEN, response.getString("token"));
 
                                 EventBus.getDefault().postSticky("Login True");
                             } else {

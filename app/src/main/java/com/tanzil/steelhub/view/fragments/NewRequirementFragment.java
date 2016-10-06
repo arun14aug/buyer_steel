@@ -54,6 +54,8 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
     private ArrayList<Specifications> specificationsArrayList;
     private ArrayList<States> statesArrayList;
     private ImageView icon_remove;
+    private ArrayList<MyEditText> et_quantityArrayList = new ArrayList<>();
+    private ArrayList<MyEditText> et_diameterArrayList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -141,8 +143,13 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                         icon_remove.setVisibility(View.GONE);
                     }
                 ((LinearLayout) addView.getParent()).removeView(addView);
+                et_diameterArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(1));
+                et_quantityArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(0));
             }
         });
+
+        et_quantityArrayList.add(quantity);
+        et_diameterArrayList.add(diameter);
         addMoreLayout.addView(addView);
 
         if (addMoreLayout != null)
@@ -206,33 +213,52 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             case R.id.txt_straight:
                 break;
             case R.id.btn_submit:
-
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("user_id", "");
-                    jsonObject.put("physical", "");
-                    jsonObject.put("chemical", "");
-                    jsonObject.put("length", "");
-                    jsonObject.put("type", "");
-                    jsonObject.put("tax_type", "");
-                    jsonObject.put("required_by_date", "");
-                    jsonObject.put("budget", "");
-                    jsonObject.put("city", "");
-                    jsonObject.put("state", "");
-                    jsonObject.put("grade_required", "");
-                    jsonObject.put("preffered_brands", new String[3]);
-
-                    JSONArray jsonArray = new JSONArray();
-                    for (int i = 0; i < specificationsArrayList.size(); i++) {
-                        JSONObject jsonObject1 = new JSONObject();
-                        jsonObject1.put("size", specificationsArrayList.get(i).getSize());
-                        jsonObject1.put("quantity", specificationsArrayList.get(i).getQuantity());
-                        jsonArray.put(i, jsonObject1);
+                String[] qt, dt;
+                if (et_quantityArrayList != null)
+                    if (et_quantityArrayList.size() > 0) {
+                        qt = new String[et_quantityArrayList.size()];
+                        for (int i = 0; i < et_quantityArrayList.size(); i++) {
+                            qt[i] = et_quantityArrayList.get(i).getText().toString();
+                            STLog.e("Quantity Values : ", "" + et_quantityArrayList.get(i).getText().toString());
+                        }
+                    }
+                if (et_diameterArrayList != null)
+                    if (et_diameterArrayList.size() > 0) {
+                        dt = new String[et_diameterArrayList.size()];
+                        for (int i = 0; i < et_diameterArrayList.size(); i++) {
+                            dt[i] = et_diameterArrayList.get(i).getText().toString();
+                            STLog.e("Diameter Values : ", "" + et_diameterArrayList.get(i).getText().toString());
+                        }
                     }
 
-                    jsonObject.put("specification", jsonArray);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (isValidate()) {
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("user_id", "");
+                        jsonObject.put("physical", "");
+                        jsonObject.put("chemical", "");
+                        jsonObject.put("length", "");
+                        jsonObject.put("type", "");
+                        jsonObject.put("tax_type", "");
+                        jsonObject.put("required_by_date", "");
+                        jsonObject.put("budget", "");
+                        jsonObject.put("city", "");
+                        jsonObject.put("state", "");
+                        jsonObject.put("grade_required", "");
+                        jsonObject.put("preffered_brands", new String[3]);
+
+                        JSONArray jsonArray = new JSONArray();
+                        for (int i = 0; i < specificationsArrayList.size(); i++) {
+                            JSONObject jsonObject1 = new JSONObject();
+                            jsonObject1.put("size", specificationsArrayList.get(i).getSize());
+                            jsonObject1.put("quantity", specificationsArrayList.get(i).getQuantity());
+                            jsonArray.put(i, jsonObject1);
+                        }
+
+                        jsonObject.put("specification", jsonArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
             case R.id.icon_remove:
