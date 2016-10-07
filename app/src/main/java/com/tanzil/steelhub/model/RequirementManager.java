@@ -24,7 +24,7 @@ import de.greenrobot.event.EventBus;
  * Created by arun.sharma on 9/30/2016.
  */
 public class RequirementManager {
-    private String TAG = RequirementManager.class.getSimpleName();
+//    private String TAG = RequirementManager.class.getSimpleName();
     private ArrayList<Requirements> requirementsArrayList;
 
     public ArrayList<Requirements> getRequirements(Activity activity, boolean shouldRefresh) {

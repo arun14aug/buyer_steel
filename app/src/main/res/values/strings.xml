@@ -112,4 +112,5 @@
 
     <string name="no_record_found">No record found!!!</string>
     <string name="oops_something_went_wrong">Oops! something went wrong. Please try again later.</string>
+    <string name="please_select_an_option">Please select an option</string>
 </resources>

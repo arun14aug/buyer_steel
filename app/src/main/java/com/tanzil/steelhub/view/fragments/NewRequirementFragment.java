@@ -5,15 +5,20 @@ package com.tanzil.steelhub.view.fragments;
  */
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.tanzil.steelhub.R;
@@ -27,8 +32,10 @@ import com.tanzil.steelhub.model.Quantity;
 import com.tanzil.steelhub.model.Specifications;
 import com.tanzil.steelhub.model.States;
 import com.tanzil.steelhub.model.SteelSizes;
+import com.tanzil.steelhub.utility.Preferences;
 import com.tanzil.steelhub.utility.STLog;
 import com.tanzil.steelhub.utility.Utils;
+import com.tanzil.steelhub.view.adapter.CommonDialogAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,13 +56,13 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
     private LinearLayout addMoreLayout, default_quantity_layout;
     private ArrayList<Brands> brandsArrayList;
     private ArrayList<Grades> gradesArrayList;
-    private ArrayList<Quantity> quantityArrayList;
     private ArrayList<SteelSizes> steelSizesArrayList;
-    private ArrayList<Specifications> specificationsArrayList;
+    private ArrayList<Specifications> specificationsArrayList = new ArrayList<>();
     private ArrayList<States> statesArrayList;
     private ImageView icon_remove;
     private ArrayList<MyEditText> et_quantityArrayList = new ArrayList<>();
     private ArrayList<MyEditText> et_diameterArrayList = new ArrayList<>();
+    private String brandId = "", steelId = "", gradeId = "", stateId = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,8 +129,109 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         txt_bend.setOnClickListener(this);
         txt_straight.setOnClickListener(this);
         icon_remove.setOnClickListener(this);
+        et_state.setOnClickListener(this);
+        et_preferred_brands.setOnClickListener(this);
+        et_diameter.setOnClickListener(this);
+        et_grade_required.setOnClickListener(this);
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    private void showDropDownDialog(final int type, final MyEditText et_myText) {
+        final Dialog dropDownDialog = new Dialog(activity);
+        dropDownDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dropDownDialog.setContentView(R.layout.dialog_dropdown_list);
+        dropDownDialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        MyTextView titleView = (MyTextView) dropDownDialog
+                .findViewById(R.id.title_name);
+        titleView.setText(activity.getString(R.string.please_select_an_option));
+        final ListView listView = (ListView) dropDownDialog
+                .findViewById(R.id.list_view);
+
+        ArrayList<String> list = new ArrayList<>();
+        if (type == 0) {
+            if (brandsArrayList != null)
+                if (brandsArrayList.size() > 0)
+                    for (int i = 0; i < brandsArrayList.size(); i++)
+                        list.add(brandsArrayList.get(i).getName());
+                else {
+                    Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                    return;
+                }
+            else {
+                Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                return;
+            }
+        } else if (type == 1) {
+            if (steelSizesArrayList != null)
+                if (steelSizesArrayList.size() > 0)
+                    for (int i = 0; i < steelSizesArrayList.size(); i++)
+                        list.add(steelSizesArrayList.get(i).getSize());
+                else {
+                    Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                    return;
+                }
+            else {
+                Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                return;
+            }
+        } else if (type == 2) {
+            if (gradesArrayList != null)
+                if (gradesArrayList.size() > 0)
+                    for (int i = 0; i < gradesArrayList.size(); i++)
+                        list.add(gradesArrayList.get(i).getGrade());
+                else {
+                    Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                    return;
+                }
+            else {
+                Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                return;
+            }
+        } else if (type == 3) {
+            if (statesArrayList != null)
+                if (statesArrayList.size() > 0)
+                    for (int i = 0; i < statesArrayList.size(); i++)
+                        list.add(statesArrayList.get(i).getName());
+                else {
+                    Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                    return;
+                }
+            else {
+                Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                return;
+            }
+        }
+        CommonDialogAdapter commonDialogAdapter = new CommonDialogAdapter(
+                activity, list);
+        listView.setAdapter(commonDialogAdapter);
+        commonDialogAdapter.notifyDataSetChanged();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // TODO Auto-generated method stub
+                if (type == 0) {
+                    et_myText.setText(brandsArrayList.get(position).getName());
+                    brandId = brandsArrayList.get(position).getId();
+                } else if (type == 1) {
+                    et_myText.setText(steelSizesArrayList.get(position).getSize());
+                    steelId = steelSizesArrayList.get(position).getId();
+                } else if (type == 2) {
+                    et_myText.setText(gradesArrayList.get(position).getGrade());
+                    gradeId = gradesArrayList.get(position).getId();
+                } else if (type == 3) {
+                    et_myText.setText(statesArrayList.get(position).getName());
+                    stateId = statesArrayList.get(position).getCode();
+                }
+                dropDownDialog.dismiss();
+            }
+        });
+
+        dropDownDialog.show();
     }
 
     private void addMoreQuantity() {
@@ -205,12 +313,28 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             case R.id.layout_chemical:
                 break;
             case R.id.txt_random:
+                txt_random.setTextColor(Utils.setColor(activity, R.color.white));
+                txt_random.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                txt_standard.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                txt_standard.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 break;
             case R.id.txt_standard:
+                txt_standard.setTextColor(Utils.setColor(activity, R.color.white));
+                txt_standard.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                txt_random.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                txt_random.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 break;
             case R.id.txt_bend:
+                txt_bend.setTextColor(Utils.setColor(activity, R.color.white));
+                txt_bend.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                txt_straight.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                txt_straight.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 break;
             case R.id.txt_straight:
+                txt_straight.setTextColor(Utils.setColor(activity, R.color.white));
+                txt_straight.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                txt_bend.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                txt_bend.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 break;
             case R.id.btn_submit:
                 String[] qt, dt;
@@ -234,18 +358,18 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 if (isValidate()) {
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("user_id", "");
+                        jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
                         jsonObject.put("physical", "");
                         jsonObject.put("chemical", "");
                         jsonObject.put("length", "");
                         jsonObject.put("type", "");
                         jsonObject.put("tax_type", "");
                         jsonObject.put("required_by_date", "");
-                        jsonObject.put("budget", "");
-                        jsonObject.put("city", "");
-                        jsonObject.put("state", "");
-                        jsonObject.put("grade_required", "");
-                        jsonObject.put("preffered_brands", new String[3]);
+                        jsonObject.put("budget", et_budget_amount.getText().toString());
+                        jsonObject.put("city", et_city.getText().toString());
+                        jsonObject.put("state", stateId);
+                        jsonObject.put("grade_required", gradeId);
+                        jsonObject.put("preffered_brands", brandId);
 
                         JSONArray jsonArray = new JSONArray();
                         for (int i = 0; i < specificationsArrayList.size(); i++) {
@@ -265,6 +389,19 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 default_quantity_layout.setVisibility(View.GONE);
                 et_quantity.setText("");
                 et_diameter.setText("");
+                break;
+
+            case R.id.et_grade_required:
+                showDropDownDialog(2, et_grade_required);
+                break;
+            case R.id.et_preferred_brands:
+                showDropDownDialog(0, et_preferred_brands);
+                break;
+            case R.id.et_diameter:
+                showDropDownDialog(1, et_diameter);
+                break;
+            case R.id.et_state:
+                showDropDownDialog(3, et_state);
                 break;
         }
     }
