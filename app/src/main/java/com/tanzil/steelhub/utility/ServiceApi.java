@@ -9,7 +9,8 @@ public class ServiceApi {
 
 
     // Users Family
-    public static final String LOGIN = baseurl + "auth/securelogin";
+//    public static final String LOGIN = baseurl + "auth/securelogin";
+    public static final String LOGIN = baseurl + "authenticate";
     public static final String REGISTER = baseurl + "auth/register";
     public static final String VERIFY_USER = baseurl + "verifyuser.php";
     public static final String FORGOT_PASSWORD = baseurl + "recoverpassword";

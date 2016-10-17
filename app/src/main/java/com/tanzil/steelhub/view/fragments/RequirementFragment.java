@@ -107,6 +107,11 @@ public class RequirementFragment extends Fragment {
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "GetRequirements False");
             Utils.dismissLoading();
+        } else if (message.contains("GetRequirements Network Error")) {
+            // showMatchHistoryList();
+            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+            STLog.e(TAG, "GetRequirements Network Error");
+            Utils.dismissLoading();
         }
 
     }

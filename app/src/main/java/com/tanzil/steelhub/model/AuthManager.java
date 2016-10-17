@@ -26,6 +26,14 @@ public class AuthManager {
     private String deviceToken;
     private String userToken;
 
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
+    }
+
     public String getDeviceToken() {
         return deviceToken;
     }
@@ -42,18 +50,28 @@ public class AuthManager {
                         STLog.e("Success Response : ", "Response: " + response.toString());
 
                         try {
-                            boolean state = response.getBoolean("success");
+                            boolean state = false;
+                            if (response.has("success"))
+                                state = response.getBoolean("success");
+
                             if (state) {
                                 Preferences.writeBoolean(activity, Preferences.LOGIN, true);
                                 Preferences.writeString(activity, Preferences.USER_ID, response.getString("user_id"));
                                 Preferences.writeString(activity, Preferences.USER_TOKEN, response.getString("token"));
-
+                                ModelManager.getInstance().getAuthManager().setUserToken(response.getString("token"));
                                 EventBus.getDefault().postSticky("Login True");
-                            } else {
-
+                            } else if (response.has("token")) {
+                                Preferences.writeBoolean(activity, Preferences.LOGIN, true);
+                                if (response.has("user_id"))
+                                    Preferences.writeString(activity, Preferences.USER_ID, response.getString("user_id"));
+                                Preferences.writeString(activity, Preferences.USER_TOKEN, response.getString("token"));
+                                ModelManager.getInstance().getAuthManager().setUserToken(response.getString("token"));
+                                EventBus.getDefault().postSticky("Login True");
+                            } else
                                 EventBus.getDefault().postSticky("Login False@#@" + response.getString("message"));
-                            }
+
                         } catch (JSONException e) {
+                            e.printStackTrace();
                             EventBus.getDefault().postSticky("Login False");
                         }
                     }
@@ -156,7 +174,7 @@ public class AuthManager {
                             EventBus.getDefault().postSticky("ForgetPassword False");
                         }
                     }
-        }, new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
