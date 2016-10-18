@@ -10,8 +10,18 @@ public class Requirements {
     String requirement_id, user_id, grade_required, physical, chemical, test_certificate_required,
             length, type, required_by_date, budget, state, city, created_at, updated_at;
 
+    ArrayList<Response> responseArrayList;
+
     String[] preffered_brands;
     ArrayList<Quantity> quantityArrayList;
+
+    public ArrayList<Response> getResponseArrayList() {
+        return responseArrayList;
+    }
+
+    public void setResponseArrayList(ArrayList<Response> responseArrayList) {
+        this.responseArrayList = responseArrayList;
+    }
 
     public String getRequirement_id() {
         return requirement_id;

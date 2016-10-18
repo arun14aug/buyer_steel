@@ -28,7 +28,6 @@ import com.tanzil.steelhub.customUi.MyTextView;
 import com.tanzil.steelhub.model.Brands;
 import com.tanzil.steelhub.model.Grades;
 import com.tanzil.steelhub.model.ModelManager;
-import com.tanzil.steelhub.model.Quantity;
 import com.tanzil.steelhub.model.Specifications;
 import com.tanzil.steelhub.model.States;
 import com.tanzil.steelhub.model.SteelSizes;
@@ -383,6 +382,9 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    Utils.showLoading(activity, activity.getString(R.string.please_wait));
+                    ModelManager.getInstance().getRequirementManager().addBuyerPost(activity, jsonObject);
                 }
                 break;
             case R.id.icon_remove:

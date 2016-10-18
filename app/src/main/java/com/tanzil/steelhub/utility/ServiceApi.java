@@ -23,7 +23,7 @@ public class ServiceApi {
     public static final String POSTED_REQUIREMENTS = baseurl + "posted/requirements";
     public static final String REQUIREMENT_DETAILS = baseurl + "requirement/details";
     public static final String FETCH_BRANDS = baseurl + "brands";
-    public static final String FETCH_GRADES = "grades";
+    public static final String FETCH_GRADES = baseurl + "grades";
     public static final String UPDATE_CONVERSATION_STATUS = baseurl + "updateConversationStatus";
     public static final String DELETE_POST = baseurl + "deletePost";
 
