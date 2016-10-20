@@ -25,4 +25,5 @@
     <color name="add_more_color">#2BAECC</color>
     <color name="line_color">#5ED0DF</color>
     <color name="menu_text_color">#D6F9Fc</color>
+    <color name="green">#02ca3e</color>
 </resources>

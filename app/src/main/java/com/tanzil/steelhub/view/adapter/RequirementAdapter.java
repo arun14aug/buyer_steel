@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.tanzil.steelhub.R;
 import com.tanzil.steelhub.customUi.MyTextView;
 import com.tanzil.steelhub.model.Requirements;
+import com.tanzil.steelhub.utility.Utils;
 import com.tanzil.steelhub.view.fragments.NewRequirementFragment;
 
 import java.util.ArrayList;
@@ -76,6 +77,8 @@ public class RequirementAdapter extends BaseAdapter {
 
             viewHolder.txt_date.setText(list.get(position).getRequired_by_date());
 
+            viewHolder.color_view.setBackgroundColor(Utils.setColor(activity, activity.getColor(R.color.green)));
+
             viewHolder.img_action.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -101,6 +104,7 @@ public class RequirementAdapter extends BaseAdapter {
     class CompleteListViewHolder {
         public MyTextView txt_city, txt_state, txt_budget, txt_date;
         public ImageView img_action;
+        public View color_view;
 
         public CompleteListViewHolder(View convertview) {
             txt_city = (MyTextView) convertview
@@ -112,6 +116,7 @@ public class RequirementAdapter extends BaseAdapter {
             txt_date = (MyTextView) convertview.findViewById(R.id.txt_date);
             img_action = (ImageView) convertview
                     .findViewById(R.id.img_action);
+            color_view = convertview.findViewById(R.id.color_view);
         }
     }
 }

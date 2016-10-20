@@ -68,6 +68,7 @@
     <string name="pan">PAN</string>
     <string name="expected_req_monthly">Expected req (Monthly) in Tons</string>
     <string name="submit">Submit</string>
+    <string name="preferred_tax">Preferred Tax</string>
 
     <!-- New Requirement Screen-->
     <string name="quantity">Quantity</string>
