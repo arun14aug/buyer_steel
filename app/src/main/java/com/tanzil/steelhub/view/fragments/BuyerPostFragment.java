@@ -42,7 +42,7 @@ public class BuyerPostFragment extends Fragment implements View.OnClickListener 
         View rootView = inflater.inflate(R.layout.new_requirement_screen, container, false);
 
         et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
-        et_diameter = (MyEditText) rootView.findViewById(R.id.et_diameter);
+//        et_diameter = (MyEditText) rootView.findViewById(R.id.et_diameter);
 //        et_rate = (MyEditText) rootView.findViewById(R.id.et_rate);
 //        et_approx_order = (MyEditText) rootView.findViewById(R.id.et_approx_order);
 

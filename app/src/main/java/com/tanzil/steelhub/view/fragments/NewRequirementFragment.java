@@ -34,7 +34,6 @@ import com.tanzil.steelhub.model.Specifications;
 import com.tanzil.steelhub.model.States;
 import com.tanzil.steelhub.model.SteelSizes;
 import com.tanzil.steelhub.model.TaxTypes;
-import com.tanzil.steelhub.utility.Preferences;
 import com.tanzil.steelhub.utility.STLog;
 import com.tanzil.steelhub.utility.Utils;
 import com.tanzil.steelhub.view.adapter.CommonDialogAdapter;
@@ -62,13 +61,14 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
     private ArrayList<Brands> brandsArrayList;
     private ArrayList<Grades> gradesArrayList;
     private ArrayList<SteelSizes> steelSizesArrayList;
-//    private ArrayList<Specifications> specificationsArrayList = new ArrayList<>();
+    //    private ArrayList<Specifications> specificationsArrayList = new ArrayList<>();
     private ArrayList<States> statesArrayList;
     private ArrayList<TaxTypes> taxTypesArrayList;
     private ImageView icon_remove, ic_physical, ic_chemical, ic_grade_required;
     private ArrayList<MyEditText> et_quantityArrayList = new ArrayList<>();
     private ArrayList<MyTextView> et_diameterArrayList = new ArrayList<>();
-    private String brandId = "", steelId = "", gradeId = "", stateId = "", taxId = "", phy = "", che = "", gra = "";
+    private String brandId = "", steelId = "", gradeId = "", stateId = "",
+            taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "";
     private Calendar myCalendar;
 
     @Override
@@ -415,24 +415,28 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 }
                 break;
             case R.id.txt_random:
+                typ = "1";
                 txt_random.setTextColor(Utils.setColor(activity, R.color.white));
                 txt_random.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
                 txt_standard.setTextColor(Utils.setColor(activity, R.color.dark_grey));
                 txt_standard.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 break;
             case R.id.txt_standard:
+                typ = "0";
                 txt_standard.setTextColor(Utils.setColor(activity, R.color.white));
                 txt_standard.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
                 txt_random.setTextColor(Utils.setColor(activity, R.color.dark_grey));
                 txt_random.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 break;
             case R.id.txt_bend:
+                lngth = "1";
                 txt_bend.setTextColor(Utils.setColor(activity, R.color.white));
                 txt_bend.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
                 txt_straight.setTextColor(Utils.setColor(activity, R.color.dark_grey));
                 txt_straight.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 break;
             case R.id.txt_straight:
+                lngth = "0";
                 txt_straight.setTextColor(Utils.setColor(activity, R.color.white));
                 txt_straight.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
                 txt_bend.setTextColor(Utils.setColor(activity, R.color.dark_grey));
@@ -498,23 +502,26 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 if (isValidate()) {
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
+//                        jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
+                        jsonObject.put("user_id", "23");
                         jsonObject.put("physical", phy);
                         jsonObject.put("chemical", che);
-                        jsonObject.put("length", "");
-                        jsonObject.put("type", "");
+                        jsonObject.put("length", lngth);
+                        jsonObject.put("type", typ);
                         jsonObject.put("tax_type", taxId);
                         jsonObject.put("required_by_date", et_required_by_date.getText().toString());
                         jsonObject.put("budget", et_budget_amount.getText().toString());
                         jsonObject.put("city", et_city.getText().toString());
                         jsonObject.put("state", stateId);
                         jsonObject.put("grade_required", gradeId);
-                        jsonObject.put("preffered_brands", brandId);
+                        JSONArray arr = new JSONArray();
+                        arr.put(et_preferred_brands.getText().toString());
+                        jsonObject.put("preffered_brands", arr);
 
                         JSONArray jsonArray = new JSONArray();
                         for (int i = 0; i < specificationsArrayList.size(); i++) {
                             JSONObject jsonObject1 = new JSONObject();
-                            jsonObject1.put("size", specificationsArrayList.get(i).getSize());
+                            jsonObject1.put("size", specificationsArrayList.get(i).getSize() +"mm");
                             jsonObject1.put("quantity", specificationsArrayList.get(i).getQuantity());
                             jsonArray.put(i, jsonObject1);
                         }
@@ -524,6 +531,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                         e.printStackTrace();
                     }
 
+                    STLog.e("JSON : ", "" + jsonObject.toString());
                     Utils.showLoading(activity, activity.getString(R.string.please_wait));
                     ModelManager.getInstance().getRequirementManager().addBuyerPost(activity, jsonObject);
                 }
