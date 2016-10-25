@@ -179,7 +179,14 @@ public class RequirementManager {
                 STLog.e("Error Response : ", "Error: " + error.getMessage());
                 EventBus.getDefault().postSticky("NewRequirementPosted False");
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer" + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
+                return params;
+            }
+        };
         RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
         requestQueue.add(jsonObjReq);
     }

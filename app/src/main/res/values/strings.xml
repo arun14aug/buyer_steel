@@ -76,7 +76,7 @@
     <string name="grade_required">Grade Required</string>
     <string name="physical">Physical</string>
     <string name="chemical">Chemical</string>
-    <string name="test_cert_required">Test Cert Required</string>
+    <string name="test_cert_required">Test Certificate Required</string>
     <string name="length">Length</string>
     <string name="standard">Std.</string>
     <string name="random">Rdm.</string>
@@ -114,4 +114,5 @@
     <string name="no_record_found">No record found!!!</string>
     <string name="oops_something_went_wrong">Oops! something went wrong. Please try again later.</string>
     <string name="please_select_an_option">Please select an option</string>
+    <string name="coming_soon">Work under progress. We are Coming Soon....</string>
 </resources>

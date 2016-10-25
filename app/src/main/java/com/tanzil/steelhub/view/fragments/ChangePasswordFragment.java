@@ -1,8 +1,10 @@
 package com.tanzil.steelhub.view.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,10 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.activity = super.getActivity();
+        Intent intent = new Intent("Header");
+        intent.putExtra("message", activity.getString(R.string.title_change_pass));
+
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
 
         View rootView = inflater.inflate(R.layout.change_password_screen, container, false);
 
@@ -47,18 +53,18 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_submit:
-                if (oldPassword.getText().toString().trim().length() == 0){
+                if (oldPassword.getText().toString().trim().length() == 0) {
                     oldPassword.requestFocus();
                     Utils.showMessage(activity, "Please enter old password.");
-                } else if (newPassword.getText().toString().trim().length() == 0){
+                } else if (newPassword.getText().toString().trim().length() == 0) {
                     newPassword.requestFocus();
                     Utils.showMessage(activity, "Please enter new password.");
-                } else if (confirmPassword.getText().toString().trim().length() == 0){
+                } else if (confirmPassword.getText().toString().trim().length() == 0) {
                     confirmPassword.requestFocus();
                     Utils.showMessage(activity, "Please enter confirm password.");
-                } else if (!newPassword.getText().toString().trim().equalsIgnoreCase(confirmPassword.getText().toString().trim())){
+                } else if (!newPassword.getText().toString().trim().equalsIgnoreCase(confirmPassword.getText().toString().trim())) {
                     confirmPassword.requestFocus();
                     Utils.showMessage(activity, "Password does not match.");
                 } else {
@@ -80,6 +86,7 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
                 break;
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();

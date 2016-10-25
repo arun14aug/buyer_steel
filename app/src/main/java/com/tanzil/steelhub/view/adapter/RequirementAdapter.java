@@ -77,7 +77,7 @@ public class RequirementAdapter extends BaseAdapter {
 
             viewHolder.txt_date.setText(list.get(position).getRequired_by_date());
 
-            viewHolder.color_view.setBackgroundColor(Utils.setColor(activity, activity.getColor(R.color.green)));
+            viewHolder.color_view.setBackgroundColor(Utils.setColor(activity, R.color.green));
 
             viewHolder.img_action.setOnClickListener(new View.OnClickListener() {
                 @Override

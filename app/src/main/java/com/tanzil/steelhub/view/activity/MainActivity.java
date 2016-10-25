@@ -2,20 +2,26 @@ package com.tanzil.steelhub.view.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
 import com.tanzil.steelhub.R;
+import com.tanzil.steelhub.customUi.MyTextView;
 import com.tanzil.steelhub.model.ModelManager;
 import com.tanzil.steelhub.utility.Preferences;
 import com.tanzil.steelhub.utility.STLog;
@@ -38,14 +44,19 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private FragmentManager fragmentManager;
     private boolean backer = false;
+    private MyTextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(
+                mHeaderReceiver, new IntentFilter("Header"));
+
         fragmentManager = getSupportFragmentManager();
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        tvTitle = (MyTextView) findViewById(R.id.header_text);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -59,6 +70,18 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         displayView(0);
     }
 
+    /**
+     * Header heading update method
+     **/
+    private final BroadcastReceiver mHeaderReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String message = intent.getStringExtra("message");
+            tvTitle.setText(message);
+            Log.d("receiver", "Got message: " + message);
+        }
+    };
 
     @Override
     public void onDrawerItemSelected(View view, int position) {

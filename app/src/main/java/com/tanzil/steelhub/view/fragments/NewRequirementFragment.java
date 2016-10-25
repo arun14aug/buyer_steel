@@ -8,10 +8,12 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,17 +66,21 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
     //    private ArrayList<Specifications> specificationsArrayList = new ArrayList<>();
     private ArrayList<States> statesArrayList;
     private ArrayList<TaxTypes> taxTypesArrayList;
-    private ImageView icon_remove, ic_physical, ic_chemical, ic_grade_required;
+    private ImageView icon_remove, ic_physical, ic_chemical, ic_grade_required, ic_test_certificate;
     private ArrayList<MyEditText> et_quantityArrayList = new ArrayList<>();
     private ArrayList<MyTextView> et_diameterArrayList = new ArrayList<>();
     private String brandId = "", steelId = "", gradeId = "", stateId = "",
-            taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "";
+            taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "", test_cert = "";
     private Calendar myCalendar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.activity = super.getActivity();
+        Intent intent = new Intent("Header");
+        intent.putExtra("message", activity.getString(R.string.new_requirements));
+
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
         View rootView = inflater.inflate(R.layout.new_requirement_screen, container, false);
 
         myCalendar = Calendar.getInstance();
@@ -97,6 +103,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         LinearLayout layout_grade_required = (LinearLayout) rootView.findViewById(R.id.layout_grade_required);
         LinearLayout layout_physical = (LinearLayout) rootView.findViewById(R.id.layout_physical);
         LinearLayout layout_chemical = (LinearLayout) rootView.findViewById(R.id.layout_chemical);
+        LinearLayout layout_test_certificate = (LinearLayout) rootView.findViewById(R.id.layout_test_certificate);
 
         default_quantity_layout = (LinearLayout) rootView.findViewById(R.id.default_quantity_layout);
         addMoreLayout = (LinearLayout) rootView.findViewById(R.id.layout_add_more);
@@ -104,6 +111,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         ic_physical = (ImageView) rootView.findViewById(R.id.ic_physical);
         ic_chemical = (ImageView) rootView.findViewById(R.id.ic_chemical);
         ic_grade_required = (ImageView) rootView.findViewById(R.id.ic_grade_required);
+        ic_test_certificate = (ImageView) rootView.findViewById(R.id.ic_test_certificate);
 
         MyButton btn_add_more = (MyButton) rootView.findViewById(R.id.btn_add_more);
         btn_add_more.setTransformationMethod(null);
@@ -142,6 +150,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         layout_grade_required.setOnClickListener(this);
         layout_physical.setOnClickListener(this);
         layout_chemical.setOnClickListener(this);
+        layout_test_certificate.setOnClickListener(this);
         txt_random.setOnClickListener(this);
         txt_standard.setOnClickListener(this);
         txt_bend.setOnClickListener(this);
@@ -384,6 +393,15 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.layout_test_certificate:
+                if (test_cert.equalsIgnoreCase("1")) {
+                    ic_test_certificate.setImageResource(R.drawable.toggle_off);
+                    test_cert = "0";
+                } else {
+                    ic_test_certificate.setImageResource(R.drawable.toggle_on);
+                    test_cert = "1";
+                }
+                break;
             case R.id.layout_grade_required:
                 if (gra.equalsIgnoreCase("1")) {
                     ic_grade_required.setImageResource(R.drawable.toggle_off);
@@ -509,6 +527,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                         jsonObject.put("length", lngth);
                         jsonObject.put("type", typ);
                         jsonObject.put("tax_type", taxId);
+                        jsonObject.put("test_certificate_required", test_cert);
                         jsonObject.put("required_by_date", et_required_by_date.getText().toString());
                         jsonObject.put("budget", et_budget_amount.getText().toString());
                         jsonObject.put("city", et_city.getText().toString());
@@ -521,7 +540,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                         JSONArray jsonArray = new JSONArray();
                         for (int i = 0; i < specificationsArrayList.size(); i++) {
                             JSONObject jsonObject1 = new JSONObject();
-                            jsonObject1.put("size", specificationsArrayList.get(i).getSize() +"mm");
+                            jsonObject1.put("size", specificationsArrayList.get(i).getSize() + "mm");
                             jsonObject1.put("quantity", specificationsArrayList.get(i).getQuantity());
                             jsonArray.put(i, jsonObject1);
                         }

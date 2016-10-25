@@ -4,8 +4,11 @@ package com.tanzil.steelhub.view.fragments;
  * Created by arun.sharma on 29/07/15.
  */
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +31,15 @@ public class ContactUsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        Activity activity = super.getActivity();
+        Intent intent = new Intent("Header");
+        intent.putExtra("message", activity.getString(R.string.title_contact_us));
+
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
 
 
         // Inflate the layout for this fragment
-        return rootView;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }

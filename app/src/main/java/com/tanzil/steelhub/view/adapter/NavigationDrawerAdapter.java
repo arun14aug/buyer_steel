@@ -23,8 +23,8 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     List<NavDrawerItem> data = Collections.emptyList();
     private LayoutInflater inflater;
     private Context context;
-    private Integer[] icons = {R.drawable.company, R.drawable.mm, R.drawable.date,
-            R.drawable.password, R.drawable.mm, R.drawable.user};
+    private Integer[] icons = {R.drawable.home, R.drawable.mm, R.drawable.history,
+            R.drawable.password, R.drawable.contact, R.drawable.logout};
 
     public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
         this.context = context;

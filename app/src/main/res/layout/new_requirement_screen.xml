@@ -220,10 +220,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
                         android:orientation="horizontal">
 
                         <com.tanzil.steelhub.customUi.MyTextView
@@ -346,6 +346,39 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_test_certificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:id="@+id/txt_test_certificate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/test_cert_required"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <ImageView
+                            android:id="@+id/ic_test_certificate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/toggle_off" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
@@ -358,11 +391,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:gravity="start|center_vertical"
-                            android:inputType="text"
                             android:focusable="false"
-                            android:padding="10dp"
+                            android:gravity="start|center_vertical"
                             android:hint="@string/preferred_brands"
+                            android:inputType="text"
+                            android:padding="10dp"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
@@ -384,9 +417,9 @@
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
+                            android:hint="@string/grade_required"
                             android:inputType="text"
                             android:padding="10dp"
-                            android:hint="@string/grade_required"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
@@ -408,14 +441,15 @@
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
+                            android:hint="@string/required_by_date"
                             android:inputType="text"
                             android:padding="10dp"
-                            android:hint="@string/required_by_date"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -430,9 +464,9 @@
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
                             android:gravity="start|center_vertical"
+                            android:hint="@string/city"
                             android:inputType="text"
                             android:padding="10dp"
-                            android:hint="@string/city"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
@@ -452,11 +486,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
+                            android:focusable="false"
                             android:gravity="start|center_vertical"
+                            android:hint="@string/state"
                             android:inputType="text"
                             android:padding="10dp"
-                            android:focusable="false"
-                            android:hint="@string/state"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
@@ -477,14 +511,15 @@
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
                             android:gravity="start|center_vertical"
-                            android:inputType="text"
-                            android:padding="10dp"
                             android:hint="@string/budget_amount"
+                            android:inputType="number"
+                            android:padding="10dp"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -498,11 +533,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
+                            android:focusable="false"
                             android:gravity="start|center_vertical"
+                            android:hint="@string/preferred_tax"
                             android:inputType="text"
                             android:padding="10dp"
-                            android:focusable="false"
-                            android:hint="@string/preferred_tax"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
