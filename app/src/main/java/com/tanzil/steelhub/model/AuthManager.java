@@ -68,7 +68,7 @@ public class AuthManager {
                                 ModelManager.getInstance().getAuthManager().setUserToken(response.getString("token"));
                                 EventBus.getDefault().postSticky("Login True");
                             } else
-                                EventBus.getDefault().postSticky("Login False@#@" + response.getString("message"));
+                                EventBus.getDefault().postSticky("Login False@#@" + response.getString("msg"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();

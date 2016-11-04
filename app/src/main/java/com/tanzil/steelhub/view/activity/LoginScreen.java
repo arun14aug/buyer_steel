@@ -14,9 +14,6 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.tanzil.steelhub.R;
-import com.tanzil.steelhub.utility.Preferences;
-import com.tanzil.steelhub.utility.STLog;
-import com.tanzil.steelhub.utility.Utils;
 import com.tanzil.steelhub.customUi.MyButton;
 import com.tanzil.steelhub.customUi.MyEditText;
 import com.tanzil.steelhub.customUi.MyTextView;
@@ -24,6 +21,9 @@ import com.tanzil.steelhub.model.AuthManager;
 import com.tanzil.steelhub.model.ModelManager;
 import com.tanzil.steelhub.pushnotification.QuickstartPreferences;
 import com.tanzil.steelhub.pushnotification.RegistrationIntentService;
+import com.tanzil.steelhub.utility.Preferences;
+import com.tanzil.steelhub.utility.STLog;
+import com.tanzil.steelhub.utility.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -182,7 +182,11 @@ public class LoginScreen extends Activity implements View.OnClickListener {
             finish();
         } else if (message.contains("Login False")) {
             // showMatchHistoryList();
-            Utils.showMessage(activity, "Please check your credentials!");
+            String[] msg = message.split("@#@");
+            if (msg.length > 1)
+                Utils.showMessage(activity, msg[1]);
+            else
+                Utils.showMessage(activity, "Please check your credentials!");
             STLog.e(TAG, "Login False");
             Utils.dismissLoading();
         } else if (message.equalsIgnoreCase("Login Network Error")) {

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">SteelHub</string>
+    <string name="accept">SteelHub</string>
     <string name="action_settings">Settings</string>
     <string name="tag_line">The Real Steel Dealers</string>
 
