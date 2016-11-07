@@ -57,8 +57,38 @@ public class RequirementManager {
                                 if (count > 0) {
                                     requirementsArrayList = new ArrayList<>();
                                     for (int i = 0; i < jsonArray.length(); i++) {
-//                                        "response": [{
-//                                        }]
+/**                                        "response": [{
+                                        "is_accepted": 0,
+                                                "budget": 500000,
+                                                "physical": 1,
+                                                "grade_required": "500D",
+                                                "is_buyer_deleted": 0,
+                                                "state": "Andhra Pradesh",
+                                                "is_buyer_read_bargain": 0,
+                                                "type": 0,
+                                                "city": "mhl",
+                                                "required_by_date": "13\/12\/2016",
+                                                "chemical": 1,
+                                                "is_seller_deleted": 0,
+                                                "length": 0,
+                                                "preffered_brands": ["Rathi", "Kamdhenu"],
+                                        "quantity": [{
+                                            "quantity": "50",
+                                                    "size": "8 mm"
+                                        }],
+                                        "user_id": 23,
+                                                "is_seller_read_bargain": 0,
+                                                "tax_type": "GST",
+                                                "is_best_price": 0,
+                                                "bargain_amt": 0,
+                                                "is_seller_read": 0,
+                                                "requirement_id": 22,
+                                                "req_for_bargain": 0,
+                                                "is_buyer_read": 0,
+                                                "flag": 0,
+                                                "test_certificate_required": 1,
+                                                "initial_amt": 0
+                                        }]*/
                                         Requirements requirements = new Requirements();
                                         requirements.setRequirement_id(jsonArray.getJSONObject(i).getString("requirement_id"));
                                         requirements.setUser_id(jsonArray.getJSONObject(i).getString("user_id"));

@@ -1,39 +1,32 @@
 package com.tanzil.steelhub.customUi;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
-import com.tanzil.steelhub.R;
 
 public class MyTextView extends TextView {
 
-	public MyTextView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init(attrs);
-	}
+    public MyTextView(Context context) {
+        super(context);
 
-	public MyTextView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(attrs);
+        applyCustomFont(context);
+    }
 
-	}
+    public MyTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-	public MyTextView(Context context) {
-		super(context);
-		init(null);
-	}
+        applyCustomFont(context);
+    }
 
-	private void init(AttributeSet attrs) {
-		if (attrs != null) {
-			TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.MyTextView);
-			String fontName = a.getString(R.styleable.MyTextView_fontName);
+    public MyTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
 
-			if (fontName != null) {
-//				 Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/" + fontName);
-//				 setTypeface(myTypeface);
-			}
-			a.recycle();
-		}
-	}
+        applyCustomFont(context);
+    }
+
+    private void applyCustomFont(Context context) {
+        Typeface customFont = FontCache.getTypeface("fonts/Raleway-Medium.ttf", context);
+        setTypeface(customFont);
+    }
 }

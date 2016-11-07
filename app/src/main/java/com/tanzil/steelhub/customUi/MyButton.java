@@ -10,36 +10,26 @@ import com.tanzil.steelhub.R;
 
 public class MyButton extends Button {
 
-	public MyButton(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init(attrs);
-		setClickable(true);
-		setTransformationMethod(null);
-	}
+    public MyButton(Context context) {
+        super(context);
 
-	public MyButton(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(attrs);
+        applyCustomFont(context);
+    }
 
-	}
+    public MyButton(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-	public MyButton(Context context) {
-		super(context);
-		init(null);
-	}
+        applyCustomFont(context);
+    }
 
-	private void init(AttributeSet attrs) {
-		if (attrs != null) {
-			TypedArray a = getContext().obtainStyledAttributes(attrs,
-					R.styleable.MyTextView);
-			String fontName = a.getString(R.styleable.MyTextView_fontName);
-			if (fontName != null) {
-				Typeface myTypeface = Typeface.createFromAsset(getContext()
-						.getAssets(), "fonts/" + fontName);
-				setTypeface(myTypeface);
-			}
-			a.recycle();
-		}
-	}
+    public MyButton(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
 
+        applyCustomFont(context);
+    }
+
+    private void applyCustomFont(Context context) {
+        Typeface customFont = FontCache.getTypeface("fonts/Raleway-Medium.ttf", context);
+        setTypeface(customFont);
+    }
 }

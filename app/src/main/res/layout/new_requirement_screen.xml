@@ -379,17 +379,16 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_preferred_brands"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
 
-                        <com.tanzil.steelhub.customUi.MyEditText
-                            android:id="@+id/et_preferred_brands"
-                            android:layout_width="0dp"
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/new_req_edit_text_height"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
@@ -400,13 +399,43 @@
                             android:textSize="@dimen/new_req_edit_text_size"
                             customfontdemo:fontName="@string/raleway_medium" />
 
+                        <com.tanzil.steelhub.customUi.MyEditText
+                            android:id="@+id/et_preferred_brands"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_grade"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/grade_required"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
 
                         <com.tanzil.steelhub.customUi.MyEditText
                             android:id="@+id/et_grade_required"
@@ -417,7 +446,6 @@
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/grade_required"
                             android:inputType="text"
                             android:padding="10dp"
                             android:textColor="@color/dark_grey"
@@ -427,10 +455,26 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_required_by_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/required_by_date"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
 
                         <com.tanzil.steelhub.customUi.MyEditText
                             android:id="@+id/et_required_by_date"
@@ -441,7 +485,6 @@
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/required_by_date"
                             android:inputType="text"
                             android:padding="10dp"
                             android:textColor="@color/dark_grey"
@@ -451,10 +494,25 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/city"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
 
                         <com.tanzil.steelhub.customUi.MyEditText
                             android:id="@+id/et_city"
@@ -464,7 +522,6 @@
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/city"
                             android:inputType="text"
                             android:padding="10dp"
                             android:textColor="@color/dark_grey"
@@ -474,10 +531,25 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/state"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
 
                         <com.tanzil.steelhub.customUi.MyEditText
                             android:id="@+id/et_state"
@@ -488,7 +560,6 @@
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/state"
                             android:inputType="text"
                             android:padding="10dp"
                             android:textColor="@color/dark_grey"
@@ -498,10 +569,25 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_budget_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/budget_amount"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
 
                         <com.tanzil.steelhub.customUi.MyEditText
                             android:id="@+id/et_budget_amount"
@@ -511,7 +597,6 @@
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/budget_amount"
                             android:inputType="number"
                             android:padding="10dp"
                             android:textColor="@color/dark_grey"
@@ -521,10 +606,25 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_tax_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:gravity="start|center_vertical"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:text="@string/preferred_tax"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
 
                         <com.tanzil.steelhub.customUi.MyEditText
                             android:id="@+id/et_tax_type"
@@ -535,7 +635,6 @@
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/preferred_tax"
                             android:inputType="text"
                             android:padding="10dp"
                             android:textColor="@color/dark_grey"

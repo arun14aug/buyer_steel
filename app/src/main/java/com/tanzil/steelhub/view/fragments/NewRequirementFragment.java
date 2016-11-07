@@ -335,14 +335,20 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (addMoreLayout.getChildCount() == 1)
+                if (addMoreLayout.getChildCount() == 1) {
                     if (default_quantity_layout.getVisibility() == View.GONE) {
                         default_quantity_layout.setVisibility(View.VISIBLE);
                         icon_remove.setVisibility(View.GONE);
                     }
+                    return;
+                }
                 ((LinearLayout) addView.getParent()).removeView(addView);
-                et_diameterArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(1));
-                et_quantityArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(0));
+                if (et_diameterArrayList != null)
+                    if (et_diameterArrayList.size() > 0)
+                        et_diameterArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(0));
+                if (et_quantityArrayList != null)
+                    if (et_quantityArrayList.size() > 0)
+                        et_quantityArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(0));
             }
         });
 
