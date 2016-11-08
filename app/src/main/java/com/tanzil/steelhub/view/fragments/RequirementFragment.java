@@ -15,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tanzil.steelhub.R;
@@ -72,6 +73,20 @@ public class RequirementFragment extends Fragment {
             ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
         } else
             setData();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Fragment fragment = new RequirementDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("id", requirementsArrayList.get(i).getRequirement_id());
+                FragmentManager fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container_body, fragment, "RequirementDetailFragment");
+                fragmentTransaction.addToBackStack("RequirementDetailFragment");
+                fragmentTransaction.commit();
+            }
+        });
         return rootView;
     }
 

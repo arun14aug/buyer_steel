@@ -1,6 +1,7 @@
 package com.tanzil.steelhub.view.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,20 +17,23 @@ import com.tanzil.steelhub.customUi.MyButton;
 import com.tanzil.steelhub.customUi.MyEditText;
 import com.tanzil.steelhub.customUi.MyTextView;
 import com.tanzil.steelhub.model.ModelManager;
+import com.tanzil.steelhub.model.Quantity;
 import com.tanzil.steelhub.model.Requirements;
+import com.tanzil.steelhub.utility.Utils;
 
 import java.util.ArrayList;
 
 /**
  * Created by arun.sharma on 11/7/2016.
  */
-public class RequirementDetailFragment extends Fragment {
+public class RequirementDetailFragment extends Fragment implements View.OnClickListener {
     private String TAG = RequirementDetailFragment.class.getSimpleName();
     private Activity activity;
-    private MyEditText et_quantity, et_preferred_brands, et_grade_required, et_required_by_date, et_city, et_state, et_budget_amount, et_tax_type;
-    private MyTextView txt_random, txt_standard, txt_bend, txt_straight, txt_diameter;
-    //    private MyButton btn_add_more;
-    private LinearLayout addMoreLayout, layout_seller_list, layout_show_more;
+    private MyEditText /*et_quantity,*/ et_preferred_brands, et_grade_required, et_required_by_date, et_city, et_state,
+            et_budget_amount, et_tax_type, et_amount, et_bargain_amount;
+    private MyTextView txt_random, txt_standard, txt_bend, txt_straight/*, txt_diameter*/;
+    private MyButton btn_submit;
+    private LinearLayout addMoreLayout, layout_seller_list, layout_show_more, layout_amount, layout_bargain_amount;
     private ImageView ic_physical, ic_chemical, ic_grade_required, ic_test_certificate;
     private String brandId = "", steelId = "", gradeId = "", stateId = "",
             taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "", test_cert = "", id = "";
@@ -45,14 +49,16 @@ public class RequirementDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.requirement_detail_screen, container, false);
 
         et_budget_amount = (MyEditText) rootView.findViewById(R.id.et_budget_amount);
-        et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
-        txt_diameter = (MyTextView) rootView.findViewById(R.id.txt_diameter);
+//        et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
+//        txt_diameter = (MyTextView) rootView.findViewById(R.id.txt_diameter);
         et_preferred_brands = (MyEditText) rootView.findViewById(R.id.et_preferred_brands);
         et_grade_required = (MyEditText) rootView.findViewById(R.id.et_grade_required);
         et_city = (MyEditText) rootView.findViewById(R.id.et_city);
         et_state = (MyEditText) rootView.findViewById(R.id.et_state);
         et_tax_type = (MyEditText) rootView.findViewById(R.id.et_tax_type);
         et_required_by_date = (MyEditText) rootView.findViewById(R.id.et_required_by_date);
+        et_amount = (MyEditText) rootView.findViewById(R.id.et_amount);
+        et_bargain_amount = (MyEditText) rootView.findViewById(R.id.et_bargain_amount);
 
         txt_random = (MyTextView) rootView.findViewById(R.id.txt_random);
         txt_standard = (MyTextView) rootView.findViewById(R.id.txt_standard);
@@ -61,6 +67,8 @@ public class RequirementDetailFragment extends Fragment {
 
         layout_show_more = (LinearLayout) rootView.findViewById(R.id.layout_show_more);
         layout_seller_list = (LinearLayout) rootView.findViewById(R.id.layout_seller_list);
+        layout_amount = (LinearLayout) rootView.findViewById(R.id.layout_amount);
+        layout_bargain_amount = (LinearLayout) rootView.findViewById(R.id.layout_bargain_amount);
         addMoreLayout = (LinearLayout) rootView.findViewById(R.id.layout_add_more);
 
         ic_physical = (ImageView) rootView.findViewById(R.id.ic_physical);
@@ -70,9 +78,11 @@ public class RequirementDetailFragment extends Fragment {
 
         MyButton btn_show_more = (MyButton) rootView.findViewById(R.id.btn_show_more);
         btn_show_more.setTransformationMethod(null);
-        MyButton btn_submit = (MyButton) rootView.findViewById(R.id.btn_submit);
+        btn_submit = (MyButton) rootView.findViewById(R.id.btn_submit);
         btn_submit.setTransformationMethod(null);
 
+        btn_submit.setOnClickListener(this);
+        btn_show_more.setOnClickListener(this);
 
         setData();
         return rootView;
@@ -109,9 +119,71 @@ public class RequirementDetailFragment extends Fragment {
                 et_state.setText(requirementsArrayList.get(i).getState());
                 et_tax_type.setText(requirementsArrayList.get(i).getType());
 
+                if (!Utils.isEmptyString(requirementsArrayList.get(i).getInitial_amt())) {
+                    layout_amount.setVisibility(View.VISIBLE);
+                    et_amount.setText(requirementsArrayList.get(i).getInitial_amt());
+                    et_amount.setFocusable(false);
+                    layout_bargain_amount.setVisibility(View.VISIBLE);
+                    if (!Utils.isEmptyString(requirementsArrayList.get(i).getBargain_amt())) {
+                        et_bargain_amount.setFocusable(false);
+                        et_bargain_amount.setText(requirementsArrayList.get(i).getBargain_amt());
+                        btn_submit.setVisibility(View.GONE);
+                    } else {
+                        et_bargain_amount.setFocusable(true);
+                        btn_submit.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    et_amount.setFocusable(true);
+                    layout_bargain_amount.setVisibility(View.GONE);
+                    et_bargain_amount.setFocusable(false);
+                    btn_submit.setVisibility(View.VISIBLE);
+                }
 
+                String[] preferredBrands = requirementsArrayList.get(i).getPreffered_brands();
+                String val = "";
+                if (preferredBrands != null)
+                    if (preferredBrands.length > 0) {
+                        val = val + preferredBrands[i] + ", ";
+                    }
+                if (val.length() > 0)
+                    val = val.substring(0, val.length() - 1);
+                et_preferred_brands.setText(val);
+
+                ArrayList<Quantity> quantityArrayList = requirementsArrayList.get(i).getQuantityArrayList();
+                if (quantityArrayList != null)
+                    if (quantityArrayList.size() > 0)
+                        for (int j = 0; j < quantityArrayList.size(); j++) {
+                            LayoutInflater layoutInflater =
+                                    (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            final View addView = layoutInflater.inflate(R.layout.row_add_more, null);
+                            MyEditText quantity = (MyEditText) addView.findViewById(R.id.quantity);
+                            MyTextView diameter = (MyTextView) addView.findViewById(R.id.diameter);
+                            MyEditText amount = (MyEditText) addView.findViewById(R.id.amount);
+                            ImageView remove = (ImageView) addView.findViewById(R.id.remove);
+                            remove.setVisibility(View.GONE);
+
+                            quantity.setFocusable(false);
+                            amount.setFocusable(false);
+
+                            quantity.setText(quantityArrayList.get(j).getQuantity());
+                            diameter.setText(quantityArrayList.get(j).getSize());
+
+                            addMoreLayout.addView(addView);
+                        }
                 break;
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_show_more:
+                if (layout_show_more.getVisibility() == View.VISIBLE)
+                    layout_show_more.setVisibility(View.GONE);
+                else
+                    layout_show_more.setVisibility(View.VISIBLE);
+                break;
         }
     }
 }

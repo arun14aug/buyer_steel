@@ -383,11 +383,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
+                        android:clickable="true"
+                        android:onClick="preferred"
+                        android:minHeight="@dimen/new_req_edit_text_height"
                         android:orientation="horizontal">
 
                         <com.tanzil.steelhub.customUi.MyTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
                             android:focusable="false"
@@ -402,13 +405,13 @@
                         <com.tanzil.steelhub.customUi.MyEditText
                             android:id="@+id/et_preferred_brands"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/new_req_edit_text_height"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
                             android:focusable="false"
                             android:gravity="start|center_vertical"
-                            android:inputType="text"
+                            android:inputType="textMultiLine"
                             android:padding="10dp"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/new_req_edit_text_size"
@@ -421,6 +424,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
+                        android:onClick="grade"
+                        android:clickable="true"
                         android:orientation="horizontal">
 
                         <com.tanzil.steelhub.customUi.MyTextView
@@ -459,6 +464,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
+                        android:onClick="date"
+                        android:clickable="true"
                         android:orientation="horizontal">
 
                         <com.tanzil.steelhub.customUi.MyTextView
@@ -535,6 +542,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
+                        android:onClick="state"
+                        android:clickable="true"
                         android:orientation="horizontal">
 
                         <com.tanzil.steelhub.customUi.MyTextView
@@ -609,7 +618,9 @@
                         android:id="@+id/layout_tax_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="tax"
                         android:background="@color/colorWhite"
+                        android:clickable="true"
                         android:orientation="horizontal">
 
                         <com.tanzil.steelhub.customUi.MyTextView

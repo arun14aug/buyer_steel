@@ -5,9 +5,11 @@ package com.tanzil.steelhub.view.fragments;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -46,7 +48,9 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import de.greenrobot.event.EventBus;
@@ -72,6 +76,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
     private String brandId = "", steelId = "", gradeId = "", stateId = "",
             taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "", test_cert = "";
     private Calendar myCalendar;
+    private String[] brandSelected;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,6 +109,12 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         LinearLayout layout_physical = (LinearLayout) rootView.findViewById(R.id.layout_physical);
         LinearLayout layout_chemical = (LinearLayout) rootView.findViewById(R.id.layout_chemical);
         LinearLayout layout_test_certificate = (LinearLayout) rootView.findViewById(R.id.layout_test_certificate);
+
+        LinearLayout layout_preferred_brands = (LinearLayout) rootView.findViewById(R.id.layout_preferred_brands);
+        LinearLayout layout_grade = (LinearLayout) rootView.findViewById(R.id.layout_grade);
+        LinearLayout layout_required_by_date = (LinearLayout) rootView.findViewById(R.id.layout_required_by_date);
+        LinearLayout layout_state = (LinearLayout) rootView.findViewById(R.id.layout_state);
+        LinearLayout layout_tax_type = (LinearLayout) rootView.findViewById(R.id.layout_tax_type);
 
         default_quantity_layout = (LinearLayout) rootView.findViewById(R.id.default_quantity_layout);
         addMoreLayout = (LinearLayout) rootView.findViewById(R.id.layout_add_more);
@@ -151,6 +162,11 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         layout_physical.setOnClickListener(this);
         layout_chemical.setOnClickListener(this);
         layout_test_certificate.setOnClickListener(this);
+        layout_preferred_brands.setOnClickListener(this);
+        layout_grade.setOnClickListener(this);
+        layout_state.setOnClickListener(this);
+        layout_required_by_date.setOnClickListener(this);
+        layout_tax_type.setOnClickListener(this);
         txt_random.setOnClickListener(this);
         txt_standard.setOnClickListener(this);
         txt_bend.setOnClickListener(this);
@@ -527,7 +543,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                     JSONObject jsonObject = new JSONObject();
                     try {
 //                        jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
-                        jsonObject.put("user_id", "23");
+//                        jsonObject.put("user_id", "23");
                         jsonObject.put("physical", phy);
                         jsonObject.put("chemical", che);
                         jsonObject.put("length", lngth);
@@ -540,7 +556,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                         jsonObject.put("state", stateId);
                         jsonObject.put("grade_required", gradeId);
                         JSONArray arr = new JSONArray();
-                        arr.put(et_preferred_brands.getText().toString());
+                        for (String aBrandSelected : brandSelected) arr.put(aBrandSelected);
                         jsonObject.put("preffered_brands", arr);
 
                         JSONArray jsonArray = new JSONArray();
@@ -571,7 +587,8 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 showDropDownDialog(2, et_grade_required);
                 break;
             case R.id.et_preferred_brands:
-                showDropDownDialog(0, et_preferred_brands);
+//                showDropDownDialog(0, et_preferred_brands);
+                showMultiChoiceDropDown();
                 break;
             case R.id.txt_diameter:
                 showDropDownForSteel(txt_diameter);
@@ -590,6 +607,28 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         }
     }
 
+    public void preferred(View v) {
+        showMultiChoiceDropDown();
+    }
+
+    public void grade(View v) {
+        showDropDownDialog(2, et_grade_required);
+    }
+
+    public void state(View v) {
+        showDropDownDialog(3, et_state);
+    }
+
+    public void date(View v) {
+        new DatePickerDialog(activity, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    public void tax(View v) {
+        showDropDownDialog(4, et_tax_type);
+    }
+
     // date picker diaSPLog for date Text
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -606,6 +645,96 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         }
 
     };
+
+    private void showMultiChoiceDropDown() {
+        // Build an AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+
+        // Convert the color array to list
+//        final ArrayList<String> colorsList = new ArrayList<>();
+        String[] colors;
+        if (brandsArrayList != null)
+            if (brandsArrayList.size() > 0) {
+                colors = new String[brandsArrayList.size()];
+                for (int i = 0; i < brandsArrayList.size(); i++)
+                    colors[i] = brandsArrayList.get(i).getName();
+//                    colorsList.add(brandsArrayList.get(i).getName());
+            } else {
+                Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+                return;
+            }
+        else {
+            Utils.showMessage(activity, activity.getString(R.string.no_record_found));
+            return;
+        }
+        final List<String> colorsList = Arrays.asList(colors);
+        // Boolean array for initial selected items
+        final boolean[] checkedColors = new boolean[colorsList.size()];
+
+
+        builder.setMultiChoiceItems(colors, checkedColors, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                // Update the current focused item's checked status
+                checkedColors[which] = isChecked;
+
+                // Get the current focused item
+                String currentItem = colorsList.get(which);
+
+//                // Notify the current action
+//                Toast.makeText(activity,
+//                        currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Specify the dialog is not cancelable
+        builder.setCancelable(false);
+
+        // Set a title for alert dialog
+        builder.setTitle("Preferred Brands");
+
+        // Set the positive/yes button click listener
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when click positive button
+                String val = "";
+                int j = 0;
+                for (int i = 0; i < checkedColors.length; i++) {
+                    boolean checked = checkedColors[i];
+                    if (checked) {
+                        val = val + colorsList.get(i) + ", ";
+                        j++;
+                    }
+                }
+                brandSelected = new String[j];
+                int k = 0;
+                for (int i = 0; i < checkedColors.length; i++)
+                    if (checkedColors[i]) {
+                        brandSelected[k] = colorsList.get(i);
+                        k++;
+                    }
+
+                if (val.length() > 0)
+                    val = val.substring(0, val.length() - 1);
+                et_preferred_brands.setText(val);
+            }
+        });
+
+        // Set the neutral/cancel button click listener
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when click the neutral button
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
+    }
 
     @Override
     public void onStart() {
