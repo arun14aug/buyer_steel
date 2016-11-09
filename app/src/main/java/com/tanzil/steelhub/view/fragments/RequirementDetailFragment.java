@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,9 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
     private MyEditText /*et_quantity,*/ et_preferred_brands, et_grade_required, et_required_by_date, et_city, et_state,
             et_budget_amount, et_tax_type, et_amount, et_bargain_amount;
     private MyTextView txt_random, txt_standard, txt_bend, txt_straight/*, txt_diameter*/;
-    private MyButton btn_submit;
+    private MyButton btn_submit, btn_show_more;
     private LinearLayout addMoreLayout, layout_seller_list, layout_show_more, layout_amount, layout_bargain_amount;
-    private ImageView ic_physical, ic_chemical, ic_grade_required, ic_test_certificate;
+    private ImageView ic_physical, ic_chemical, /*ic_grade_required,*/ ic_test_certificate;
     private String brandId = "", steelId = "", gradeId = "", stateId = "",
             taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "", test_cert = "", id = "";
 
@@ -47,6 +48,17 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
 
         LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
         View rootView = inflater.inflate(R.layout.requirement_detail_screen, container, false);
+
+        try {
+            if (getArguments() != null) {
+                Bundle bundle = getArguments();
+                id = bundle.getString("id");
+            }
+
+        } catch (Exception ex) {
+            Log.e(TAG, ex.toString());
+        }
+
 
         et_budget_amount = (MyEditText) rootView.findViewById(R.id.et_budget_amount);
 //        et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
@@ -73,10 +85,10 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
 
         ic_physical = (ImageView) rootView.findViewById(R.id.ic_physical);
         ic_chemical = (ImageView) rootView.findViewById(R.id.ic_chemical);
-        ic_grade_required = (ImageView) rootView.findViewById(R.id.ic_grade_required);
+//        ic_grade_required = (ImageView) rootView.findViewById(R.id.ic_grade_required);
         ic_test_certificate = (ImageView) rootView.findViewById(R.id.ic_test_certificate);
 
-        MyButton btn_show_more = (MyButton) rootView.findViewById(R.id.btn_show_more);
+        btn_show_more = (MyButton) rootView.findViewById(R.id.btn_show_more);
         btn_show_more.setTransformationMethod(null);
         btn_submit = (MyButton) rootView.findViewById(R.id.btn_submit);
         btn_submit.setTransformationMethod(null);
@@ -92,10 +104,10 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
         ArrayList<Requirements> requirementsArrayList = ModelManager.getInstance().getRequirementManager().getRequirements(activity, false);
         for (int i = 0; i < requirementsArrayList.size(); i++) {
             if (id.equalsIgnoreCase(requirementsArrayList.get(i).getRequirement_id())) {
-                if (requirementsArrayList.get(i).getGrade_required().equalsIgnoreCase("0"))
-                    ic_grade_required.setImageResource(R.drawable.toggle_off);
-                else
-                    ic_grade_required.setImageResource(R.drawable.toggle_on);
+//                if (requirementsArrayList.get(i).getGrade_required().equalsIgnoreCase("0"))
+//                    ic_grade_required.setImageResource(R.drawable.toggle_off);
+//                else
+//                    ic_grade_required.setImageResource(R.drawable.toggle_on);
 
                 if (requirementsArrayList.get(i).getChemical().equalsIgnoreCase("0"))
                     ic_chemical.setImageResource(R.drawable.toggle_off);
@@ -143,7 +155,8 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 String val = "";
                 if (preferredBrands != null)
                     if (preferredBrands.length > 0) {
-                        val = val + preferredBrands[i] + ", ";
+                        for (String preferredBrand : preferredBrands)
+                            val = val + preferredBrand + ", ";
                     }
                 if (val.length() > 0)
                     val = val.substring(0, val.length() - 1);
@@ -179,10 +192,13 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_show_more:
-                if (layout_show_more.getVisibility() == View.VISIBLE)
+                if (layout_show_more.getVisibility() == View.VISIBLE) {
                     layout_show_more.setVisibility(View.GONE);
-                else
+                    btn_show_more.setText(activity.getString(R.string.show_more));
+                } else {
                     layout_show_more.setVisibility(View.VISIBLE);
+                    btn_show_more.setText(activity.getString(R.string.show_less));
+                }
                 break;
         }
     }

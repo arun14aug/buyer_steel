@@ -51,6 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:visibility="gone"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal">
 
@@ -119,37 +120,6 @@
                         android:textSize="@dimen/edit_text_size"
                         customfontdemo:fontName="@string/raleway_medium" />
 
-                    <LinearLayout
-                        android:id="@+id/layout_grade_required"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@color/colorWhite"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <com.tanzil.steelhub.customUi.MyTextView
-                            android:id="@+id/txt_grade_required"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:gravity="start|center_vertical"
-                            android:text="@string/grade_required"
-                            android:textColor="@color/dark_grey"
-                            android:textSize="@dimen/new_req_edit_text_size"
-                            customfontdemo:fontName="@string/raleway_medium" />
-
-                        <ImageView
-                            android:id="@+id/ic_grade_required"
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/toggle_off" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layout_physical"
@@ -211,6 +181,70 @@
 
                         <ImageView
                             android:id="@+id/ic_chemical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/toggle_off" />
+                    </LinearLayout>
+
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/layout_certificate_required"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="5dp"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:background="@color/colorWhite"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<com.tanzil.steelhub.customUi.MyTextView-->
+                            <!--android:id="@+id/txt_certificate_required"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:background="@android:color/transparent"-->
+                            <!--android:gravity="start|center_vertical"-->
+                            <!--android:text="@string/grade_required"-->
+                            <!--android:textColor="@color/dark_grey"-->
+                            <!--android:textSize="@dimen/new_req_edit_text_size"-->
+                            <!--customfontdemo:fontName="@string/raleway_medium" />-->
+
+                        <!--<ImageView-->
+                            <!--android:id="@+id/ic_grade_required"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="25dp"-->
+                            <!--android:contentDescription="@string/app_name"-->
+                            <!--android:src="@drawable/toggle_off" />-->
+                    <!--</LinearLayout>-->
+                    <LinearLayout
+                        android:id="@+id/layout_test_certificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <com.tanzil.steelhub.customUi.MyTextView
+                            android:id="@+id/txt_test_certificate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/test_cert_required"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/new_req_edit_text_size"
+                            customfontdemo:fontName="@string/raleway_medium" />
+
+                        <ImageView
+                            android:id="@+id/ic_test_certificate"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:contentDescription="@string/app_name"
@@ -343,39 +377,6 @@
                                 customfontdemo:fontName="@string/raleway_medium" />
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layout_test_certificate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@color/colorWhite"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-
-                        <com.tanzil.steelhub.customUi.MyTextView
-                            android:id="@+id/txt_test_certificate"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:gravity="start|center_vertical"
-                            android:text="@string/test_cert_required"
-                            android:textColor="@color/dark_grey"
-                            android:textSize="@dimen/new_req_edit_text_size"
-                            customfontdemo:fontName="@string/raleway_medium" />
-
-                        <ImageView
-                            android:id="@+id/ic_test_certificate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/toggle_off" />
                     </LinearLayout>
 
                     <LinearLayout

@@ -60,21 +60,23 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
 
     private String TAG = NewRequirementFragment.class.getSimpleName();
     private Activity activity;
-    private MyEditText et_quantity, et_preferred_brands, et_grade_required, et_required_by_date, et_city, et_state, et_budget_amount, et_tax_type;
-    private MyTextView txt_random, txt_standard, txt_bend, txt_straight, txt_diameter;
+    private MyEditText /*et_quantity,*/ et_preferred_brands, et_grade_required, et_required_by_date, et_city, et_state, et_budget_amount, et_tax_type;
+    private MyTextView txt_random, txt_standard, txt_bend, txt_straight/*, txt_diameter*/;
     //    private MyButton btn_add_more;
-    private LinearLayout addMoreLayout, default_quantity_layout;
+    private LinearLayout addMoreLayout/*, default_quantity_layout*/;
     private ArrayList<Brands> brandsArrayList;
     private ArrayList<Grades> gradesArrayList;
     private ArrayList<SteelSizes> steelSizesArrayList;
     //    private ArrayList<Specifications> specificationsArrayList = new ArrayList<>();
     private ArrayList<States> statesArrayList;
     private ArrayList<TaxTypes> taxTypesArrayList;
-    private ImageView icon_remove, ic_physical, ic_chemical, ic_grade_required, ic_test_certificate;
+    private ImageView /*icon_remove,*/ ic_physical, ic_chemical, /*ic_grade_required,*/
+            ic_test_certificate;
     private ArrayList<MyEditText> et_quantityArrayList = new ArrayList<>();
     private ArrayList<MyTextView> et_diameterArrayList = new ArrayList<>();
     private String brandId = "", steelId = "", gradeId = "", stateId = "",
-            taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "", test_cert = "";
+            taxId = "", phy = "0", che = "0", /*gra = "",*/
+            lngth = "0", typ = "0", test_cert = "0";
     private Calendar myCalendar;
     private String[] brandSelected;
 
@@ -91,8 +93,8 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         myCalendar = Calendar.getInstance();
 
         et_budget_amount = (MyEditText) rootView.findViewById(R.id.et_budget_amount);
-        et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
-        txt_diameter = (MyTextView) rootView.findViewById(R.id.txt_diameter);
+//        et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
+//        txt_diameter = (MyTextView) rootView.findViewById(R.id.txt_diameter);
         et_preferred_brands = (MyEditText) rootView.findViewById(R.id.et_preferred_brands);
         et_grade_required = (MyEditText) rootView.findViewById(R.id.et_grade_required);
         et_city = (MyEditText) rootView.findViewById(R.id.et_city);
@@ -105,23 +107,23 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         txt_bend = (MyTextView) rootView.findViewById(R.id.txt_bend);
         txt_straight = (MyTextView) rootView.findViewById(R.id.txt_straight);
 
-        LinearLayout layout_grade_required = (LinearLayout) rootView.findViewById(R.id.layout_grade_required);
+//        LinearLayout layout_grade_required = (LinearLayout) rootView.findViewById(R.id.layout_grade_required);
         LinearLayout layout_physical = (LinearLayout) rootView.findViewById(R.id.layout_physical);
         LinearLayout layout_chemical = (LinearLayout) rootView.findViewById(R.id.layout_chemical);
         LinearLayout layout_test_certificate = (LinearLayout) rootView.findViewById(R.id.layout_test_certificate);
 
         LinearLayout layout_preferred_brands = (LinearLayout) rootView.findViewById(R.id.layout_preferred_brands);
-        LinearLayout layout_grade = (LinearLayout) rootView.findViewById(R.id.layout_grade);
+//        LinearLayout layout_grade = (LinearLayout) rootView.findViewById(R.id.layout_grade);
         LinearLayout layout_required_by_date = (LinearLayout) rootView.findViewById(R.id.layout_required_by_date);
         LinearLayout layout_state = (LinearLayout) rootView.findViewById(R.id.layout_state);
         LinearLayout layout_tax_type = (LinearLayout) rootView.findViewById(R.id.layout_tax_type);
 
-        default_quantity_layout = (LinearLayout) rootView.findViewById(R.id.default_quantity_layout);
+//        default_quantity_layout = (LinearLayout) rootView.findViewById(R.id.default_quantity_layout);
         addMoreLayout = (LinearLayout) rootView.findViewById(R.id.layout_add_more);
-        icon_remove = (ImageView) rootView.findViewById(R.id.icon_remove);
+//        icon_remove = (ImageView) rootView.findViewById(R.id.icon_remove);
         ic_physical = (ImageView) rootView.findViewById(R.id.ic_physical);
         ic_chemical = (ImageView) rootView.findViewById(R.id.ic_chemical);
-        ic_grade_required = (ImageView) rootView.findViewById(R.id.ic_grade_required);
+//        ic_grade_required = (ImageView) rootView.findViewById(R.id.ic_grade_required);
         ic_test_certificate = (ImageView) rootView.findViewById(R.id.ic_test_certificate);
 
         MyButton btn_add_more = (MyButton) rootView.findViewById(R.id.btn_add_more);
@@ -158,12 +160,12 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         /**     click events     **/
         btn_add_more.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
-        layout_grade_required.setOnClickListener(this);
+//        layout_grade_required.setOnClickListener(this);
         layout_physical.setOnClickListener(this);
         layout_chemical.setOnClickListener(this);
         layout_test_certificate.setOnClickListener(this);
         layout_preferred_brands.setOnClickListener(this);
-        layout_grade.setOnClickListener(this);
+//        layout_grade.setOnClickListener(this);
         layout_state.setOnClickListener(this);
         layout_required_by_date.setOnClickListener(this);
         layout_tax_type.setOnClickListener(this);
@@ -171,14 +173,15 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         txt_standard.setOnClickListener(this);
         txt_bend.setOnClickListener(this);
         txt_straight.setOnClickListener(this);
-        icon_remove.setOnClickListener(this);
+//        icon_remove.setOnClickListener(this);
         et_state.setOnClickListener(this);
         et_preferred_brands.setOnClickListener(this);
-        txt_diameter.setOnClickListener(this);
+//        txt_diameter.setOnClickListener(this);
         et_grade_required.setOnClickListener(this);
         et_tax_type.setOnClickListener(this);
         et_required_by_date.setOnClickListener(this);
 
+        addMoreQuantity();
         return rootView;
     }
 
@@ -331,7 +334,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                et_myText.setText(steelSizesArrayList.get(position).getSize());
+                et_myText.setText(steelSizesArrayList.get(position).getSize() + "mm");
                 steelId = steelSizesArrayList.get(position).getId();
                 dropDownDialog.dismiss();
             }
@@ -346,25 +349,29 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View addView = layoutInflater.inflate(R.layout.row_add_more, null);
         MyEditText quantity = (MyEditText) addView.findViewById(R.id.quantity);
-        MyTextView diameter = (MyTextView) addView.findViewById(R.id.diameter);
-        ImageView remove = (ImageView) addView.findViewById(R.id.remove);
+        final MyTextView diameter = (MyTextView) addView.findViewById(R.id.diameter);
+        final ImageView remove = (ImageView) addView.findViewById(R.id.remove);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (addMoreLayout.getChildCount() == 1) {
-                    if (default_quantity_layout.getVisibility() == View.GONE) {
-                        default_quantity_layout.setVisibility(View.VISIBLE);
-                        icon_remove.setVisibility(View.GONE);
+                addMoreLayout.removeView(addView);
+                if (addMoreLayout.getChildCount() > 0) {
+                    if (et_diameterArrayList != null)
+                        if (et_diameterArrayList.size() > 0)
+                            et_diameterArrayList.remove(addMoreLayout.getChildAt(0));
+                    if (et_quantityArrayList != null)
+                        if (et_quantityArrayList.size() > 0)
+                            et_quantityArrayList.remove(addMoreLayout.getChildAt(0));
+                    if (addMoreLayout.getChildCount() == 1) {
+                        remove.setVisibility(View.GONE);
                     }
-                    return;
                 }
-                ((LinearLayout) addView.getParent()).removeView(addView);
-                if (et_diameterArrayList != null)
-                    if (et_diameterArrayList.size() > 0)
-                        et_diameterArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(0));
-                if (et_quantityArrayList != null)
-                    if (et_quantityArrayList.size() > 0)
-                        et_quantityArrayList.remove(((LinearLayout) addView.getParent()).getChildAt(0));
+            }
+        });
+        diameter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDropDownForSteel(diameter);
             }
         });
 
@@ -372,13 +379,16 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         et_diameterArrayList.add(diameter);
         addMoreLayout.addView(addView);
 
-        if (addMoreLayout != null)
-            if (addMoreLayout.getChildCount() > 0)
-                icon_remove.setVisibility(View.VISIBLE);
-            else
-                icon_remove.setVisibility(View.GONE);
-        else
-            icon_remove.setVisibility(View.GONE);
+        if (addMoreLayout.getChildCount() == 1) {
+            remove.setVisibility(View.GONE);
+        }
+//        if (addMoreLayout != null)
+//            if (addMoreLayout.getChildCount() > 0)
+//                icon_remove.setVisibility(View.VISIBLE);
+//            else
+//                icon_remove.setVisibility(View.GONE);
+//        else
+//            icon_remove.setVisibility(View.GONE);
     }
 
     private boolean isValidate() {
@@ -424,15 +434,15 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                     test_cert = "1";
                 }
                 break;
-            case R.id.layout_grade_required:
-                if (gra.equalsIgnoreCase("1")) {
-                    ic_grade_required.setImageResource(R.drawable.toggle_off);
-                    gra = "0";
-                } else {
-                    ic_grade_required.setImageResource(R.drawable.toggle_on);
-                    gra = "1";
-                }
-                break;
+//            case R.id.layout_grade_required:
+//                if (gra.equalsIgnoreCase("1")) {
+//                    ic_grade_required.setImageResource(R.drawable.toggle_off);
+//                    gra = "0";
+//                } else {
+//                    ic_grade_required.setImageResource(R.drawable.toggle_on);
+//                    gra = "1";
+//                }
+//                break;
             case R.id.btn_add_more:
                 addMoreQuantity();
                 break;
@@ -509,12 +519,12 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                     dt = new String[0];
 
                 ArrayList<Specifications> specificationsArrayList = new ArrayList<>();
-                if (default_quantity_layout.getVisibility() == View.VISIBLE) {
-                    Specifications specifications = new Specifications();
-                    specifications.setSize(txt_diameter.getText().toString());
-                    specifications.setQuantity(et_quantity.getText().toString());
-                    specificationsArrayList.add(specifications);
-                }
+//                if (default_quantity_layout.getVisibility() == View.VISIBLE) {
+//                    Specifications specifications = new Specifications();
+//                    specifications.setSize(txt_diameter.getText().toString());
+//                    specifications.setQuantity(et_quantity.getText().toString());
+//                    specificationsArrayList.add(specifications);
+//                }
                 if (qt.length > 0 && dt.length > 0) {
                     for (int i = 0; i < qt.length; i++) {
                         Specifications specifications = new Specifications();
@@ -577,11 +587,11 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                     ModelManager.getInstance().getRequirementManager().addBuyerPost(activity, jsonObject);
                 }
                 break;
-            case R.id.icon_remove:
-                default_quantity_layout.setVisibility(View.GONE);
-                et_quantity.setText("");
-                txt_diameter.setText("");
-                break;
+//            case R.id.icon_remove:
+//                default_quantity_layout.setVisibility(View.GONE);
+//                et_quantity.setText("");
+//                txt_diameter.setText("");
+//                break;
 
             case R.id.et_grade_required:
                 showDropDownDialog(2, et_grade_required);
@@ -591,7 +601,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 showMultiChoiceDropDown();
                 break;
             case R.id.txt_diameter:
-                showDropDownForSteel(txt_diameter);
+//                showDropDownForSteel(txt_diameter);
                 break;
             case R.id.et_state:
                 showDropDownDialog(3, et_state);
@@ -755,7 +765,6 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             brandsArrayList = ModelManager.getInstance().getCommonDataManager().getBrands(activity, false);
             STLog.e(TAG, "GetBrandList True");
         } else if (message.contains("GetBrandList False")) {
-            // showMatchHistoryList();
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "GetBrandList False");
             Utils.dismissLoading();
@@ -764,7 +773,6 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             steelSizesArrayList = ModelManager.getInstance().getCommonDataManager().getSteelSize(activity, false);
             STLog.e(TAG, "GetSizeList True");
         } else if (message.contains("GetSizeList False")) {
-            // showMatchHistoryList();
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "GetSizeList False");
             Utils.dismissLoading();
@@ -773,7 +781,6 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             taxTypesArrayList = ModelManager.getInstance().getCommonDataManager().getTaxTypes(activity, false);
             STLog.e(TAG, "GetTaxTypeList True");
         } else if (message.contains("GetTaxTypeList False")) {
-            // showMatchHistoryList();
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "GetTaxTypeList False");
             Utils.dismissLoading();
@@ -782,7 +789,6 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             gradesArrayList = ModelManager.getInstance().getCommonDataManager().getGrades(activity, false);
             STLog.e(TAG, "GetGradeList True");
         } else if (message.contains("GetGradeList False")) {
-            // showMatchHistoryList();
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "GetGradeList False");
             Utils.dismissLoading();
@@ -791,7 +797,6 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             statesArrayList = ModelManager.getInstance().getCommonDataManager().getStates(activity, false);
             STLog.e(TAG, "GetStateList True");
         } else if (message.contains("GetStateList False")) {
-            // showMatchHistoryList();
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "GetStateList False");
             Utils.dismissLoading();
@@ -800,9 +805,24 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             ((FragmentActivity) activity).getSupportFragmentManager()
                     .popBackStack();
             STLog.e(TAG, "NewRequirementPosted True");
-        } else if (message.contains("NewRequirementPosted False")) {
-            // showMatchHistoryList();
-            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+        } else if (message.equalsIgnoreCase("NewRequirementPosted False")) {
+//            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+            STLog.e(TAG, "NewRequirementPosted False");
+            Utils.dismissLoading();
+            ((FragmentActivity) activity).getSupportFragmentManager()
+                    .popBackStack();
+        } else if (message.contains("NewRequirementPosted False") && !message.equalsIgnoreCase("NewRequirementPosted False")) {
+            String[] msg;
+            if (message.contains("@#@"))
+                msg = message.split("@#@");
+            else {
+                msg = new String[1];
+                msg[0] = message;
+            }
+            if (msg.length > 1)
+                Utils.showMessage(activity, msg[1]);
+            else
+                Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "NewRequirementPosted False");
             Utils.dismissLoading();
         }

@@ -43,7 +43,7 @@ public class RequirementFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.activity = super.getActivity();
         Intent intent = new Intent("Header");
-        intent.putExtra("message", activity.getString(R.string.app_name));
+        intent.putExtra("message", activity.getString(R.string.requirements));
 
         LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
         View rootView = inflater.inflate(R.layout.requirements_listview, container, false);
@@ -71,15 +71,17 @@ public class RequirementFragment extends Fragment {
         if (requirementsArrayList == null) {
             Utils.showLoading(activity, activity.getString(R.string.please_wait));
             ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
-        } else
+        } else {
             setData();
-
+            ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
+        }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Fragment fragment = new RequirementDetailFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("id", requirementsArrayList.get(i).getRequirement_id());
+                fragment.setArguments(bundle);
                 FragmentManager fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container_body, fragment, "RequirementDetailFragment");
