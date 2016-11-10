@@ -144,7 +144,8 @@ public class RequirementManager {
                                             requirements.setIs_buyer_read(jsonArray.getJSONObject(i).getString("is_buyer_read"));
                                             requirements.setFlag(jsonArray.getJSONObject(i).getString("flag"));
                                             requirements.setInitial_amt(jsonArray.getJSONObject(i).getString("initial_amt"));
-                                        } else if (jsonArray.getJSONObject(i).has("response")) {
+                                        }
+                                        if (jsonArray.getJSONObject(i).has("response")) {
                                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("response");
                                             if (jsonArray1.length() > 0) {
                                                 ArrayList<com.tanzil.steelhub.model.Response> responseArrayList = new ArrayList<>();
@@ -208,7 +209,6 @@ public class RequirementManager {
                         try {
                             boolean state = response.getBoolean("success");
                             if (state) {
-                                Preferences.writeBoolean(activity, Preferences.LOGIN, true);
 
                                 EventBus.getDefault().postSticky("NewRequirementPosted True");
                             } else {

@@ -1,6 +1,25 @@
 package com.tanzil.steelhub.model;
 
+import android.app.Activity;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.tanzil.steelhub.utility.Preferences;
+import com.tanzil.steelhub.utility.STLog;
+import com.tanzil.steelhub.utility.ServiceApi;
+import com.tanzil.steelhub.utility.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by arun.sharma on 9/14/2016.
@@ -277,5 +296,41 @@ String is_buyer_read_bargain, is_seller_deleted, is_seller_read_bargain, is_best
 
     public void setIs_buyer_deleted(String is_buyer_deleted) {
         this.is_buyer_deleted = is_buyer_deleted;
+    }
+    public void updateConversation(final Activity activity, JSONObject jsonObject, final String token) {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.UPDATE_CONVERSATION, jsonObject,
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        STLog.e("Success Response : ", "Response: " + response.toString());
+
+                        try {
+                            boolean state = response.getBoolean("success");
+                            if (state) {
+                                EventBus.getDefault().postSticky(token + " True");
+                            } else {
+                                EventBus.getDefault().postSticky(token + " False@#@" + response.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            EventBus.getDefault().postSticky(token + " False");
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                STLog.e("Error Response : ", "Error: " + error.getMessage());
+                EventBus.getDefault().postSticky(token + " False");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer" + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
+        requestQueue.add(jsonObjReq);
     }
 }

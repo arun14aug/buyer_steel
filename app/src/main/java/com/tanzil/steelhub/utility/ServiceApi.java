@@ -30,4 +30,6 @@ public class ServiceApi {
     public static final String FETCH_STATES = baseurl + "states";
     public static final String FETCH_TAX_TYPES = baseurl + "tax/types";
     public static final String FETCH_CUSTOMER_TYPE = baseurl + "customer/types";
+
+    public static final String UPDATE_CONVERSATION = baseurl + "updateConversationStatus";
 }

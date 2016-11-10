@@ -1,15 +1,19 @@
 package com.tanzil.steelhub.view.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -20,9 +24,16 @@ import com.tanzil.steelhub.customUi.MyTextView;
 import com.tanzil.steelhub.model.ModelManager;
 import com.tanzil.steelhub.model.Quantity;
 import com.tanzil.steelhub.model.Requirements;
+import com.tanzil.steelhub.model.Response;
+import com.tanzil.steelhub.utility.STLog;
 import com.tanzil.steelhub.utility.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by arun.sharma on 11/7/2016.
@@ -35,9 +46,12 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
     private MyTextView txt_random, txt_standard, txt_bend, txt_straight/*, txt_diameter*/;
     private MyButton btn_submit, btn_show_more;
     private LinearLayout addMoreLayout, layout_seller_list, layout_show_more, layout_amount, layout_bargain_amount;
-    private ImageView ic_physical, ic_chemical, /*ic_grade_required,*/ ic_test_certificate;
+    private ImageView ic_physical, ic_chemical, /*ic_grade_required,*/
+            ic_test_certificate;
     private String brandId = "", steelId = "", gradeId = "", stateId = "",
             taxId = "", phy = "", che = "", gra = "", lngth = "", typ = "", test_cert = "", id = "";
+    private ArrayList<Requirements> requirementsArrayList;
+    private ArrayList<Response> responseArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,7 +115,7 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
     }
 
     private void setData() {
-        ArrayList<Requirements> requirementsArrayList = ModelManager.getInstance().getRequirementManager().getRequirements(activity, false);
+        requirementsArrayList = ModelManager.getInstance().getRequirementManager().getRequirements(activity, false);
         for (int i = 0; i < requirementsArrayList.size(); i++) {
             if (id.equalsIgnoreCase(requirementsArrayList.get(i).getRequirement_id())) {
 //                if (requirementsArrayList.get(i).getGrade_required().equalsIgnoreCase("0"))
@@ -183,9 +197,110 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
 
                             addMoreLayout.addView(addView);
                         }
+
+                responseArrayList = requirementsArrayList.get(i).getResponseArrayList();
+                if (responseArrayList != null)
+                    setSellerList(i);
                 break;
             }
         }
+    }
+
+    private void setSellerList(final int i) {
+        if (responseArrayList.size() > 0)
+            for (int k = 0; k < responseArrayList.size(); k++) {
+                LayoutInflater layoutInflater =
+                        (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View addView = layoutInflater.inflate(R.layout.row_seller_list, null);
+                LinearLayout row_layout = (LinearLayout) addView.findViewById(R.id.row_layout);
+                MyTextView txt_seller_name = (MyTextView) addView.findViewById(R.id.txt_seller_name);
+                MyTextView txt_quotation_amount = (MyTextView) addView.findViewById(R.id.txt_quotation_amount);
+                MyTextView txt_status = (MyTextView) addView.findViewById(R.id.txt_status);
+
+                View color_view = addView.findViewById(R.id.color_view);
+
+                txt_seller_name.setText("Seller : " + responseArrayList.get(k).getSeller_name());
+                txt_quotation_amount.setText("Quotation : " + responseArrayList.get(k).getInitial_amt());
+                if (responseArrayList.get(k).getIs_accepted().equalsIgnoreCase("1")) {
+                    txt_status.setText("Deal Accepted");
+                    color_view.setBackgroundColor(Utils.setColor(activity, R.color.green_color));
+                } else if (responseArrayList.get(k).getIs_buyer_read().equalsIgnoreCase("0")) {
+                    txt_status.setText("Bargain not requested");
+                    color_view.setBackgroundColor(Utils.setColor(activity, R.color.red_color));
+                } else if (responseArrayList.get(k).getIs_buyer_read_bargain().equalsIgnoreCase("0")
+                        && responseArrayList.get(k).getReq_for_bargain().equalsIgnoreCase("1")) {
+                    txt_status.setText("Bargain requested");
+                    color_view.setBackgroundColor(Utils.setColor(activity, R.color.orange_color));
+                } else if (responseArrayList.get(k).getIs_buyer_read_bargain().equalsIgnoreCase("1")
+                        && responseArrayList.get(k).getReq_for_bargain().equalsIgnoreCase("1")) {
+                    txt_status.setText("Bargain requested");
+                    color_view.setBackgroundColor(Utils.setColor(activity, R.color.purple_color));
+                } else {
+                    txt_status.setText("Bargain not requested");
+                    color_view.setBackgroundColor(Utils.setColor(activity, R.color.k_blue_color));
+                }
+
+                final int j = k;
+                row_layout.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        showDialog(i, j);
+                        return false;
+                    }
+                });
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("requirement_id", id);
+                    jsonObject.put("seller_id", requirementsArrayList.get(i).getRequirement_id());
+                    jsonObject.put("type", "buyerReadStatus");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                requirementsArrayList.get(i).buyerReadStatus(activity, jsonObject);
+
+                layout_seller_list.addView(addView);
+            }
+    }
+
+    private void showDialog(final int i, final int j) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(activity);
+//        builderSingle.setIcon(R.drawable.ic_launcher);
+        builderSingle.setTitle("Choose Action");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_list_item_1);
+        arrayAdapter.add("Bargain");
+        arrayAdapter.add("Accept");
+
+        builderSingle.setAdapter(
+                arrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("requirement_id", id);
+                            jsonObject.put("seller_id", responseArrayList.get(j).getSeller_id());
+                            Utils.defaultLoader(activity);
+                            if (which == 0) {
+                                jsonObject.put("req_for_bargain", "1");
+                                jsonObject.put("is_accepted", "0");
+                                jsonObject.put("type", "buyerReqForBargain");
+                                requirementsArrayList.get(i).updateConversation(activity, jsonObject, "BuyerBargain");
+                            } else {
+                                jsonObject.put("is_accepted", "1");
+                                jsonObject.put("type", "buyerAcceptedOrNot");
+                                requirementsArrayList.get(i).updateConversation(activity, jsonObject, "BuyerAcceptedOrNot");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        builderSingle.show();
     }
 
     @Override
@@ -201,5 +316,53 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    public void onEventMainThread(String message) {
+        if (message.equalsIgnoreCase("BuyerBargain True")) {
+            Utils.dismissLoading();
+            ((FragmentActivity) activity).getSupportFragmentManager()
+                    .popBackStack();
+            STLog.e(TAG, "BuyerBargain True");
+        } else if (message.contains("BuyerBargain False")) {
+            // showMatchHistoryList();
+            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+            STLog.e(TAG, "BuyerBargain False");
+            Utils.dismissLoading();
+        } else if (message.contains("BuyerBargain Network Error")) {
+            // showMatchHistoryList();
+            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+            STLog.e(TAG, "BuyerBargain Network Error");
+            Utils.dismissLoading();
+        } else if (message.equalsIgnoreCase("BuyerAcceptedOrNot True")) {
+            Utils.dismissLoading();
+            ((FragmentActivity) activity).getSupportFragmentManager()
+                    .popBackStack();
+            STLog.e(TAG, "BuyerAcceptedOrNot True");
+        } else if (message.contains("BuyerAcceptedOrNot False")) {
+            // showMatchHistoryList();
+            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+            STLog.e(TAG, "BuyerAcceptedOrNot False");
+            Utils.dismissLoading();
+        } else if (message.contains("BuyerAcceptedOrNot Network Error")) {
+            // showMatchHistoryList();
+            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+            STLog.e(TAG, "BuyerAcceptedOrNot Network Error");
+            Utils.dismissLoading();
+        }
+
     }
 }
