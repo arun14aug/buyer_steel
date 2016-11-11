@@ -32,4 +32,8 @@ public class ServiceApi {
     public static final String FETCH_CUSTOMER_TYPE = baseurl + "customer/types";
 
     public static final String UPDATE_CONVERSATION = baseurl + "updateConversationStatus";
+
+    public static final String FETCH_ADDRESS = baseurl + "fetchAddress";
+    public static final String ADD_ADDRESS = baseurl + "addNewAddress";
+    public static final String UPDATE_ADDRESS = baseurl + "editAddress";
 }

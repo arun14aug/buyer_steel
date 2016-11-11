@@ -11,12 +11,14 @@ public class ModelManager {
     private AuthManager authMgr;
     private RequirementManager requirementManager;
     private CommonDataManager commonDataManager;
+    private AddressManager addressManager;
 
     private ModelManager() {
 
         authMgr = new AuthManager();
         requirementManager = new RequirementManager();
         commonDataManager = new CommonDataManager();
+        addressManager = new AddressManager();
     }
 
     public void clearManagerInstance() {
@@ -24,6 +26,7 @@ public class ModelManager {
         this.authMgr = null;
         this.requirementManager = null;
         this.commonDataManager = null;
+        this.addressManager = null;
     }
 
     public static ModelManager getInstance() {
@@ -52,5 +55,9 @@ public class ModelManager {
 
     public CommonDataManager getCommonDataManager() {
         return commonDataManager;
+    }
+
+    public AddressManager getAddressManager() {
+        return addressManager;
     }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@color/colorWhite"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <com.tanzil.steelhub.customUi.MyTextView
+        android:id="@+id/txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center_vertical"
+        android:text="@string/quantity"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/medium_text_size"
+        customfontdemo:fontName="@string/raleway_medium" />
+
+    <com.tanzil.steelhub.customUi.MyTextView
+        android:id="@+id/txt_address1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="2dp"
+        android:gravity="start|center_vertical"
+        android:text="@string/quantity"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/medium_text_size"
+        customfontdemo:fontName="@string/raleway_medium" />
+
+    <com.tanzil.steelhub.customUi.MyTextView
+        android:id="@+id/txt_address2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center_vertical"
+        android:text="@string/quantity"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/medium_text_size"
+        customfontdemo:fontName="@string/raleway_medium" />
+
+    <com.tanzil.steelhub.customUi.MyTextView
+        android:id="@+id/txt_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center_vertical"
+        android:text="@string/quantity"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/medium_text_size"
+        customfontdemo:fontName="@string/raleway_medium" />
+
+    <com.tanzil.steelhub.customUi.MyTextView
+        android:id="@+id/txt_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="start|center_vertical"
+        android:text="@string/quantity"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/medium_text_size"
+        customfontdemo:fontName="@string/raleway_medium" />
+</LinearLayout>

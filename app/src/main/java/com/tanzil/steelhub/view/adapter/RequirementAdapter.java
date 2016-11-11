@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class RequirementAdapter extends BaseAdapter {
     private ArrayList<Requirements> list;
-    // ListView histry_list;
     private Activity activity;
 
     public RequirementAdapter(final Activity context,
@@ -49,7 +48,6 @@ public class RequirementAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
-        // HashMap<String, Object> map = (HashMap<String, Object>)
         View v = convertView;
         final CompleteListViewHolder viewHolder;
         if (convertView == null) {

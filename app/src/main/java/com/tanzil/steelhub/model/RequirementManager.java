@@ -38,12 +38,12 @@ public class RequirementManager {
 
     public void getRequirementList(final Activity activity) {
         JSONObject jsonObject = new JSONObject();
-        try {
-//            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
-            jsonObject.put("user_id", "23");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
+//            jsonObject.put("user_id", "23");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         STLog.e("Post Data : ", "" + jsonObject.toString());
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.POSTED_REQUIREMENTS, jsonObject,
                 new Response.Listener<JSONObject>() {
@@ -57,45 +57,6 @@ public class RequirementManager {
                                 if (count > 0) {
                                     requirementsArrayList = new ArrayList<>();
                                     for (int i = 0; i < jsonArray.length(); i++) {
-/**
- * "budget": 500000,
- "physical": 1,
- "tax_type": "Direct tax",
- "grade_required": 0,
- "state": "chandigarh",
- "type": 1,
- "requirement_id": 8,
- "city": "20sector",
- "response": [{
- "is_accepted": 0,
- "is_seller_read_bargain": 0,
- "seller_name": "seller",
- "req_for_bargain": 0,
- "is_buyer_read": 0,
- "is_buyer_deleted": 0,
- "is_seller_deleted": 0,
- "is_best_price": 0,
- "seller_id": 22,
- "is_buyer_read_bargain": 0,
- "bargain_amt": 0,
- "is_seller_read": 1,
- "initial_amt": 0
- }],
- "flag": 0,
- "required_by_date": "65765876586",
- "chemical": 1,
- "length": 1,
- "preffered_brands": ["birla", "ambuja", "tata"],
- "test_certificate_required": 1,
- "quantity": [{
- "quantity": "15mm",
- "size": "10mm"
- }, {
- "quantity": "15mm",
- "size": "10mm"
- }],
- "user_id": 23
- */
                                         Requirements requirements = new Requirements();
                                         requirements.setRequirement_id(jsonArray.getJSONObject(i).getString("requirement_id"));
                                         requirements.setUser_id(jsonArray.getJSONObject(i).getString("user_id"));
