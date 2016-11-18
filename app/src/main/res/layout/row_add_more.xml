@@ -9,7 +9,7 @@
     android:background="@color/colorWhite"
     android:orientation="horizontal">
 
-    <com.tanzil.steelhub.customUi.MyTextView
+    <com.buyer.steelhub.customUi.MyTextView
         android:id="@+id/diameter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:textSize="@dimen/new_req_edit_text_size"
         customfontdemo:fontName="@string/raleway_medium" />
 
-    <com.tanzil.steelhub.customUi.MyEditText
+    <com.buyer.steelhub.customUi.MyEditText
         android:id="@+id/quantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:textSize="@dimen/new_req_edit_text_size"
         customfontdemo:fontName="@string/raleway_medium" />
 
-    <com.tanzil.steelhub.customUi.MyEditText
+    <com.buyer.steelhub.customUi.MyEditText
         android:id="@+id/amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -10,7 +10,7 @@
     android:padding="8dp">
 
 
-    <com.tanzil.steelhub.customUi.MyTextView
+    <com.buyer.steelhub.customUi.MyTextView
         android:id="@+id/txt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:textSize="@dimen/medium_text_size"
         customfontdemo:fontName="@string/raleway_medium" />
 
-    <com.tanzil.steelhub.customUi.MyTextView
+    <com.buyer.steelhub.customUi.MyTextView
         android:id="@+id/txt_address1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:textSize="@dimen/medium_text_size"
         customfontdemo:fontName="@string/raleway_medium" />
 
-    <com.tanzil.steelhub.customUi.MyTextView
+    <com.buyer.steelhub.customUi.MyTextView
         android:id="@+id/txt_address2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         android:textSize="@dimen/medium_text_size"
         customfontdemo:fontName="@string/raleway_medium" />
 
-    <com.tanzil.steelhub.customUi.MyTextView
+    <com.buyer.steelhub.customUi.MyTextView
         android:id="@+id/txt_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         android:textSize="@dimen/medium_text_size"
         customfontdemo:fontName="@string/raleway_medium" />
 
-    <com.tanzil.steelhub.customUi.MyTextView
+    <com.buyer.steelhub.customUi.MyTextView
         android:id="@+id/txt_mobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

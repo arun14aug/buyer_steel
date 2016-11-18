@@ -21,7 +21,7 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/txt_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:textSize="@dimen/medium_text_size"
             customfontdemo:fontName="@string/raleway_medium" />
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/txt_state"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:textSize="@dimen/medium_text_size"
             customfontdemo:fontName="@string/raleway_medium" />
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
             android:textSize="@dimen/small_text_size"
             customfontdemo:fontName="@string/raleway_medium" />
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/txt_budget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

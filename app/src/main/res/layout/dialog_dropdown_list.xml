@@ -20,7 +20,7 @@
         android:orientation="vertical"
         android:weightSum="2">
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/title_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"

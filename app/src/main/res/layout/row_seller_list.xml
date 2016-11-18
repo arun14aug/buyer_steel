@@ -29,7 +29,7 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <com.tanzil.steelhub.customUi.MyTextView
+            <com.buyer.steelhub.customUi.MyTextView
                 android:id="@+id/txt_seller_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                 android:textSize="@dimen/medium_text_size"
                 customfontdemo:fontName="@string/raleway_medium" />
 
-            <com.tanzil.steelhub.customUi.MyTextView
+            <com.buyer.steelhub.customUi.MyTextView
                 android:id="@+id/txt_quotation_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:textSize="@dimen/medium_text_size"
                 customfontdemo:fontName="@string/raleway_medium" />
 
-            <com.tanzil.steelhub.customUi.MyTextView
+            <com.buyer.steelhub.customUi.MyTextView
                 android:id="@+id/txt_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -24,7 +24,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -44,7 +44,7 @@
             <!--android:textSize="@dimen/button_text_size"-->
             <!--customfontdemo:fontName="@string/raleway_medium" />-->
 
-        <com.tanzil.steelhub.customUi.MyEditText
+        <com.buyer.steelhub.customUi.MyEditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:layout_height="1dp"
             android:background="@color/colorWhite" />
 
-        <com.tanzil.steelhub.customUi.MyEditText
+        <com.buyer.steelhub.customUi.MyEditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
             android:layout_height="1dp"
             android:background="@color/colorWhite" />
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
         android:background="@android:color/transparent"
         android:orientation="horizontal">
 
-        <com.tanzil.steelhub.customUi.MyButton
+        <com.buyer.steelhub.customUi.MyButton
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"
@@ -120,7 +120,7 @@
             android:textSize="@dimen/button_text_size"
             customfontdemo:fontName="@string/raleway_medium" />
 
-        <com.tanzil.steelhub.customUi.MyButton
+        <com.buyer.steelhub.customUi.MyButton
             android:id="@+id/btn_sign_up"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"

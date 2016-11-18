@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:padding="1dp">
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/txt_billing_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textSize="@dimen/new_req_edit_text_size"
             customfontdemo:fontName="@string/raleway_medium" />
 
-        <com.tanzil.steelhub.customUi.MyTextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/txt_shipping_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         android:dividerHeight="10dp"
         android:padding="10dp" />
 
-    <com.tanzil.steelhub.customUi.MyButton
+    <com.buyer.steelhub.customUi.MyButton
         android:id="@+id/btn_place_order"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"

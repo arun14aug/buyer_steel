@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "441371982705",
-    "project_id": "steelhub-147512"
+    "project_number": "226134079389",
+    "project_id": "steelhub-b"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:441371982705:android:1e9b90f23d99176b",
+        "mobilesdk_app_id": "1:226134079389:android:84a486fdbfc47ae0",
         "android_client_info": {
-          "package_name": "com.tanzil.steelhub"
+          "package_name": "com.buyer.steelhub"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBlKkWFO6fc8AnID4d-a2QzcxU4lTSrntY"
+          "current_key": "AIzaSyBI2jlSaUmXwZHHluCW7726z7n0Xp7aaCU"
         }
       ],
       "services": {

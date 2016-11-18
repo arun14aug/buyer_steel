@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.tanzil.steelhub"
+        applicationId "com.buyer.steelhub"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -15,7 +15,7 @@ android {
     buildTypes {
         release {
             multiDexEnabled true
-            shrinkResources true
+            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

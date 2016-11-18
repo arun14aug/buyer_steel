@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tanzil.steelhub.view.fragments.RequirementFragment">
+    tools:context="com.buyer.steelhub.view.fragments.RequirementFragment">
 
 
     <TextView

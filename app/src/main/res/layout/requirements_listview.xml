@@ -45,7 +45,7 @@
         android:dividerHeight="10dp"
         android:padding="10dp" />
 
-    <com.tanzil.steelhub.customUi.MyButton
+    <com.buyer.steelhub.customUi.MyButton
         android:id="@+id/btn_new_requirement"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
