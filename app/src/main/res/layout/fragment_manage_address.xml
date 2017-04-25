@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/standard_bg"
+        android:orientation="horizontal"
+        android:padding="1dp">
+
+        <com.buyer.steelhub.customUi.MyTextView
+            android:id="@+id/txt_billing_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/billing_address"
+            android:textColor="@color/white"
+            android:textSize="@dimen/new_req_edit_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <com.buyer.steelhub.customUi.MyTextView
+            android:id="@+id/txt_shipping_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/shipping_address"
+            android:textColor="@color/sign_up_start_color"
+            android:textSize="@dimen/new_req_edit_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+    </LinearLayout>
+
+    <!--<ListView-->
+    <!--android:id="@+id/address_list"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:divider="@android:color/transparent"-->
+    <!--android:dividerHeight="10dp"-->
+    <!--android:padding="10dp" />-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/address_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <com.buyer.steelhub.customUi.MyButton
+        android:id="@+id/btn_place_order"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:background="@drawable/button_sign_up_green_bg"
+        android:text="@string/place_order"
+        android:textColor="@color/menu_text_color"
+        android:textSize="@dimen/large_text_size"
+        customfontdemo:fontName="@string/raleway_medium" />
+
+</LinearLayout>

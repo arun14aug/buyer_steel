@@ -30,20 +30,20 @@ public class AddressManager {
     //    private String TAG = RequirementManager.class.getSimpleName();
     private ArrayList<Address> addressArrayList;
 
-    public ArrayList<Address> getAddresses(Activity activity, boolean shouldRefresh) {
+    public ArrayList<Address> getAddresses(Activity activity, String type, boolean shouldRefresh) {
         if (shouldRefresh)
-            getAddressList(activity);
+            getAddressList(activity, type);
         return addressArrayList;
     }
 
-    public void getAddressList(final Activity activity) {
+    private void getAddressList(final Activity activity, String type) {
         JSONObject jsonObject = new JSONObject();
-//        try {
-////            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
-//            jsonObject.put("user_id", "23");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        try {
+//            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
+            jsonObject.put("addressType", type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         STLog.e("Post Data : ", "" + jsonObject.toString());
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.FETCH_ADDRESS, jsonObject,
                 new Response.Listener<JSONObject>() {
@@ -59,6 +59,7 @@ public class AddressManager {
                                     for (int i = 0; i < jsonArray.length(); i++) {
 
                                         Address address = new Address();
+                                        address.setId(jsonArray.getJSONObject(i).getString("id"));
                                         address.setAddressType(jsonArray.getJSONObject(i).getString("addressType"));
                                         address.setAddress1(jsonArray.getJSONObject(i).getString("address1"));
                                         address.setAddress2(jsonArray.getJSONObject(i).getString("address2"));
@@ -143,4 +144,43 @@ public class AddressManager {
         requestQueue.add(jsonObjReq);
     }
 
+    public void deleteAddress(final Activity activity, JSONObject jsonObject) {
+        final String token = "AddressDelete";
+        String url = ServiceApi.DELETE_ADDRESS;
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        STLog.e("Success Response : ", "Response: " + response.toString());
+
+                        try {
+                            boolean state = response.getBoolean("success");
+                            if (state) {
+
+                                EventBus.getDefault().postSticky(token + " True");
+                            } else {
+                                EventBus.getDefault().postSticky(token + " False@#@" + response.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            EventBus.getDefault().postSticky(token + " False");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                STLog.e("Error Response : ", "Error: " + error.getMessage());
+                EventBus.getDefault().postSticky(token + " False");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer" + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
+        requestQueue.add(jsonObjReq);
+    }
 }

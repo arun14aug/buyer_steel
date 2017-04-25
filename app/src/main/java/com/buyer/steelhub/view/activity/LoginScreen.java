@@ -79,7 +79,7 @@ public class LoginScreen extends Activity implements View.OnClickListener {
             ModelManager.getInstance().getAuthManager().setUserToken(Preferences.readString(getApplicationContext(), Preferences.USER_TOKEN, ""));
 
         if (Utils.isConnectingToInternet(LoginScreen.this)) {
-            /** Starts new activity */
+            /* Starts new activity */
             if (Preferences.readBoolean(LoginScreen.this, Preferences.LOGIN, false)) {
                 startActivity(new Intent(LoginScreen.this, MainActivity.class));
                 finish();

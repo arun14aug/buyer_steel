@@ -99,7 +99,7 @@
                         android:layout_height="1dp"
                         android:background="@color/grey_text" />
 
-                    <com.buyer.steelhub.customUi.MyEditText
+                    <!--<com.buyer.steelhub.customUi.MyEditText
                         android:id="@+id/et_landmark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/grey_text" />
+                        android:background="@color/grey_text" />-->
 
                     <com.buyer.steelhub.customUi.MyEditText
                         android:id="@+id/et_city"
@@ -238,12 +238,12 @@
     </ScrollView>
 
     <com.buyer.steelhub.customUi.MyButton
-        android:id="@+id/btn_submit"
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/button_sign_up_green_bg"
-        android:text="@string/submit"
+        android:text="@string/save"
         android:textColor="@color/menu_text_color"
         android:textSize="@dimen/large_text_size"
         customfontdemo:fontName="@string/raleway_medium" />

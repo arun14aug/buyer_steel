@@ -30,16 +30,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:textColor="@color/menu_text_color"
-            android:textSize="@dimen/large_text_size"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/medium_large_text_size"
             android:textStyle="normal" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@color/line_color" />
+        android:background="@color/grey_text" />
 
 </LinearLayout>

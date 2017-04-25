@@ -1,6 +1,6 @@
 package com.buyer.steelhub.view.adapter;
 
-/**
+/*
  * Created by Ravi on 29/07/15.
  */
 
@@ -20,14 +20,16 @@ import java.util.List;
 
 
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
-    List<NavDrawerItem> data = Collections.emptyList();
+    private List<NavDrawerItem> data = Collections.emptyList();
     private LayoutInflater inflater;
-    private Context context;
-    private Integer[] icons = {R.drawable.home, R.drawable.mm, R.drawable.history,
-            R.drawable.password, R.drawable.contact, R.drawable.logout};
+    //    private Context context;
+    private Integer[] icons = {R.drawable.home_icon, R.drawable.new_requirement,
+            R.drawable.new_orders, R.drawable.manage_address, R.drawable.contact_us,
+            R.drawable.change_psd, R.drawable.contact_us,
+            R.drawable.logout_icon};
 
     public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
-        this.context = context;
+//        this.context = context;
         inflater = LayoutInflater.from(context);
         this.data = data;
     }
@@ -40,8 +42,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.nav_drawer_row, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         TextView title;
         ImageView ic_option;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             ic_option = (ImageView) itemView.findViewById(R.id.icon_menu_option);

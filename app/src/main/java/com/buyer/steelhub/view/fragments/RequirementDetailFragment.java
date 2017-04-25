@@ -143,7 +143,7 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 et_required_by_date.setText(requirementsArrayList.get(i).getRequired_by_date());
                 et_city.setText(requirementsArrayList.get(i).getCity());
                 et_state.setText(requirementsArrayList.get(i).getState());
-                et_tax_type.setText(requirementsArrayList.get(i).getType());
+                et_tax_type.setText(requirementsArrayList.get(i).getTax_type());
 
                 if (!Utils.isEmptyString(requirementsArrayList.get(i).getInitial_amt())) {
                     layout_amount.setVisibility(View.VISIBLE);
@@ -153,10 +153,15 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                     if (!Utils.isEmptyString(requirementsArrayList.get(i).getBargain_amt())) {
                         et_bargain_amount.setFocusable(false);
                         et_bargain_amount.setText(requirementsArrayList.get(i).getBargain_amt());
-                        btn_submit.setVisibility(View.GONE);
-                    } else {
-                        et_bargain_amount.setFocusable(true);
                         btn_submit.setVisibility(View.VISIBLE);
+                    } else {
+                        if (!Utils.isEmptyString(requirementsArrayList.get(i).getReq_for_bargain())) {
+                            et_bargain_amount.setFocusable(true);
+                            btn_submit.setVisibility(View.VISIBLE);
+                        } else {
+                            et_bargain_amount.setVisibility(View.GONE);
+                            btn_submit.setVisibility(View.GONE);
+                        }
                     }
                 } else {
                     et_amount.setFocusable(true);
@@ -223,20 +228,28 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 txt_quotation_amount.setText("Quotation : " + responseArrayList.get(k).getInitial_amt());
                 if (responseArrayList.get(k).getIs_accepted().equalsIgnoreCase("1")) {
                     txt_status.setText("Deal Accepted");
+                    txt_status.setTextColor(Utils.setColor(activity, R.color.green_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.green_color));
                 } else if (responseArrayList.get(k).getIs_buyer_read().equalsIgnoreCase("0")) {
                     txt_status.setText("Bargain not requested");
+                    txt_status.setTextColor(Utils.setColor(activity, R.color.red_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.red_color));
                 } else if (responseArrayList.get(k).getIs_buyer_read_bargain().equalsIgnoreCase("0")
                         && responseArrayList.get(k).getReq_for_bargain().equalsIgnoreCase("1")) {
                     txt_status.setText("Bargain requested");
+                    txt_status.setTextColor(Utils.setColor(activity, R.color.orange_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.orange_color));
                 } else if (responseArrayList.get(k).getIs_buyer_read_bargain().equalsIgnoreCase("1")
                         && responseArrayList.get(k).getReq_for_bargain().equalsIgnoreCase("1")) {
+                    if (Utils.isEmptyString(responseArrayList.get(k).getBargain_amt()))
                     txt_status.setText("Bargain requested");
+                    else
+                        txt_status.setText("Bargain amount " + responseArrayList.get(k).getBargain_amt());
+                    txt_status.setTextColor(Utils.setColor(activity, R.color.purple_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.purple_color));
                 } else {
                     txt_status.setText("Bargain not requested");
+                    txt_status.setTextColor(Utils.setColor(activity, R.color.k_blue_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.k_blue_color));
                 }
 

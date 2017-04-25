@@ -13,7 +13,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.buyer.steelhub.R;
@@ -21,6 +23,7 @@ import com.buyer.steelhub.customUi.MyButton;
 import com.buyer.steelhub.customUi.MyTextView;
 import com.buyer.steelhub.model.Address;
 import com.buyer.steelhub.model.ModelManager;
+import com.buyer.steelhub.utility.Preferences;
 import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.Utils;
 import com.buyer.steelhub.view.adapter.AddressAdapter;
@@ -39,6 +42,7 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
     private ListView listView;
     private MyTextView txt_billing_address, txt_shipping_address;
     private String type = "";
+    private AddressAdapter addressAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,21 +60,43 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
         MyButton btn_place_order = (MyButton) rootView.findViewById(R.id.btn_place_order);
         btn_place_order.setTransformationMethod(null);
 
+        ImageView img_add = (ImageView) activity.findViewById(R.id.img_add);
+        img_add.setVisibility(View.VISIBLE);
+        img_add.setImageResource(R.drawable.new_requirement);
+        img_add.setOnClickListener(this);
+
         txt_billing_address.setOnClickListener(this);
         txt_shipping_address.setOnClickListener(this);
         btn_place_order.setOnClickListener(this);
 
-        listView.setOnLongClickListener(new View.OnLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 showDialog();
                 return false;
             }
         });
 
-        Utils.showLoading(activity, activity.getString(R.string.please_wait));
-        ModelManager.getInstance().getAddressManager().getAddresses(activity, true);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (type.equalsIgnoreCase("billing"))
+                    Preferences.writeString(activity, Preferences.BILLING_ID, addressArrayList.get(position).getId());
+                else
+                    Preferences.writeString(activity, Preferences.SHIPPING_ID, addressArrayList.get(position).getId());
+                addressAdapter.notifyDataSetChanged();
+            }
+        });
+
+        type = "billing";
+
+        getAddresses();
         return rootView;
+    }
+
+    private void getAddresses() {
+        Utils.showLoading(activity, activity.getString(R.string.please_wait));
+        ModelManager.getInstance().getAddressManager().getAddresses(activity, type, true);
     }
 
     private void setData() {
@@ -81,7 +107,7 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
                     addresses.add(addressArrayList.get(i));
 
         if (addresses.size() > 0) {
-            AddressAdapter addressAdapter = new AddressAdapter(activity, addresses);
+            addressAdapter = new AddressAdapter(activity, addresses, type);
             listView.setAdapter(addressAdapter);
             addressAdapter.notifyDataSetChanged();
         } else {
@@ -95,6 +121,7 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.txt_billing_address:
                 type = "billing";
+                getAddresses();
                 txt_billing_address.setTextColor(Utils.setColor(activity, R.color.white));
                 txt_billing_address.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
                 txt_shipping_address.setTextColor(Utils.setColor(activity, R.color.dark_grey));
@@ -102,12 +129,25 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.txt_shipping_address:
                 type = "shipping";
+                getAddresses();
                 txt_billing_address.setTextColor(Utils.setColor(activity, R.color.dark_grey));
                 txt_billing_address.setBackgroundColor(Utils.setColor(activity, R.color.white));
                 txt_shipping_address.setTextColor(Utils.setColor(activity, R.color.white));
                 txt_shipping_address.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
                 break;
             case R.id.btn_place_order:
+                break;
+            case R.id.img_add:
+                Fragment fragment = new AddNewAddressFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", type);
+                bundle.putString("action", "add");
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container_body, fragment, "AddNewAddressFragment");
+                fragmentTransaction.addToBackStack("AddNewAddressFragment");
+                fragmentTransaction.commit();
                 break;
         }
     }
@@ -193,7 +233,7 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
     public void onEventMainThread(String message) {
         if (message.equalsIgnoreCase("AddressList True")) {
             Utils.dismissLoading();
-            addressArrayList = ModelManager.getInstance().getAddressManager().getAddresses(activity, false);
+            addressArrayList = ModelManager.getInstance().getAddressManager().getAddresses(activity, type, false);
             if (addressArrayList != null)
                 setData();
             else

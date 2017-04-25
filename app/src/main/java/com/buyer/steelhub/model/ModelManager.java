@@ -6,12 +6,13 @@ package com.buyer.steelhub.model;
  */
 public class ModelManager {
 
-    public static ModelManager modelMgr = null;
+    private static ModelManager modelMgr = null;
 
     private AuthManager authMgr;
     private RequirementManager requirementManager;
     private CommonDataManager commonDataManager;
     private AddressManager addressManager;
+    private OrderManager orderManager;
 
     private ModelManager() {
 
@@ -19,6 +20,7 @@ public class ModelManager {
         requirementManager = new RequirementManager();
         commonDataManager = new CommonDataManager();
         addressManager = new AddressManager();
+        orderManager = new OrderManager();
     }
 
     public void clearManagerInstance() {
@@ -27,6 +29,7 @@ public class ModelManager {
         this.requirementManager = null;
         this.commonDataManager = null;
         this.addressManager = null;
+        this.orderManager = null;
     }
 
     public static ModelManager getInstance() {
@@ -59,5 +62,9 @@ public class ModelManager {
 
     public AddressManager getAddressManager() {
         return addressManager;
+    }
+
+    public OrderManager getOrderManager() {
+        return orderManager;
     }
 }

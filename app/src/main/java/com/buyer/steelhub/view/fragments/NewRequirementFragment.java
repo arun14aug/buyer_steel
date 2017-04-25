@@ -131,7 +131,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         MyButton btn_submit = (MyButton) rootView.findViewById(R.id.btn_submit);
         btn_submit.setTransformationMethod(null);
 
-        /**     Checking the common data for dropdown usage     **/
+        /*     Checking the common data for dropdown usage     **/
         brandsArrayList = ModelManager.getInstance().getCommonDataManager().getBrands(activity, false);
         gradesArrayList = ModelManager.getInstance().getCommonDataManager().getGrades(activity, false);
         steelSizesArrayList = ModelManager.getInstance().getCommonDataManager().getSteelSize(activity, false);
@@ -572,7 +572,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                         JSONArray jsonArray = new JSONArray();
                         for (int i = 0; i < specificationsArrayList.size(); i++) {
                             JSONObject jsonObject1 = new JSONObject();
-                            jsonObject1.put("size", specificationsArrayList.get(i).getSize() + "mm");
+                            jsonObject1.put("size", specificationsArrayList.get(i).getSize());
                             jsonObject1.put("quantity", specificationsArrayList.get(i).getQuantity());
                             jsonArray.put(i, jsonObject1);
                         }

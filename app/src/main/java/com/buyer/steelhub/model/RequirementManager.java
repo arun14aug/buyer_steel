@@ -36,14 +36,14 @@ public class RequirementManager {
         return requirementsArrayList;
     }
 
-    public void getRequirementList(final Activity activity) {
+    private void getRequirementList(final Activity activity) {
         JSONObject jsonObject = new JSONObject();
-//        try {
-////            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
-//            jsonObject.put("user_id", "23");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        try {
+//            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
+            jsonObject.put("user_id", "23");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         STLog.e("Post Data : ", "" + jsonObject.toString());
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.POSTED_REQUIREMENTS, jsonObject,
                 new Response.Listener<JSONObject>() {
@@ -105,6 +105,7 @@ public class RequirementManager {
                                             requirements.setIs_buyer_read(jsonArray.getJSONObject(i).getString("is_buyer_read"));
                                             requirements.setFlag(jsonArray.getJSONObject(i).getString("flag"));
                                             requirements.setInitial_amt(jsonArray.getJSONObject(i).getString("initial_amt"));
+                                            requirements.setTax_type(jsonArray.getJSONObject(i).getString("tax_type"));
                                         }
                                         if (jsonArray.getJSONObject(i).has("response")) {
                                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("response");

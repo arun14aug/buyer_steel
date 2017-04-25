@@ -8,10 +8,10 @@ import android.content.SharedPreferences;
  */
 public class Preferences {
 
-    public static final String PREF_NAME = "steelHub";
+    private static final String PREF_NAME = "steelHub";
 
 
-    public static final int MODE = Context.MODE_PRIVATE;
+    private static final int MODE = Context.MODE_PRIVATE;
     //User Details
     public static final String LOGIN = "login";
     public static final String EMAIL = "email";
@@ -24,6 +24,8 @@ public class Preferences {
     public static final String PASSWORD = "password";
     public static final String DEVICE_ID = "device_id";
     public static final String USER_TOKEN = "user_token";
+    public static final String BILLING_ID = "billing_id";
+    public static final String SHIPPING_ID = "shipping_id";
 
     //  GpPreferences.writeString(getApplicationContext(), Preferences.NAME, "dev");
     // GpPreferences.readString(getApplicationContext(), Preferences.NAME, "");
@@ -72,11 +74,11 @@ public class Preferences {
         return getPreferences(context).getLong(key, defValue);
     }
 
-    public static SharedPreferences getPreferences(Context context) {
+    private static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(PREF_NAME, MODE);
     }
 
-    public static SharedPreferences.Editor getEditor(Context context) {
+    private static SharedPreferences.Editor getEditor(Context context) {
         return getPreferences(context).edit();
     }
 
@@ -86,6 +88,12 @@ public class Preferences {
         getEditor(context).putString(LOGIN, null).commit();
         getEditor(context).putString(REGISTRATION, null).commit();
         getEditor(context).putString(USER_ID, null).commit();
+        getEditor(context).putString(BILLING_ID, null).commit();
+        getEditor(context).putString(PASSWORD, null).commit();
+        getEditor(context).putString(DEVICE_ID, null).commit();
+        getEditor(context).putString(SHIPPING_ID, null).commit();
+        getEditor(context).putString(EMAIL, null).commit();
+        getEditor(context).putString(USER_TOKEN, null).commit();
     }
 
 

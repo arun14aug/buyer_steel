@@ -8,7 +8,9 @@
     <string-array name="nav_drawer_labels">
         <item>Home</item>
         <item>New Requirement</item>
-        <item>History</item>
+        <item>My Orders</item>
+        <item>Manage Addresses</item>
+        <item>Profile</item>
         <item>Change Password</item>
         <item>Contact Us</item>
         <item>Logout</item>
@@ -24,6 +26,8 @@
     <string name="title_home">Home</string>
     <string name="title_new_requirement">New Requirement</string>
     <string name="title_contact_us">Contact Us</string>
+    <string name="title_my_orders">My Orders</string>
+    <string name="title_manage_addresses">Manage Addresses</string>
 
     <string name="raleway_medium">Raleway-Medium.ttf</string>
     <string name="please_wait">Please Wait....</string>
@@ -133,4 +137,15 @@
     <string name="action_alert">Are you sure, you want to perform this action?</string>
     <string name="ok_label">Ok</string>
     <string name="cancel">Cancel</string>
+
+    <string name="history">History</string>
+    <string name="pending">Pending</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="in_progress">In Progress</string>
+    <string name="rtgs_number">RTGS number</string>
+    <string name="rtgs">RTGS</string>
+    <string name="rtgs_screen_description">Make RTGS into this xxxxxxxxxx Account owned by xxxxxxx and enter the RTGS number provided by the Bank</string>
+    <string name="save">SAVE</string>
+    <string name="add_new_address">Add New Address</string>
+
 </resources>

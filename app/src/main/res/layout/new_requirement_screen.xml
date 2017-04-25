@@ -385,7 +385,6 @@
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:clickable="true"
-                        android:onClick="preferred"
                         android:minHeight="@dimen/new_req_edit_text_height"
                         android:orientation="horizontal">
 

@@ -2,6 +2,7 @@ package com.buyer.steelhub.model;
 
 import android.app.Activity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -12,8 +13,13 @@ import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.ServiceApi;
 import com.buyer.steelhub.utility.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -25,6 +31,7 @@ public class AuthManager {
     private String TAG = AuthManager.class.getSimpleName();
     private String deviceToken;
     private String userToken;
+    private ArrayList<User> userArrayList;
 
     public String getUserToken() {
         return userToken;
@@ -246,6 +253,100 @@ public class AuthManager {
                 EventBus.getDefault().postSticky("Logout False");
             }
         });
+        RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
+        requestQueue.add(jsonObjReq);
+    }
+
+    public ArrayList<User> getProfile(Activity activity, boolean shouldRefresh) {
+        if (shouldRefresh)
+            getProfileDetail(activity);
+        return userArrayList;
+    }
+
+    private void getProfileDetail(final Activity activity) {
+        final String token = "Profile";
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, ServiceApi.GET_PROFILE, new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        STLog.e("Success Response : ", "Response: " + response.toString());
+                        try {
+                            if (response.getBoolean("success")) {
+                                JSONObject jsonObject = response.getJSONObject("data");
+                                userArrayList = new ArrayList<>();
+
+//                                "id": 23,
+//                                        "name": "buyer",
+//                                        "email": "buyer@gmail.com",
+//                                        "customer_type": "",
+//                                        "company_name": "ambuja",
+//                                        "contact": 9087789909,
+//                                        "address": "8phase",
+//                                        "state": "punjab",
+//                                        "city": "mohali",
+//                                        "latitude": "8789787878",
+//                                        "longitude": "66777787878",
+//                                        "role": "buyer",
+//                                        "zip": 189768,
+//                                        "tin": "5455",
+//                                        "pan": "455654467",
+//                                        "brand": null,
+//                                        "exp_quantity": "10000",
+                                User user = new User();
+                                user.setId(jsonObject.getString("id"));
+                                user.setName(jsonObject.getString("name"));
+                                user.setEmail(jsonObject.getString("email"));
+                                user.setCustomer_type(jsonObject.getString("customer_type"));
+                                user.setCompany_name(jsonObject.getString("company_name"));
+                                user.setContact(jsonObject.getString("contact"));
+                                user.setAddress(jsonObject.getString("address"));
+                                user.setState(jsonObject.getString("state"));
+                                user.setCity(jsonObject.getString("city"));
+                                user.setLatitude(jsonObject.getString("latitude"));
+                                user.setLongitude(jsonObject.getString("longitude"));
+                                user.setRole(jsonObject.getString("role"));
+                                user.setCreated_at(jsonObject.getJSONObject("created_at").getString("date"));
+                                user.setUpdated_at(jsonObject.getJSONObject("updated_at").getString("date"));
+                                user.setZip(jsonObject.getString("zip"));
+                                user.setTin(jsonObject.getString("tin"));
+                                user.setPan(jsonObject.getString("pan"));
+                                user.setBrand(jsonObject.getString("brand"));
+                                user.setExp_quantity(jsonObject.getString("exp_quantity"));
+
+//                                if (jsonObject.has("preffered_brands")) {
+//                                    JSONArray jsonArray1 = jsonObject.getJSONArray("preffered_brands");
+//                                    if (jsonArray1.length() > 0) {
+//                                        String[] brand = new String[jsonArray1.length()];
+//                                        for (int j = 0; j < jsonArray1.length(); j++) {
+//                                            brand[j] = jsonArray1.getString(j);
+//                                        }
+//                                        user.setPreffered_brands(brand);
+//                                    }
+//                                }
+                                userArrayList.add(user);
+                                EventBus.getDefault().post(token + " True");
+                            } else
+                                EventBus.getDefault().post(token + " False@#@" + response.getString("message"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            EventBus.getDefault().post(token + " False");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                STLog.e("Error Response : ", "Error: " + error.getMessage());
+                EventBus.getDefault().post(token + " False");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer" + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
+                return params;
+            }
+        };
         RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
         requestQueue.add(jsonObjReq);
     }

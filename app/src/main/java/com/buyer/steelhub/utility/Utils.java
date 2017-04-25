@@ -95,7 +95,7 @@ public class Utils {
 
     public static boolean isEmptyString(String str) {
         return str == null || str.equalsIgnoreCase("null")
-                || str.equalsIgnoreCase("") || str.length() < 1;
+                || str.equalsIgnoreCase("") || str.equalsIgnoreCase("0") || str.length() < 1;
     }
 
     public static void closeKeyboard(Context c, IBinder windowToken) {

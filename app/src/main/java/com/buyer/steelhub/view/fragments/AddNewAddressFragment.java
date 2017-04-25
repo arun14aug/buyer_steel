@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.buyer.steelhub.R;
@@ -40,8 +41,8 @@ import de.greenrobot.event.EventBus;
 public class AddNewAddressFragment extends Fragment implements View.OnClickListener {
     private String TAG = AddNewAddressFragment.class.getSimpleName();
     private Activity activity;
-    private MyEditText et_firm_name, et_address_1, et_address_2, et_landmark, et_city, et_state, et_zip, et_mobile, et_landline;
-    private String type = "", action = "", stateId = "", token = "";
+    private MyEditText et_firm_name, et_address_1, et_address_2, /*et_landmark,*/ et_city, et_state, et_zip, et_mobile, et_landline;
+    private String type = "", action = "", stateId = "", token = "", id = "";
     private ArrayList<States> statesArrayList;
 
     @Override
@@ -49,7 +50,7 @@ public class AddNewAddressFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         this.activity = super.getActivity();
         Intent intent = new Intent("Header");
-        intent.putExtra("message", activity.getString(R.string.address));
+        intent.putExtra("message", activity.getString(R.string.add_new_address));
 
         LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
         View rootView = inflater.inflate(R.layout.add_address_fragment, container, false);
@@ -59,6 +60,7 @@ public class AddNewAddressFragment extends Fragment implements View.OnClickListe
                 Bundle bundle = getArguments();
                 type = bundle.getString("type");
                 action = bundle.getString("action");
+                id = bundle.getString("id");
             }
 
         } catch (Exception ex) {
@@ -68,17 +70,20 @@ public class AddNewAddressFragment extends Fragment implements View.OnClickListe
         et_firm_name = (MyEditText) rootView.findViewById(R.id.et_firm_name);
         et_address_1 = (MyEditText) rootView.findViewById(R.id.et_address_1);
         et_address_2 = (MyEditText) rootView.findViewById(R.id.et_address_2);
-        et_landmark = (MyEditText) rootView.findViewById(R.id.et_landmark);
+//        et_landmark = (MyEditText) rootView.findViewById(R.id.et_landmark);
         et_city = (MyEditText) rootView.findViewById(R.id.et_city);
         et_state = (MyEditText) rootView.findViewById(R.id.et_state);
         et_zip = (MyEditText) rootView.findViewById(R.id.et_zip);
         et_mobile = (MyEditText) rootView.findViewById(R.id.et_mobile);
         et_landline = (MyEditText) rootView.findViewById(R.id.et_landline);
 
-        MyButton btn_submit = (MyButton) rootView.findViewById(R.id.btn_submit);
-        btn_submit.setTransformationMethod(null);
+        ImageView imageView = (ImageView) activity.findViewById(R.id.img_add);
+        imageView.setVisibility(View.INVISIBLE);
 
-        btn_submit.setOnClickListener(this);
+        MyButton btn_save = (MyButton) rootView.findViewById(R.id.btn_save);
+        btn_save.setTransformationMethod(null);
+
+        btn_save.setOnClickListener(this);
         et_state.setOnClickListener(this);
 
         statesArrayList = ModelManager.getInstance().getCommonDataManager().getStates(activity, false);
@@ -92,26 +97,27 @@ public class AddNewAddressFragment extends Fragment implements View.OnClickListe
     }
 
     private void setData() {
-        ArrayList<Address> addressArrayList = ModelManager.getInstance().getAddressManager().getAddresses(activity, false);
+        ArrayList<Address> addressArrayList = ModelManager.getInstance().getAddressManager().getAddresses(activity, type, false);
         for (int i = 0; i < addressArrayList.size(); i++)
-            if (addressArrayList.get(i).getAddressType().equalsIgnoreCase(type)) {
-                et_firm_name.setText(addressArrayList.get(i).getFirm_name());
-                et_address_1.setText(addressArrayList.get(i).getAddress1());
-                et_address_2.setText(addressArrayList.get(i).getAddress2());
-                et_landmark.setText(addressArrayList.get(i).getLandmark());
-                et_landline.setText(addressArrayList.get(i).getLandline());
-                et_city.setText(addressArrayList.get(i).getCity());
-                et_state.setText(addressArrayList.get(i).getState());
-                et_zip.setText(addressArrayList.get(i).getPincode());
-                et_mobile.setText(addressArrayList.get(i).getMobile());
-                break;
-            }
+            if (addressArrayList.get(i).getAddressType().equalsIgnoreCase(type))
+                if (addressArrayList.get(i).getId().equalsIgnoreCase(id)) {
+                    et_firm_name.setText(addressArrayList.get(i).getFirm_name());
+                    et_address_1.setText(addressArrayList.get(i).getAddress1());
+                    et_address_2.setText(addressArrayList.get(i).getAddress2());
+//                    et_landmark.setText(addressArrayList.get(i).getLandmark());
+                    et_landline.setText(addressArrayList.get(i).getLandline());
+                    et_city.setText(addressArrayList.get(i).getCity());
+                    et_state.setText(addressArrayList.get(i).getState());
+                    et_zip.setText(addressArrayList.get(i).getPincode());
+                    et_mobile.setText(addressArrayList.get(i).getMobile());
+                    break;
+                }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_submit:
+            case R.id.btn_save:
                 if (et_firm_name.getText().toString().trim().length() == 0) {
                     et_firm_name.requestFocus();
                     Utils.showMessage(activity, "Please enter firm name.");
@@ -137,6 +143,7 @@ public class AddNewAddressFragment extends Fragment implements View.OnClickListe
                 } else {
                     JSONObject jsonObject = new JSONObject();
                     try {
+
                         jsonObject.put("firm_name", et_firm_name.getText().toString());
                         jsonObject.put("city", et_city.getText().toString());
 //                        jsonObject.put("state", et_state.getText().toString());
@@ -147,16 +154,16 @@ public class AddNewAddressFragment extends Fragment implements View.OnClickListe
                         jsonObject.put("mobile", et_mobile.getText().toString());
                         jsonObject.put("landline", et_landline.getText().toString());
                         jsonObject.put("addressType", type);
+                        if (action.equalsIgnoreCase("edit")) {
+                            jsonObject.put("id", id);
+                            token = "UpdateAddress";
+                        } else
+                            token = "AddNewAddress";
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     Utils.defaultLoader(activity);
-                    if (action.equalsIgnoreCase("edit"))
-                        token = "UpdateAddress";
-                    else
-                        token = "AddNewAddress";
-
                     ModelManager.getInstance().getAddressManager().addAddress(activity, jsonObject, token);
                 }
                 break;

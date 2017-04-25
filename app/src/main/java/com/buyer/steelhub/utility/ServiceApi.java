@@ -5,7 +5,7 @@ package com.buyer.steelhub.utility;
  */
 public class ServiceApi {
 
-    public static final String baseurl = "http://mysteelhub.com/"; //staging..
+    private static final String baseurl = "http://mysteelhub.com/"; //staging..
 
 
     // Users Family
@@ -36,4 +36,10 @@ public class ServiceApi {
     public static final String FETCH_ADDRESS = baseurl + "fetchAddress";
     public static final String ADD_ADDRESS = baseurl + "addNewAddress";
     public static final String UPDATE_ADDRESS = baseurl + "editAddress";
+    public static final String GET_ORDERS = baseurl + "getOrders";
+    public static final String DELETE_ADDRESS = baseurl + "deleteAddress";
+    public static final String GET_PROFILE = baseurl + "getProfile";
+    public static final String SAVE_RTGS = baseurl + "saveRTGS";
+    public static final String ACCOUNT_DETAILS = baseurl + "accountDetails";
+    public static final String SAVE_ORDER_ADDRESS = baseurl + "saveOrderAddress";
 }

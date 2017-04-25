@@ -25,46 +25,55 @@ import de.greenrobot.event.EventBus;
  * Created by arun.sharma on 9/14/2016.
  */
 public class Requirements {
-/**                                        "is_accepted": 0,
- "budget": 500000,
- "physical": 1,
- "grade_required": "500D",
- "is_buyer_deleted": 0,
- "state": "Andhra Pradesh",
- "is_buyer_read_bargain": 0,
- "type": 0,
- "city": "mhl",
- "required_by_date": "13\/12\/2016",
- "chemical": 1,
- "is_seller_deleted": 0,
- "length": 0,
- "preffered_brands": ["Rathi", "Kamdhenu"],
- "quantity": [{
- "quantity": "50",
- "size": "8 mm"
- }],
- "user_id": 23,
- "is_seller_read_bargain": 0,
- "tax_type": "GST",
- "is_best_price": 0,
- "bargain_amt": 0,
- "is_seller_read": 0,
- "requirement_id": 22,
- "req_for_bargain": 0,
- "is_buyer_read": 0,
- "flag": 0,
- "test_certificate_required": 1,
- "initial_amt": 0
- **/
-String is_buyer_read_bargain, is_seller_deleted, is_seller_read_bargain, is_best_price, bargain_amt, is_seller_read, req_for_bargain,
-        is_buyer_read, flag, initial_amt;
-    String requirement_id, user_id, grade_required, physical, chemical, test_certificate_required,
-            length, type, required_by_date, budget, state, city, created_at, updated_at, is_accepted,is_buyer_deleted;
+    /**
+     * "is_accepted": 0,
+     * "budget": 500000,
+     * "physical": 1,
+     * "grade_required": "500D",
+     * "is_buyer_deleted": 0,
+     * "state": "Andhra Pradesh",
+     * "is_buyer_read_bargain": 0,
+     * "type": 0,
+     * "city": "mhl",
+     * "required_by_date": "13\/12\/2016",
+     * "chemical": 1,
+     * "is_seller_deleted": 0,
+     * "length": 0,
+     * "preffered_brands": ["Rathi", "Kamdhenu"],
+     * "quantity": [{
+     * "quantity": "50",
+     * "size": "8 mm"
+     * }],
+     * "user_id": 23,
+     * "is_seller_read_bargain": 0,
+     * "tax_type": "GST",
+     * "is_best_price": 0,
+     * "bargain_amt": 0,
+     * "is_seller_read": 0,
+     * "requirement_id": 22,
+     * "req_for_bargain": 0,
+     * "is_buyer_read": 0,
+     * "flag": 0,
+     * "test_certificate_required": 1,
+     * "initial_amt": 0
+     **/
+    private String is_buyer_read_bargain, is_seller_deleted, is_seller_read_bargain, is_best_price, bargain_amt, is_seller_read, req_for_bargain,
+            is_buyer_read, flag, initial_amt, tax_type;
+    private String requirement_id, user_id, grade_required, physical, chemical, test_certificate_required,
+            length, type, required_by_date, budget, state, city, created_at, updated_at, is_accepted, is_buyer_deleted;
 
-    ArrayList<Response> responseArrayList;
+    private ArrayList<Response> responseArrayList;
 
-    String[] preffered_brands;
-    ArrayList<Quantity> quantityArrayList;
+    private String[] preffered_brands;
+    private ArrayList<Quantity> quantityArrayList;
+
+    public String getTax_type() {
+        return tax_type;
+    }
+
+    public void setTax_type(String tax_type) {
+        this.tax_type = tax_type;
+    }
 
     public ArrayList<Response> getResponseArrayList() {
         return responseArrayList;
@@ -297,6 +306,7 @@ String is_buyer_read_bargain, is_seller_deleted, is_seller_read_bargain, is_best
     public void setIs_buyer_deleted(String is_buyer_deleted) {
         this.is_buyer_deleted = is_buyer_deleted;
     }
+
     public void updateConversation(final Activity activity, JSONObject jsonObject, final String token) {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.UPDATE_CONVERSATION, jsonObject,
                 new com.android.volley.Response.Listener<JSONObject>() {

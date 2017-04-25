@@ -28,8 +28,10 @@ import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.Utils;
 import com.buyer.steelhub.view.fragments.ChangePasswordFragment;
 import com.buyer.steelhub.view.fragments.ContactUsFragment;
-import com.buyer.steelhub.view.fragments.HistoryFragment;
+import com.buyer.steelhub.view.fragments.ManageAddressFragment;
+import com.buyer.steelhub.view.fragments.MyOrdersFragment;
 import com.buyer.steelhub.view.fragments.NewRequirementFragment;
+import com.buyer.steelhub.view.fragments.ProfileFragment;
 import com.buyer.steelhub.view.fragments.RequirementFragment;
 
 import org.json.JSONException;
@@ -101,26 +103,30 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_new_requirement);
                 break;
             case 2:
-                fragment = new HistoryFragment();
-                title = getString(R.string.title_history);
+                fragment = new MyOrdersFragment();
+                title = getString(R.string.title_my_orders);
                 break;
 //            case 3:
-//                fragment = new ProfileFragment();
-//                title = getString(R.string.title_profile);
+//                fragment = new HistoryFragment();
+//                title = getString(R.string.title_history);
 //                break;
             case 3:
+                fragment = new ManageAddressFragment();
+                title = getString(R.string.title_manage_addresses);
+                break;
+            case 4:
+                fragment = new ProfileFragment();
+                title = getString(R.string.title_profile);
+                break;
+            case 5:
                 fragment = new ChangePasswordFragment();
                 title = getString(R.string.title_change_pass);
                 break;
-            case 4:
+            case 6:
                 fragment = new ContactUsFragment();
                 title = getString(R.string.title_contact_us);
                 break;
-//            case 5:
-//                fragment = new SettingsFragment();
-//                title = getString(R.string.title_settings);
-//                break;
-            case 5:
+            case 7:
                 showAlert(MainActivity.this, "Are you sure, you want to log out?");
                 break;
             default:
@@ -199,8 +205,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.requirements);
             } else if (f instanceof NewRequirementFragment) {
                 title = getString(R.string.title_new_requirement);
-            } else if (f instanceof HistoryFragment) {
-                title = getString(R.string.title_history);
+            } else if (f instanceof MyOrdersFragment) {
+                title = getString(R.string.title_my_orders);
+            } else if (f instanceof ManageAddressFragment) {
+                title = getString(R.string.title_manage_addresses);
+            } else if (f instanceof ProfileFragment) {
+                title = getString(R.string.title_profile);
             } else if (f instanceof ChangePasswordFragment) {
                 title = getString(R.string.title_change_pass);
             } else if (f instanceof ContactUsFragment) {

@@ -51,7 +51,8 @@
         android:background="@android:color/transparent"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:scrollbars="none" />
 
     <com.buyer.steelhub.customUi.MyButton
         android:id="@+id/btn_place_order"
