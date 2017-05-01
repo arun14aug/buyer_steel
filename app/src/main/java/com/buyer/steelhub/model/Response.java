@@ -1,12 +1,24 @@
 package com.buyer.steelhub.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by arun.sharma on 10/18/2016.
  */
 public class Response {
 
-    String seller_id, seller_name, is_seller_read, initial_amt, is_buyer_read, req_for_bargain, is_seller_read_bargain, is_best_price,
+    private String seller_id, seller_name, is_seller_read, initial_amt, is_buyer_read, req_for_bargain, is_seller_read_bargain, is_best_price,
             bargain_amt, is_buyer_read_bargain, is_accepted, is_seller_deleted, is_buyer_deleted;
+
+    ArrayList<BargainUnit> bargainUnitArrayList;
+
+    public ArrayList<BargainUnit> getBargainUnitArrayList() {
+        return bargainUnitArrayList;
+    }
+
+    public void setBargainUnitArrayList(ArrayList<BargainUnit> bargainUnitArrayList) {
+        this.bargainUnitArrayList = bargainUnitArrayList;
+    }
 
     public String getSeller_id() {
         return seller_id;

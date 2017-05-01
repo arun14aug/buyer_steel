@@ -126,6 +126,23 @@ public class RequirementManager {
                                                     resp.setIs_seller_deleted(jsonArray1.getJSONObject(j).getString("is_seller_deleted"));
                                                     resp.setIs_accepted(jsonArray1.getJSONObject(j).getString("is_accepted"));
                                                     resp.setIs_buyer_deleted(jsonArray1.getJSONObject(j).getString("is_buyer_deleted"));
+
+                                                    if (jsonArray1.getJSONObject(j).has("bargain_unit_price")) {
+                                                        JSONArray jsonArray2 = jsonArray1.getJSONObject(j).getJSONArray("bargain_unit_price");
+                                                        if (jsonArray2.length() > 0) {
+                                                            ArrayList<BargainUnit> bargainUnitArrayList = new ArrayList<>();
+                                                            for (int k = 0; k < jsonArray2.length(); k++) {
+                                                                BargainUnit bargainUnit = new BargainUnit();
+                                                                bargainUnit.setSize(jsonArray2.getJSONObject(k).getString("size"));
+                                                                bargainUnit.setQuantity(jsonArray2.getJSONObject(k).getString("quantity"));
+                                                                bargainUnit.setUnit_price(jsonArray2.getJSONObject(k).getString("unit price"));
+                                                                bargainUnit.setNew_unit_price(jsonArray2.getJSONObject(k).getString("new unit price"));
+                                                                bargainUnitArrayList.add(bargainUnit);
+                                                            }
+                                                            resp.setBargainUnitArrayList(bargainUnitArrayList);
+                                                        }
+
+                                                    }
                                                     responseArrayList.add(resp);
                                                 }
                                                 requirements.setResponseArrayList(responseArrayList);

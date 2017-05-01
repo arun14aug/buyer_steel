@@ -147,5 +147,9 @@
     <string name="rtgs_screen_description">Make RTGS into this xxxxxxxxxx Account owned by xxxxxxx and enter the RTGS number provided by the Bank</string>
     <string name="save">SAVE</string>
     <string name="add_new_address">Add New Address</string>
+    <string name="amt">Amount</string>
+    <string name="bargain_amt">Bargain</string>
+    <string name="size">Size</string>
+    <string name="requirement_details">REQUIREMENT DETAILS</string>
 
 </resources>

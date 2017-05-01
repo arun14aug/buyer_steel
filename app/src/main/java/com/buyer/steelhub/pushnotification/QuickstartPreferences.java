@@ -1,9 +1,9 @@
 package com.buyer.steelhub.pushnotification;
 
-/**
+/*
  * Created by arun.sharma on 5/19/2016.
  */
-/**
+/*
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,6 @@ package com.buyer.steelhub.pushnotification;
 public class QuickstartPreferences {
 
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
-    public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    static final String REGISTRATION_COMPLETE = "registrationComplete";
 
 }

@@ -79,8 +79,14 @@ public class ProfileFragment extends Fragment {
         et_Tin.setFocusable(false);
         et_Pan.setFocusable(false);
 
-        Utils.showLoading(activity, activity.getString(R.string.please_wait));
-        ModelManager.getInstance().getAuthManager().getProfile(activity, true);
+        userArrayList = ModelManager.getInstance().getAuthManager().getProfile(activity, false);
+        if (userArrayList == null) {
+            Utils.showLoading(activity, activity.getString(R.string.please_wait));
+            ModelManager.getInstance().getAuthManager().getProfile(activity, true);
+        } else {
+            ModelManager.getInstance().getAuthManager().getProfile(activity, true);
+            setData();
+        }
         // Inflate the layout for this fragment
         return rootView;
     }

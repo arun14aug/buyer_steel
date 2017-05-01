@@ -336,6 +336,7 @@ public class Requirements {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                STLog.e("Token : ", "Token: " + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
                 params.put("Authorization", "Bearer" + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
                 return params;
             }

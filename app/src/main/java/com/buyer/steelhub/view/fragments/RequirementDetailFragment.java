@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import com.buyer.steelhub.R;
 import com.buyer.steelhub.customUi.MyButton;
 import com.buyer.steelhub.customUi.MyEditText;
 import com.buyer.steelhub.customUi.MyTextView;
+import com.buyer.steelhub.model.BargainUnit;
 import com.buyer.steelhub.model.ModelManager;
 import com.buyer.steelhub.model.Quantity;
 import com.buyer.steelhub.model.Requirements;
@@ -42,10 +45,10 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
     private String TAG = RequirementDetailFragment.class.getSimpleName();
     private Activity activity;
     private MyEditText /*et_quantity,*/ et_preferred_brands, et_grade_required, et_required_by_date, et_city, et_state,
-            et_budget_amount, et_tax_type, et_amount, et_bargain_amount;
+            et_budget_amount, et_tax_type/*, et_amount, et_bargain_amount*/;
     private MyTextView txt_random, txt_standard, txt_bend, txt_straight/*, txt_diameter*/;
     private MyButton btn_submit, btn_show_more;
-    private LinearLayout addMoreLayout, layout_seller_list, layout_show_more, layout_amount, layout_bargain_amount;
+    private LinearLayout addMoreLayout, layout_seller_list, layout_show_more/*, layout_amount, layout_bargain_amount*/;
     private ImageView ic_physical, ic_chemical, /*ic_grade_required,*/
             ic_test_certificate;
     private String brandId = "", steelId = "", gradeId = "", stateId = "",
@@ -58,7 +61,7 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                              Bundle savedInstanceState) {
         this.activity = super.getActivity();
         Intent intent = new Intent("Header");
-        intent.putExtra("message", activity.getString(R.string.new_requirements));
+        intent.putExtra("message", activity.getString(R.string.requirement_details));
 
         LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
         View rootView = inflater.inflate(R.layout.requirement_detail_screen, container, false);
@@ -83,8 +86,8 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
         et_state = (MyEditText) rootView.findViewById(R.id.et_state);
         et_tax_type = (MyEditText) rootView.findViewById(R.id.et_tax_type);
         et_required_by_date = (MyEditText) rootView.findViewById(R.id.et_required_by_date);
-        et_amount = (MyEditText) rootView.findViewById(R.id.et_amount);
-        et_bargain_amount = (MyEditText) rootView.findViewById(R.id.et_bargain_amount);
+//        et_amount = (MyEditText) rootView.findViewById(R.id.et_amount);
+//        et_bargain_amount = (MyEditText) rootView.findViewById(R.id.et_bargain_amount);
 
         txt_random = (MyTextView) rootView.findViewById(R.id.txt_random);
         txt_standard = (MyTextView) rootView.findViewById(R.id.txt_standard);
@@ -93,8 +96,8 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
 
         layout_show_more = (LinearLayout) rootView.findViewById(R.id.layout_show_more);
         layout_seller_list = (LinearLayout) rootView.findViewById(R.id.layout_seller_list);
-        layout_amount = (LinearLayout) rootView.findViewById(R.id.layout_amount);
-        layout_bargain_amount = (LinearLayout) rootView.findViewById(R.id.layout_bargain_amount);
+//        layout_amount = (LinearLayout) rootView.findViewById(R.id.layout_amount);
+//        layout_bargain_amount = (LinearLayout) rootView.findViewById(R.id.layout_bargain_amount);
         addMoreLayout = (LinearLayout) rootView.findViewById(R.id.layout_add_more);
 
         ic_physical = (ImageView) rootView.findViewById(R.id.ic_physical);
@@ -138,6 +141,29 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 else
                     ic_test_certificate.setImageResource(R.drawable.toggle_on);
 
+                if (requirementsArrayList.get(i).getLength().equalsIgnoreCase("0")) {
+                    txt_straight.setTextColor(Utils.setColor(activity, R.color.white));
+                    txt_straight.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                    txt_bend.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                    txt_bend.setBackgroundColor(Utils.setColor(activity, R.color.colorWhite));
+                } else {
+                    txt_bend.setTextColor(Utils.setColor(activity, R.color.white));
+                    txt_bend.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                    txt_straight.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                    txt_straight.setBackgroundColor(Utils.setColor(activity, R.color.colorWhite));
+                }
+                if (requirementsArrayList.get(i).getType().equalsIgnoreCase("0")) {
+                    txt_standard.setTextColor(Utils.setColor(activity, R.color.white));
+                    txt_standard.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                    txt_random.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                    txt_random.setBackgroundColor(Utils.setColor(activity, R.color.colorWhite));
+                } else {
+                    txt_random.setTextColor(Utils.setColor(activity, R.color.white));
+                    txt_random.setBackgroundColor(Utils.setColor(activity, R.color.transparent));
+                    txt_standard.setTextColor(Utils.setColor(activity, R.color.dark_grey));
+                    txt_standard.setBackgroundColor(Utils.setColor(activity, R.color.colorWhite));
+                }
+
                 et_budget_amount.setText(requirementsArrayList.get(i).getBudget());
                 et_grade_required.setText(requirementsArrayList.get(i).getGrade_required());
                 et_required_by_date.setText(requirementsArrayList.get(i).getRequired_by_date());
@@ -145,30 +171,39 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 et_state.setText(requirementsArrayList.get(i).getState());
                 et_tax_type.setText(requirementsArrayList.get(i).getTax_type());
 
-                if (!Utils.isEmptyString(requirementsArrayList.get(i).getInitial_amt())) {
-                    layout_amount.setVisibility(View.VISIBLE);
-                    et_amount.setText(requirementsArrayList.get(i).getInitial_amt());
-                    et_amount.setFocusable(false);
-                    layout_bargain_amount.setVisibility(View.VISIBLE);
-                    if (!Utils.isEmptyString(requirementsArrayList.get(i).getBargain_amt())) {
-                        et_bargain_amount.setFocusable(false);
-                        et_bargain_amount.setText(requirementsArrayList.get(i).getBargain_amt());
-                        btn_submit.setVisibility(View.VISIBLE);
+//                if (!Utils.isEmptyString(requirementsArrayList.get(i).getInitial_amt())) {
+//                layout_amount.setVisibility(View.VISIBLE);
+//                et_amount.setText(requirementsArrayList.get(i).getInitial_amt());
+//                et_amount.setFocusable(false);
+//                layout_bargain_amount.setVisibility(View.VISIBLE);
+                if (!Utils.isEmptyString(requirementsArrayList.get(i).getIs_seller_read())) {
+                    btn_submit.setVisibility(View.VISIBLE);
+                } else
+                    btn_submit.setVisibility(View.GONE);
+
+                if (!Utils.isEmptyString(requirementsArrayList.get(i).getIs_seller_read())
+                        && !Utils.isEmptyString(requirementsArrayList.get(i).getIs_seller_read_bargain())) {
+                    btn_submit.setVisibility(View.GONE);
+                }
+
+
+                if (!Utils.isEmptyString(requirementsArrayList.get(i).getReq_for_bargain())) {
+                    if (!Utils.isEmptyString(requirementsArrayList.get(i).getIs_seller_read())
+                            && !Utils.isEmptyString(requirementsArrayList.get(i).getIs_seller_read_bargain())) {
+                        btn_submit.setVisibility(View.GONE);
                     } else {
-                        if (!Utils.isEmptyString(requirementsArrayList.get(i).getReq_for_bargain())) {
-                            et_bargain_amount.setFocusable(true);
-                            btn_submit.setVisibility(View.VISIBLE);
-                        } else {
-                            et_bargain_amount.setVisibility(View.GONE);
-                            btn_submit.setVisibility(View.GONE);
-                        }
+                        btn_submit.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    et_amount.setFocusable(true);
-                    layout_bargain_amount.setVisibility(View.GONE);
-                    et_bargain_amount.setFocusable(false);
-                    btn_submit.setVisibility(View.VISIBLE);
+                    btn_submit.setVisibility(View.GONE);
                 }
+
+//                } else {
+//                    et_amount.setFocusable(true);
+//                    layout_bargain_amount.setVisibility(View.GONE);
+//                    et_bargain_amount.setFocusable(false);
+//                    btn_submit.setVisibility(View.VISIBLE);
+//                }
 
                 String[] preferredBrands = requirementsArrayList.get(i).getPreffered_brands();
                 String val = "";
@@ -242,7 +277,7 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 } else if (responseArrayList.get(k).getIs_buyer_read_bargain().equalsIgnoreCase("1")
                         && responseArrayList.get(k).getReq_for_bargain().equalsIgnoreCase("1")) {
                     if (Utils.isEmptyString(responseArrayList.get(k).getBargain_amt()))
-                    txt_status.setText("Bargain requested");
+                        txt_status.setText("Bargain requested");
                     else
                         txt_status.setText("Bargain amount " + responseArrayList.get(k).getBargain_amt());
                     txt_status.setTextColor(Utils.setColor(activity, R.color.purple_color));
@@ -259,6 +294,27 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                     public boolean onLongClick(View view) {
                         showDialog(i, j);
                         return false;
+                    }
+                });
+
+                final int pos = k;
+                row_layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ArrayList<BargainUnit> bargainUnitArrayList = responseArrayList.get(pos).getBargainUnitArrayList();
+                        if (bargainUnitArrayList != null)
+                            if (bargainUnitArrayList.size() > 0) {
+                                Fragment fragment = new AmountDetailsFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("requirement_id", id);
+                                bundle.putString("seller_id", responseArrayList.get(pos).getSeller_id());
+                                fragment.setArguments(bundle);
+                                FragmentManager fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.container_body, fragment, "AmountDetailsFragment");
+                                fragmentTransaction.addToBackStack("AmountDetailsFragment");
+                                fragmentTransaction.commit();
+                            }
                     }
                 });
 
@@ -297,6 +353,7 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                         try {
                             jsonObject.put("requirement_id", id);
                             jsonObject.put("seller_id", responseArrayList.get(j).getSeller_id());
+                            jsonObject.put("buyer_id", "23");
                             Utils.defaultLoader(activity);
                             if (which == 0) {
                                 jsonObject.put("req_for_bargain", "1");
@@ -327,6 +384,9 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                     layout_show_more.setVisibility(View.VISIBLE);
                     btn_show_more.setText(activity.getString(R.string.show_less));
                 }
+                break;
+
+            case R.id.btn_submit:
                 break;
         }
     }

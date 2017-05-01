@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_grey_bg"
+    android:orientation="vertical"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.buyer.steelhub.customUi.MyTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:text="@string/size"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <com.buyer.steelhub.customUi.MyTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:text="@string/quantity"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <com.buyer.steelhub.customUi.MyTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="start|center_vertical"
+            android:text="@string/amt"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+        <com.buyer.steelhub.customUi.MyTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="5dp"
+            android:paddingStart="3dp"
+            android:text="@string/bargain_amt"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text_size"
+            customfontdemo:fontName="@string/raleway_medium" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/amount_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@color/grey_text"
+        android:dividerHeight="0.5dp" />
+</LinearLayout>

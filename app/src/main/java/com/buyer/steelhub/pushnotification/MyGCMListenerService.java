@@ -1,6 +1,6 @@
 package com.buyer.steelhub.pushnotification;
 
-/**
+/*
  * Created by arun.sharma on 5/19/2016.
  * <p/>
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -45,7 +45,7 @@ package com.buyer.steelhub.pushnotification;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
+/*
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,14 +104,14 @@ public class MyGCMListenerService extends GcmListenerService {
         }
 
         // [START_EXCLUDE]
-        /**
+        /*
          * Production applications would usually process the message here.
          * Eg: - Syncing with server.
          *     - Store message in local database.
          *     - Update UI.
          */
 
-        /**
+        /*
          * In some cases it may be useful to show a notification indicating to the user
          * that a message was received.
          */

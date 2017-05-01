@@ -1,9 +1,9 @@
 package com.buyer.steelhub.pushnotification;
 
-/**
+/*
  * Created by arun.sharma on 5/19/2016.
  */
-/**
+/*
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,7 +81,7 @@ public class RegistrationIntentService extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
     }
 
-    /**
+    /*
      * Persist registration to third-party servers.
      *
      * Modify this method to associate the user's GCM registration token with any server-side account
