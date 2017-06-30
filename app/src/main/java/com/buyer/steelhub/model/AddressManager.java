@@ -76,7 +76,7 @@ public class AddressManager {
                                 }
                                 EventBus.getDefault().post("AddressList True");
                             } else
-                                EventBus.getDefault().post("AddressList False");
+                                EventBus.getDefault().post("AddressList False@#@" + response.getString("message"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                             EventBus.getDefault().post("AddressList False");

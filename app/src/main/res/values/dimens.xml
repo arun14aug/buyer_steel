@@ -15,7 +15,7 @@
     <dimen name="profile_layout_margin">20dp</dimen>
     <dimen name="large_text_size">18sp</dimen>
     <dimen name="medium_large_text_size">16sp</dimen>
-    <dimen name="medium_text_size">14sp</dimen>
+    <dimen name="medium_text_size">13sp</dimen>
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="toolbar_height">45dp</dimen>
     <dimen name="header_image_width">35dp</dimen>

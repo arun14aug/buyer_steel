@@ -344,4 +344,42 @@ public class Requirements {
         RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
         requestQueue.add(jsonObjReq);
     }
+
+    public void saveRTGS(final Activity activity, JSONObject jsonObject) {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.SAVE_RTGS, jsonObject,
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        STLog.e("Success Response : ", "Response: " + response.toString());
+
+                        try {
+                            boolean state = response.getBoolean("success");
+                            if (state) {
+
+                                EventBus.getDefault().postSticky("SaveRTGS True");
+                            } else {
+                                EventBus.getDefault().postSticky("SaveRTGS False@#@" + response.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            EventBus.getDefault().postSticky("SaveRTGS False");
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                STLog.e("Error Response : ", "Error: " + error.getMessage());
+                EventBus.getDefault().postSticky("SaveRTGS False");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer" + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
+        requestQueue.add(jsonObjReq);
+    }
 }

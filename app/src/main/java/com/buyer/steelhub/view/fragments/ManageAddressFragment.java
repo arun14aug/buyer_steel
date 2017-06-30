@@ -252,7 +252,11 @@ public class ManageAddressFragment extends Fragment implements View.OnClickListe
             STLog.e(TAG, "AddressList True");
         } else if (message.contains("AddressList False")) {
             // showMatchHistoryList();
-            Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
+            String[] m = message.split("@#@");
+            if (m.length > 1)
+                Utils.showMessage(activity, m[1]);
+            else
+                Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "AddressList False");
             Utils.dismissLoading();
         } else if (message.contains("AddressList Network Error")) {

@@ -88,8 +88,9 @@ public class OrderAdapter extends BaseAdapter {
                     if (list.get(position).getOrder_status().equalsIgnoreCase("0")) {
                         Fragment fragment = new RTGSFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putString("type", "edit");
-                        bundle.putString("id", list.get(position).getRequirement_id());
+                        bundle.putString("requirement_id", list.get(position).getRequirement_id());
+                        bundle.putString("seller_id", list.get(position).getSeller_id());
+                        bundle.putString("buyer_id", list.get(position).getBuyer_id());
                         FragmentManager fragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.container_body, fragment, "RTGSFragment");
