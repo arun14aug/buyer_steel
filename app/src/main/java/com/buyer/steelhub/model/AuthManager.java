@@ -49,6 +49,7 @@ public class AuthManager {
     }
 
     public void logIn(final Activity activity, JSONObject post_data) {
+        STLog.e("JSON : ", post_data.toString());
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.LOGIN, post_data,
                 new Response.Listener<JSONObject>() {
                     @Override

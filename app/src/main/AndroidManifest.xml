@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.buyer.steelhub">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,14 +17,14 @@
     <!-- Keeps the processor from sleeping when a message is received. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- Creates a custom permission so only this app can receive its messages. -->
-    <permission
-        android:name="com.buyer.steelhub.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
+    <!--<permission-->
+        <!--android:name="com.buyer.steelhub.permission.C2D_MESSAGE"-->
+        <!--android:protectionLevel="signature" />-->
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <!-- Permission to vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="com.tanzil.steelhub.permission.C2D_MESSAGE" />
+    <!--<uses-permission android:name="com.buyer.steelhub.permission.C2D_MESSAGE" />-->
 
     <uses-permission xmlns:tools="http://schemas.android.com/tools"
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -70,44 +71,42 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
+        <!--<receiver-->
+            <!--android:name="com.google.android.gms.gcm.GcmReceiver"-->
+            <!--android:permission="com.google.android.c2dm.permission.SEND">-->
+            <!--<intent-filter>-->
 
-                <!-- Receives the actual messages. -->
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!--&lt;!&ndash; Receives the actual messages. &ndash;&gt;-->
+                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
 
-                <!-- Receives the registration id. -->
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <!--&lt;!&ndash; Receives the registration id. &ndash;&gt;-->
+                <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
 
-                <category android:name="com.tanzil.sportspal" />
+                <!--<category android:name="com.buyer.steelhub" />-->
 
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.buyer.steelhub.pushnotification.MyGCMListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>       <!-- Handles the creation and updating of registration tokens -->
-
-        <service
-            android:name="com.buyer.steelhub.pushnotification.MyInstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
-        </service>
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!-- Handles the creation and updating of registration tokens -->
 
         <!-- To get the registration token -->
 
+        <!-- Firebase Notifications -->
         <service
-            android:name="com.buyer.steelhub.pushnotification.RegistrationIntentService"
-            android:exported="false">
-
+            android:name=".pushnotification.MyFirebaseMessagingService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
         </service>
+
+        <service
+            android:name=".pushnotification.MyFirebaseInstanceIDService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

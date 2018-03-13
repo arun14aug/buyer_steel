@@ -1,26 +1,17 @@
 package com.buyer.steelhub.view.activity;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.buyer.steelhub.R;
 import com.buyer.steelhub.customUi.MyButton;
 import com.buyer.steelhub.customUi.MyEditText;
 import com.buyer.steelhub.customUi.MyTextView;
 import com.buyer.steelhub.model.AuthManager;
 import com.buyer.steelhub.model.ModelManager;
-import com.buyer.steelhub.pushnotification.QuickstartPreferences;
-import com.buyer.steelhub.pushnotification.RegistrationIntentService;
 import com.buyer.steelhub.utility.Preferences;
 import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.Utils;
@@ -49,31 +40,7 @@ public class LoginScreen extends Activity implements View.OnClickListener {
 
         authManager = ModelManager.getInstance().getAuthManager();
         String deviceId = Preferences.readString(getApplicationContext(), Preferences.DEVICE_ID, "");
-        if (Utils.isEmptyString(deviceId)) {
-            new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    SharedPreferences sharedPreferences =
-                            PreferenceManager.getDefaultSharedPreferences(context);
-                    boolean sentToken = sharedPreferences
-                            .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-                    if (sentToken) {
-                        Toast.makeText(LoginScreen.this, getString(R.string.gcm_send_message), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(LoginScreen.this, getString(R.string.token_error_message), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            };
-
-            if (checkPlayServices()) {
-                // Start IntentService to register this application with GCM.
-                Intent intent = new Intent(this, RegistrationIntentService.class);
-                startService(intent);
-            }
-            authManager.setDeviceToken(Preferences.readString(getApplicationContext(), Preferences.DEVICE_ID, ""));
-        } else {
-            authManager.setDeviceToken(deviceId);
-        }
+        authManager.setDeviceToken(deviceId);
 
         if (!Utils.isEmptyString(Preferences.readString(getApplicationContext(), Preferences.USER_TOKEN, "")))
             ModelManager.getInstance().getAuthManager().setUserToken(Preferences.readString(getApplicationContext(), Preferences.USER_TOKEN, ""));
@@ -87,15 +54,15 @@ public class LoginScreen extends Activity implements View.OnClickListener {
         } else {
             Utils.showMessage(LoginScreen.this, "Your Internet connection is unavailable");
         }
-        MyButton loginBtn = (MyButton) findViewById(R.id.btn_login);
-        MyButton signUpBtn = (MyButton) findViewById(R.id.btn_sign_up);
-        MyTextView txt_forget_password = (MyTextView) findViewById(R.id.forget_password);
+        MyButton loginBtn = findViewById(R.id.btn_login);
+        MyButton signUpBtn = findViewById(R.id.btn_sign_up);
+        MyTextView txt_forget_password = findViewById(R.id.forget_password);
 
         loginBtn.setTransformationMethod(null);
         signUpBtn.setTransformationMethod(null);
 
-        et_Email = (MyEditText) findViewById(R.id.et_username);
-        et_Password = (MyEditText) findViewById(R.id.et_password);
+        et_Email = findViewById(R.id.et_username);
+        et_Password = findViewById(R.id.et_password);
 
 
         loginBtn.setOnClickListener(this);
@@ -103,27 +70,6 @@ public class LoginScreen extends Activity implements View.OnClickListener {
         signUpBtn.setOnClickListener(this);
     }
 
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     */
-    private boolean checkPlayServices() {
-        int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else {
-                Log.i(TAG, "This device is not supported.");
-                finish();
-            }
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public void onClick(View v) {
@@ -142,7 +88,8 @@ public class LoginScreen extends Activity implements View.OnClickListener {
                         jsonObject.put("email", et_Email.getText().toString().trim());
                         jsonObject.put("password", et_Password.getText().toString().trim());
                         jsonObject.put("device_type", "android");
-                        jsonObject.put("device_token", authManager.getDeviceToken());
+                        jsonObject.put("role", "buyer");
+                        jsonObject.put("device_token", Preferences.readString(activity, Preferences.DEVICE_ID, ""));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

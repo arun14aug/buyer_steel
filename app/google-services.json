@@ -1,20 +1,35 @@
 {
   "project_info": {
-    "project_number": "226134079389",
-    "project_id": "steelhub-b"
+    "project_number": "457542004253",
+    "firebase_url": "https://steelhub-buyer.firebaseio.com",
+    "project_id": "steelhub-buyer",
+    "storage_bucket": "steelhub-buyer.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:226134079389:android:84a486fdbfc47ae0",
+        "mobilesdk_app_id": "1:457542004253:android:84a486fdbfc47ae0",
         "android_client_info": {
           "package_name": "com.buyer.steelhub"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "457542004253-6i2n33l9h42olomm1ur1v0g9mqlmmlf4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.buyer.steelhub",
+            "certificate_hash": "66fb057303aae64158543cc9d3e6ee396aeeb453"
+          }
+        },
+        {
+          "client_id": "457542004253-s811n2a1rm5m6hkqccl45r5hmqv25tea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBI2jlSaUmXwZHHluCW7726z7n0Xp7aaCU"
+          "current_key": "AIzaSyAOAu8mjlNCVNsjuapufjs5T4z-H0IVT4Y"
         }
       ],
       "services": {
@@ -22,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457542004253-s811n2a1rm5m6hkqccl45r5hmqv25tea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

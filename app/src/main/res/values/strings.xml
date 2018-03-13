@@ -10,7 +10,7 @@
         <item>New Requirement</item>
         <item>My Orders</item>
         <item>Manage Addresses</item>
-        <item>Profile</item>
+        <!--<item>Profile</item>-->
         <item>Change Password</item>
         <item>Contact Us</item>
         <item>Logout</item>
@@ -151,5 +151,6 @@
     <string name="bargain_amt">Bargain</string>
     <string name="size">Size</string>
     <string name="requirement_details">REQUIREMENT DETAILS</string>
+    <string name="ok">Ok</string>
 
 </resources>

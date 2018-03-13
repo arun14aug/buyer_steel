@@ -3,5 +3,5 @@
 
 steelhub.jks
 
-Alias : steel /steelhub
+Alias : steelhub /steelhub
 password: steelhub

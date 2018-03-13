@@ -9,8 +9,8 @@ public class ServiceApi {
 
 
     // Users Family
-//    public static final String LOGIN = baseurl + "auth/securelogin";
-    public static final String LOGIN = baseurl + "authenticate";
+    public static final String LOGIN = baseurl + "auth/securelogin";
+//    public static final String LOGIN = baseurl + "authenticate";
     public static final String REGISTER = baseurl + "auth/register";
     public static final String VERIFY_USER = baseurl + "verifyuser.php";
     public static final String FORGOT_PASSWORD = baseurl + "recoverpassword";
@@ -42,4 +42,16 @@ public class ServiceApi {
     public static final String SAVE_RTGS = baseurl + "saveRTGS";
     public static final String ACCOUNT_DETAILS = baseurl + "accountDetails";
     public static final String SAVE_ORDER_ADDRESS = baseurl + "saveOrderAddress";
+
+
+    // global topic to receive app wide push notifications
+    public static final String TOPIC_GLOBAL = "global";
+
+    // broadcast receiver intent filters
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    public static final String PUSH_NOTIFICATION = "pushNotification";
+
+    // id to handle the notification in the notification tray
+    static final int NOTIFICATION_ID = 100;
+    static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 }

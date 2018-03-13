@@ -7,6 +7,8 @@ package com.buyer.steelhub.view.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,10 +19,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.buyer.steelhub.R;
 import com.buyer.steelhub.model.NavDrawerItem;
+import com.buyer.steelhub.utility.Preferences;
 import com.buyer.steelhub.view.adapter.NavigationDrawerAdapter;
+import com.buyer.steelhub.view.fragments.ProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +78,14 @@ public class FragmentDrawer extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 
+        TextView txt_user = (TextView) layout.findViewById(R.id.txt_user);
+        TextView txt_email = (TextView) layout.findViewById(R.id.txt_email);
+
+        LinearLayout layout_profile = (LinearLayout) layout.findViewById(R.id.layout_profile);
+
+        txt_email.setText(Preferences.readString(getActivity(), Preferences.EMAIL, ""));
+        txt_user.setText(Preferences.readString(getActivity(), Preferences.USER_NAME, ""));
+
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -87,6 +101,19 @@ public class FragmentDrawer extends Fragment {
 
             }
         }));
+
+        layout_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ProfileFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container_body, fragment, "ProfileFragment");
+                fragmentTransaction.addToBackStack("ProfileFragment");
+                fragmentTransaction.commit();
+                mDrawerLayout.closeDrawer(containerView);
+            }
+        });
 
         return layout;
     }

@@ -26,6 +26,7 @@ public class Preferences {
     public static final String USER_TOKEN = "user_token";
     public static final String BILLING_ID = "billing_id";
     public static final String SHIPPING_ID = "shipping_id";
+    public static final String USER_NAME = "user_name";
 
     //  GpPreferences.writeString(getApplicationContext(), Preferences.NAME, "dev");
     // GpPreferences.readString(getApplicationContext(), Preferences.NAME, "");

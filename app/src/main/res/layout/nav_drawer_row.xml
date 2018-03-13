@@ -24,7 +24,7 @@
             android:paddingRight="2dp"
             android:paddingStart="10dp" />
 
-        <TextView
+        <com.buyer.steelhub.customUi.MyTextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:padding="10dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/medium_large_text_size"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <View

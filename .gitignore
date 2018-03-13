@@ -6,3 +6,9 @@
 .DS_Store
 /build
 /captures
+/.idea
+projectFilesBackup
+.idea
+/projectFilesBackup
+/app/build
+/app/release

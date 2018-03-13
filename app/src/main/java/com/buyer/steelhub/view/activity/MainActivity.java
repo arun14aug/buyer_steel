@@ -47,11 +47,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private FragmentManager fragmentManager;
     private boolean backer = false;
     private MyTextView tvTitle;
+    public static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        instance = MainActivity.this;
 
         LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(
                 mHeaderReceiver, new IntentFilter("Header"));
@@ -114,19 +117,19 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new ManageAddressFragment();
                 title = getString(R.string.title_manage_addresses);
                 break;
+//            case 4:
+//                fragment = new ProfileFragment();
+//                title = getString(R.string.title_profile);
+//                break;
             case 4:
-                fragment = new ProfileFragment();
-                title = getString(R.string.title_profile);
-                break;
-            case 5:
                 fragment = new ChangePasswordFragment();
                 title = getString(R.string.title_change_pass);
                 break;
-            case 6:
+            case 5:
                 fragment = new ContactUsFragment();
                 title = getString(R.string.title_contact_us);
                 break;
-            case 7:
+            case 6:
                 showAlert(MainActivity.this, "Are you sure, you want to log out?");
                 break;
             default:
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
     }
 
-    public void showAlert(Activity activity, String msg) {
+    public void showAlert(final Activity activity, String msg) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
         alertDialogBuilder
                 .setTitle("Logout!")
@@ -156,10 +159,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                         JSONObject jsonObject = new JSONObject();
                         try {
                             jsonObject.put("device_type", "android");
-                            jsonObject.put("device_token", ModelManager.getInstance().getAuthManager().getDeviceToken());
+                            jsonObject.put("device_token", Preferences.readString(activity, Preferences.DEVICE_ID, ""));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        STLog.e("JSON : ", jsonObject.toString());
                         ModelManager.getInstance().getAuthManager().logout(MainActivity.this, jsonObject);
                         dialog.cancel();
                     }

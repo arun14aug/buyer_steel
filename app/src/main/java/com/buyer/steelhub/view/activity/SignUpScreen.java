@@ -4,15 +4,11 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -22,8 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.buyer.steelhub.R;
 import com.buyer.steelhub.customUi.MyButton;
 import com.buyer.steelhub.customUi.MyEditText;
@@ -31,13 +25,12 @@ import com.buyer.steelhub.customUi.MyTextView;
 import com.buyer.steelhub.model.AuthManager;
 import com.buyer.steelhub.model.ModelManager;
 import com.buyer.steelhub.model.States;
-import com.buyer.steelhub.pushnotification.QuickstartPreferences;
-import com.buyer.steelhub.pushnotification.RegistrationIntentService;
 import com.buyer.steelhub.utility.GPSTracker;
 import com.buyer.steelhub.utility.Preferences;
 import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.Utils;
 import com.buyer.steelhub.view.adapter.CommonDialogAdapter;
+import com.google.android.gms.common.ConnectionResult;
 
 import org.json.JSONObject;
 
@@ -75,34 +68,10 @@ public class SignUpScreen extends Activity implements View.OnClickListener {
 
         authManager = ModelManager.getInstance().getAuthManager();
         String deviceId = Preferences.readString(getApplicationContext(), Preferences.DEVICE_ID, "");
-        if (Utils.isEmptyString(deviceId)) {
-            new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    SharedPreferences sharedPreferences =
-                            PreferenceManager.getDefaultSharedPreferences(context);
-                    boolean sentToken = sharedPreferences
-                            .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-                    if (sentToken) {
-                        Toast.makeText(SignUpScreen.this, getString(R.string.gcm_send_message), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(SignUpScreen.this, getString(R.string.token_error_message), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            };
+        authManager.setDeviceToken(deviceId);
 
-            if (checkPlayServices()) {
-                // Start IntentService to register this application with GCM.
-                Intent intent = new Intent(this, RegistrationIntentService.class);
-                startService(intent);
-            }
-            authManager.setDeviceToken(Preferences.readString(getApplicationContext(), Preferences.DEVICE_ID, ""));
-        } else {
-            authManager.setDeviceToken(deviceId);
-        }
-
-        MyButton submitBtn = (MyButton) findViewById(R.id.btn_submit);
-        ImageView img_back = (ImageView) findViewById(R.id.back);
+        MyButton submitBtn = findViewById(R.id.btn_submit);
+        ImageView img_back = findViewById(R.id.back);
 
 
         if (lat == 0.000 || lng == 0.000)
@@ -113,20 +82,20 @@ public class SignUpScreen extends Activity implements View.OnClickListener {
             ModelManager.getInstance().getCommonDataManager().getStates(activity, true);
         }
 
-        et_Email = (MyEditText) findViewById(R.id.et_email);
-        et_Password = (MyEditText) findViewById(R.id.et_password);
-        et_Name = (MyEditText) findViewById(R.id.et_username);
-        et_ConfirmPassword = (MyEditText) findViewById(R.id.et_confirm_password);
-        et_Company = (MyEditText) findViewById(R.id.et_company_name);
-        et_Contact = (MyEditText) findViewById(R.id.et_contact);
-        et_Address = (MyEditText) findViewById(R.id.et_address);
+        et_Email = findViewById(R.id.et_email);
+        et_Password = findViewById(R.id.et_password);
+        et_Name = findViewById(R.id.et_username);
+        et_ConfirmPassword = findViewById(R.id.et_confirm_password);
+        et_Company = findViewById(R.id.et_company_name);
+        et_Contact = findViewById(R.id.et_contact);
+        et_Address = findViewById(R.id.et_address);
 
-        et_State = (MyEditText) findViewById(R.id.et_state);
-        et_City = (MyEditText) findViewById(R.id.et_city);
-        et_Zip = (MyEditText) findViewById(R.id.et_zip);
-        et_Tin = (MyEditText) findViewById(R.id.et_tin);
-        et_Pan = (MyEditText) findViewById(R.id.et_pan);
-        et_Required = (MyEditText) findViewById(R.id.et_requirement_dropdown);
+        et_State = findViewById(R.id.et_state);
+        et_City = findViewById(R.id.et_city);
+        et_Zip = findViewById(R.id.et_zip);
+        et_Tin = findViewById(R.id.et_tin);
+        et_Pan = findViewById(R.id.et_pan);
+        et_Required = findViewById(R.id.et_requirement_dropdown);
 
         submitBtn.setTransformationMethod(null);
 
@@ -168,39 +137,16 @@ public class SignUpScreen extends Activity implements View.OnClickListener {
         }
     }
 
-
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     */
-    private boolean checkPlayServices() {
-        int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else {
-                Log.i(TAG, "This device is not supported.");
-                finish();
-            }
-            return false;
-        }
-        return true;
-    }
-
     private void showDropDownDialog() {
         final Dialog dropDownDialog = new Dialog(activity);
         dropDownDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         dropDownDialog.setContentView(R.layout.dialog_dropdown_list);
         dropDownDialog.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        MyTextView titleView = (MyTextView) dropDownDialog
+        MyTextView titleView = dropDownDialog
                 .findViewById(R.id.title_name);
         titleView.setText(activity.getString(R.string.please_select_an_option));
-        final ListView listView = (ListView) dropDownDialog
+        final ListView listView = dropDownDialog
                 .findViewById(R.id.list_view);
 
         ArrayList<String> list = new ArrayList<>();
@@ -288,6 +234,7 @@ public class SignUpScreen extends Activity implements View.OnClickListener {
                     Utils.showLoading(activity, getString(R.string.please_wait));
                     JSONObject post_data = new JSONObject();
                     try {
+                        post_data.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
                         post_data.put("email", et_Email.getText().toString().trim());
                         post_data.put("password", et_Password.getText().toString().trim());
                         post_data.put("name", et_Name.getText().toString().trim());
@@ -348,6 +295,7 @@ public class SignUpScreen extends Activity implements View.OnClickListener {
             Utils.dismissLoading();
             Preferences.writeString(activity, Preferences.EMAIL, et_Email.getText().toString());
             Preferences.writeString(activity, Preferences.PASSWORD, et_Password.getText().toString());
+            Preferences.writeString(activity, Preferences.USER_NAME, et_Name.getText().toString());
             STLog.e(TAG, "Register True");
             startActivity(new Intent(activity, MainActivity.class));
             finish();
