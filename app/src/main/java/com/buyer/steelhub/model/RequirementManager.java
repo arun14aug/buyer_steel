@@ -128,19 +128,22 @@ public class RequirementManager {
                                                     resp.setIs_buyer_deleted(jsonArray1.getJSONObject(j).getString("is_buyer_deleted"));
 
                                                     if (jsonArray1.getJSONObject(j).has("initial_unit_price")) {
-                                                        JSONArray jsonArray2 = jsonArray1.getJSONObject(j).getJSONArray("initial_unit_price");
-                                                        if (jsonArray2.length() > 0) {
-                                                            ArrayList<BargainUnit> bargainUnitArrayList = new ArrayList<>();
-                                                            for (int k = 0; k < jsonArray2.length(); k++) {
-                                                                BargainUnit bargainUnit = new BargainUnit();
-                                                                bargainUnit.setSize(jsonArray2.getJSONObject(k).getString("size"));
-                                                                bargainUnit.setQuantity(jsonArray2.getJSONObject(k).getString("quantity"));
-                                                                bargainUnit.setUnit_price(jsonArray2.getJSONObject(k).getString("unit price"));
-                                                                if (jsonArray2.getJSONObject(k).has("new unit price"))
-                                                                bargainUnit.setNew_unit_price(jsonArray2.getJSONObject(k).getString("new unit price"));
-                                                                bargainUnitArrayList.add(bargainUnit);
+                                                        Object item = jsonArray1.getJSONObject(j).get("initial_unit_price");
+                                                        if (item instanceof JSONArray) {
+                                                            JSONArray jsonArray2 = jsonArray1.getJSONObject(j).getJSONArray("initial_unit_price");
+                                                            if (jsonArray2.length() > 0) {
+                                                                ArrayList<BargainUnit> bargainUnitArrayList = new ArrayList<>();
+                                                                for (int k = 0; k < jsonArray2.length(); k++) {
+                                                                    BargainUnit bargainUnit = new BargainUnit();
+                                                                    bargainUnit.setSize(jsonArray2.getJSONObject(k).getString("size"));
+                                                                    bargainUnit.setQuantity(jsonArray2.getJSONObject(k).getString("quantity"));
+                                                                    bargainUnit.setUnit_price(jsonArray2.getJSONObject(k).getString("unit price"));
+                                                                    if (jsonArray2.getJSONObject(k).has("new unit price"))
+                                                                        bargainUnit.setNew_unit_price(jsonArray2.getJSONObject(k).getString("new unit price"));
+                                                                    bargainUnitArrayList.add(bargainUnit);
+                                                                }
+                                                                resp.setBargainUnitArrayList(bargainUnitArrayList);
                                                             }
-                                                            resp.setBargainUnitArrayList(bargainUnitArrayList);
                                                         }
 
                                                     }
