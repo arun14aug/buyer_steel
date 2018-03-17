@@ -59,15 +59,15 @@ public class ManageAddressFragment extends Fragment implements View.OnClickListe
         LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
         View rootView = inflater.inflate(R.layout.fragment_address, container, false);
 
-        listView = (ListView) rootView.findViewById(R.id.address_list);
-        txt_billing_address = (MyTextView) rootView.findViewById(R.id.txt_billing_address);
-        txt_shipping_address = (MyTextView) rootView.findViewById(R.id.txt_shipping_address);
-        MyButton btn_place_order = (MyButton) rootView.findViewById(R.id.btn_place_order);
+        listView = rootView.findViewById(R.id.address_list);
+        txt_billing_address = rootView.findViewById(R.id.txt_billing_address);
+        txt_shipping_address = rootView.findViewById(R.id.txt_shipping_address);
+        MyButton btn_place_order = rootView.findViewById(R.id.btn_place_order);
         btn_place_order.setVisibility(View.GONE);
 
-        img_add = (ImageView) activity.findViewById(R.id.img_add);
+        img_add = activity.findViewById(R.id.img_add);
         img_add.setVisibility(View.VISIBLE);
-        img_add.setImageResource(R.drawable.new_requirement);
+        img_add.setImageResource(R.drawable.ic_add_address);
         img_add.setOnClickListener(this);
 
         txt_billing_address.setOnClickListener(this);

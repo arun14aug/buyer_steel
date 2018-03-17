@@ -5,6 +5,8 @@ package com.buyer.steelhub.view.fragments;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,15 +18,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.buyer.steelhub.R;
 import com.buyer.steelhub.customUi.MyButton;
 import com.buyer.steelhub.model.ModelManager;
 import com.buyer.steelhub.model.Requirements;
+import com.buyer.steelhub.utility.Preferences;
 import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.Utils;
 import com.buyer.steelhub.view.adapter.RequirementAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -48,9 +55,9 @@ public class RequirementFragment extends Fragment {
         LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
         View rootView = inflater.inflate(R.layout.requirements_listview, container, false);
 
-        listView = (ListView) rootView.findViewById(R.id.list_requirements);
+        listView = rootView.findViewById(R.id.list_requirements);
 
-        MyButton btn_new_requirement = (MyButton) rootView.findViewById(R.id.btn_new_requirement);
+        MyButton btn_new_requirement = rootView.findViewById(R.id.btn_new_requirement);
         btn_new_requirement.setTransformationMethod(null);
         btn_new_requirement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +96,51 @@ public class RequirementFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showDialog(requirementsArrayList.get(i).getRequirement_id(), requirementsArrayList.get(i).getUser_id());
+                return true;
+            }
+        });
+        STLog.e("User Token :", Preferences.readString(activity, Preferences.USER_TOKEN, ""));
         return rootView;
+    }
+
+    private void showDialog(final String id, final String buyer_id) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(activity);
+//        builderSingle.setIcon(R.drawable.ic_launcher);
+        builderSingle.setTitle("Choose Action");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_list_item_1);
+        arrayAdapter.add("Delete");
+
+        builderSingle.setAdapter(
+                arrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+
+                            jsonObject.put("requirement_id", id);
+                            jsonObject.put("seller_id", "");
+                            jsonObject.put("buyer_id", Preferences.readString(activity, Preferences.USER_ID, ""));
+                            jsonObject.put("Is_seller_deleted", "0");
+                            jsonObject.put("Is_buyer_deleted", "1");
+                            jsonObject.put("type", "buyer");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        STLog.e("JSON : ", jsonObject.toString());
+                        Utils.showLoading(activity, activity.getString(R.string.please_wait));
+                        ModelManager.getInstance().getRequirementManager().deletePost(activity, jsonObject);
+                    }
+                });
+        builderSingle.show();
     }
 
     private void setData() {
@@ -130,10 +181,15 @@ public class RequirementFragment extends Fragment {
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "GetRequirements False");
             Utils.dismissLoading();
-        } else if (message.contains("GetRequirements Network Error")) {
+        } else if (message.equalsIgnoreCase("DeletePost True")) {
+            Utils.dismissLoading();
+            Utils.showLoading(activity, activity.getString(R.string.please_wait));
+            ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
+            STLog.e(TAG, "DeletePost True");
+        } else if (message.contains("DeletePost False")) {
             // showMatchHistoryList();
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
-            STLog.e(TAG, "GetRequirements Network Error");
+            STLog.e(TAG, "DeletePost False");
             Utils.dismissLoading();
         }
 

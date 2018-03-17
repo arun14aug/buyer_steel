@@ -77,39 +77,41 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
         }
 
 
-        et_budget_amount = (MyEditText) rootView.findViewById(R.id.et_budget_amount);
-//        et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
-//        txt_diameter = (MyTextView) rootView.findViewById(R.id.txt_diameter);
-        et_preferred_brands = (MyEditText) rootView.findViewById(R.id.et_preferred_brands);
-        et_grade_required = (MyEditText) rootView.findViewById(R.id.et_grade_required);
-        et_city = (MyEditText) rootView.findViewById(R.id.et_city);
-        et_state = (MyEditText) rootView.findViewById(R.id.et_state);
-        et_tax_type = (MyEditText) rootView.findViewById(R.id.et_tax_type);
-        et_required_by_date = (MyEditText) rootView.findViewById(R.id.et_required_by_date);
-//        et_amount = (MyEditText) rootView.findViewById(R.id.et_amount);
-//        et_bargain_amount = (MyEditText) rootView.findViewById(R.id.et_bargain_amount);
+        et_budget_amount = rootView.findViewById(R.id.et_budget_amount);
+//        et_quantity = rootView.findViewById(R.id.et_quantity);
+//        txt_diameter = rootView.findViewById(R.id.txt_diameter);
+        et_preferred_brands = rootView.findViewById(R.id.et_preferred_brands);
+        et_grade_required = rootView.findViewById(R.id.et_grade_required);
+        et_city = rootView.findViewById(R.id.et_city);
+        et_state = rootView.findViewById(R.id.et_state);
+        et_tax_type = rootView.findViewById(R.id.et_tax_type);
+        et_required_by_date = rootView.findViewById(R.id.et_required_by_date);
+//        et_amount = rootView.findViewById(R.id.et_amount);
+//        et_bargain_amount = rootView.findViewById(R.id.et_bargain_amount);
 
-        txt_random = (MyTextView) rootView.findViewById(R.id.txt_random);
-        txt_standard = (MyTextView) rootView.findViewById(R.id.txt_standard);
-        txt_bend = (MyTextView) rootView.findViewById(R.id.txt_bend);
-        txt_straight = (MyTextView) rootView.findViewById(R.id.txt_straight);
+        txt_random = rootView.findViewById(R.id.txt_random);
+        txt_standard = rootView.findViewById(R.id.txt_standard);
+        txt_bend = rootView.findViewById(R.id.txt_bend);
+        txt_straight = rootView.findViewById(R.id.txt_straight);
 
-        layout_show_more = (LinearLayout) rootView.findViewById(R.id.layout_show_more);
-        layout_seller_list = (LinearLayout) rootView.findViewById(R.id.layout_seller_list);
-//        layout_amount = (LinearLayout) rootView.findViewById(R.id.layout_amount);
-//        layout_bargain_amount = (LinearLayout) rootView.findViewById(R.id.layout_bargain_amount);
-        addMoreLayout = (LinearLayout) rootView.findViewById(R.id.layout_add_more);
+        layout_show_more = rootView.findViewById(R.id.layout_show_more);
+        layout_seller_list = rootView.findViewById(R.id.layout_seller_list);
+//        layout_amount = rootView.findViewById(R.id.layout_amount);
+//        layout_bargain_amount = rootView.findViewById(R.id.layout_bargain_amount);
+        addMoreLayout = rootView.findViewById(R.id.layout_add_more);
 
-        ic_physical = (ImageView) rootView.findViewById(R.id.ic_physical);
-        ic_chemical = (ImageView) rootView.findViewById(R.id.ic_chemical);
-//        ic_grade_required = (ImageView) rootView.findViewById(R.id.ic_grade_required);
-        ic_test_certificate = (ImageView) rootView.findViewById(R.id.ic_test_certificate);
+        ic_physical = rootView.findViewById(R.id.ic_physical);
+        ic_chemical = rootView.findViewById(R.id.ic_chemical);
+//        ic_grade_required = rootView.findViewById(R.id.ic_grade_required);
+        ic_test_certificate = rootView.findViewById(R.id.ic_test_certificate);
 
-        btn_show_more = (MyButton) rootView.findViewById(R.id.btn_show_more);
+        btn_show_more = rootView.findViewById(R.id.btn_show_more);
         btn_show_more.setTransformationMethod(null);
-        btn_submit = (MyButton) rootView.findViewById(R.id.btn_submit);
+        btn_submit = rootView.findViewById(R.id.btn_submit);
         btn_submit.setTransformationMethod(null);
 
+        et_budget_amount.setFocusable(false);
+        et_city.setFocusable(false);
         btn_submit.setOnClickListener(this);
         btn_show_more.setOnClickListener(this);
 
@@ -223,10 +225,10 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                             LayoutInflater layoutInflater =
                                     (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             final View addView = layoutInflater.inflate(R.layout.row_add_more, null);
-                            MyEditText quantity = (MyEditText) addView.findViewById(R.id.quantity);
-                            MyTextView diameter = (MyTextView) addView.findViewById(R.id.diameter);
-                            MyEditText amount = (MyEditText) addView.findViewById(R.id.amount);
-                            ImageView remove = (ImageView) addView.findViewById(R.id.remove);
+                            MyEditText quantity = addView.findViewById(R.id.quantity);
+                            MyTextView diameter = addView.findViewById(R.id.diameter);
+                            MyEditText amount = addView.findViewById(R.id.amount);
+                            ImageView remove = addView.findViewById(R.id.remove);
                             remove.setVisibility(View.GONE);
 
                             quantity.setFocusable(false);
@@ -252,10 +254,10 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 LayoutInflater layoutInflater =
                         (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View addView = layoutInflater.inflate(R.layout.row_seller_list, null);
-                LinearLayout row_layout = (LinearLayout) addView.findViewById(R.id.row_layout);
-                MyTextView txt_seller_name = (MyTextView) addView.findViewById(R.id.txt_seller_name);
-                MyTextView txt_quotation_amount = (MyTextView) addView.findViewById(R.id.txt_quotation_amount);
-                MyTextView txt_status = (MyTextView) addView.findViewById(R.id.txt_status);
+                LinearLayout row_layout = addView.findViewById(R.id.row_layout);
+                MyTextView txt_seller_name = addView.findViewById(R.id.txt_seller_name);
+                MyTextView txt_quotation_amount = addView.findViewById(R.id.txt_quotation_amount);
+                MyTextView txt_status = addView.findViewById(R.id.txt_status);
 
                 View color_view = addView.findViewById(R.id.color_view);
 

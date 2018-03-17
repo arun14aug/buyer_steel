@@ -39,8 +39,8 @@ public class RequirementManager {
     private void getRequirementList(final Activity activity) {
         JSONObject jsonObject = new JSONObject();
         try {
-//            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
-            jsonObject.put("user_id", "23");
+            jsonObject.put("user_id", Preferences.readString(activity, Preferences.USER_ID, ""));
+//            jsonObject.put("user_id", "23");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -220,4 +220,41 @@ public class RequirementManager {
         requestQueue.add(jsonObjReq);
     }
 
+    public void deletePost(final Activity activity, JSONObject jsonObject) {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ServiceApi.DELETE_POST, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        STLog.e("Success Response : ", "Response: " + response.toString());
+
+                        try {
+                            boolean state = response.getBoolean("success");
+                            if (state) {
+
+                                EventBus.getDefault().postSticky("DeletePost True");
+                            } else {
+                                EventBus.getDefault().postSticky("DeletePost False@#@" + response.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            EventBus.getDefault().postSticky("DeletePost False");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                STLog.e("Error Response : ", "Error: " + error.getMessage());
+                EventBus.getDefault().postSticky("DeletePost False");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer" + Preferences.readString(activity, Preferences.USER_TOKEN, ""));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Utils.getVolleyRequestQueue(activity);
+        requestQueue.add(jsonObjReq);
+    }
 }

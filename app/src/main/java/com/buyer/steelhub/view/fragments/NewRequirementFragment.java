@@ -1,6 +1,6 @@
 package com.buyer.steelhub.view.fragments;
 
-/**
+/*
  * Created by arun.sharma on 29/07/15.
  */
 
@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
@@ -81,7 +82,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
     private String[] brandSelected;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.activity = super.getActivity();
         Intent intent = new Intent("Header");
@@ -92,43 +93,43 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
 
         myCalendar = Calendar.getInstance();
 
-        et_budget_amount = (MyEditText) rootView.findViewById(R.id.et_budget_amount);
-//        et_quantity = (MyEditText) rootView.findViewById(R.id.et_quantity);
-//        txt_diameter = (MyTextView) rootView.findViewById(R.id.txt_diameter);
-        et_preferred_brands = (MyEditText) rootView.findViewById(R.id.et_preferred_brands);
-        et_grade_required = (MyEditText) rootView.findViewById(R.id.et_grade_required);
-        et_city = (MyEditText) rootView.findViewById(R.id.et_city);
-        et_state = (MyEditText) rootView.findViewById(R.id.et_state);
-        et_tax_type = (MyEditText) rootView.findViewById(R.id.et_tax_type);
-        et_required_by_date = (MyEditText) rootView.findViewById(R.id.et_required_by_date);
+        et_budget_amount = rootView.findViewById(R.id.et_budget_amount);
+//        et_quantity = rootView.findViewById(R.id.et_quantity);
+//        txt_diameter = rootView.findViewById(R.id.txt_diameter);
+        et_preferred_brands = rootView.findViewById(R.id.et_preferred_brands);
+        et_grade_required = rootView.findViewById(R.id.et_grade_required);
+        et_city = rootView.findViewById(R.id.et_city);
+        et_state = rootView.findViewById(R.id.et_state);
+        et_tax_type = rootView.findViewById(R.id.et_tax_type);
+        et_required_by_date = rootView.findViewById(R.id.et_required_by_date);
 
-        txt_random = (MyTextView) rootView.findViewById(R.id.txt_random);
-        txt_standard = (MyTextView) rootView.findViewById(R.id.txt_standard);
-        txt_bend = (MyTextView) rootView.findViewById(R.id.txt_bend);
-        txt_straight = (MyTextView) rootView.findViewById(R.id.txt_straight);
+        txt_random = rootView.findViewById(R.id.txt_random);
+        txt_standard = rootView.findViewById(R.id.txt_standard);
+        txt_bend = rootView.findViewById(R.id.txt_bend);
+        txt_straight = rootView.findViewById(R.id.txt_straight);
 
-//        LinearLayout layout_grade_required = (LinearLayout) rootView.findViewById(R.id.layout_grade_required);
-        LinearLayout layout_physical = (LinearLayout) rootView.findViewById(R.id.layout_physical);
-        LinearLayout layout_chemical = (LinearLayout) rootView.findViewById(R.id.layout_chemical);
-        LinearLayout layout_test_certificate = (LinearLayout) rootView.findViewById(R.id.layout_test_certificate);
+//        LinearLayout layout_grade_required = rootView.findViewById(R.id.layout_grade_required);
+        LinearLayout layout_physical = rootView.findViewById(R.id.layout_physical);
+        LinearLayout layout_chemical = rootView.findViewById(R.id.layout_chemical);
+        LinearLayout layout_test_certificate = rootView.findViewById(R.id.layout_test_certificate);
 
-        LinearLayout layout_preferred_brands = (LinearLayout) rootView.findViewById(R.id.layout_preferred_brands);
-//        LinearLayout layout_grade = (LinearLayout) rootView.findViewById(R.id.layout_grade);
-        LinearLayout layout_required_by_date = (LinearLayout) rootView.findViewById(R.id.layout_required_by_date);
-        LinearLayout layout_state = (LinearLayout) rootView.findViewById(R.id.layout_state);
-        LinearLayout layout_tax_type = (LinearLayout) rootView.findViewById(R.id.layout_tax_type);
+        LinearLayout layout_preferred_brands = rootView.findViewById(R.id.layout_preferred_brands);
+//        LinearLayout layout_grade = rootView.findViewById(R.id.layout_grade);
+        LinearLayout layout_required_by_date = rootView.findViewById(R.id.layout_required_by_date);
+        LinearLayout layout_state = rootView.findViewById(R.id.layout_state);
+        LinearLayout layout_tax_type = rootView.findViewById(R.id.layout_tax_type);
 
-//        default_quantity_layout = (LinearLayout) rootView.findViewById(R.id.default_quantity_layout);
-        addMoreLayout = (LinearLayout) rootView.findViewById(R.id.layout_add_more);
-//        icon_remove = (ImageView) rootView.findViewById(R.id.icon_remove);
-        ic_physical = (ImageView) rootView.findViewById(R.id.ic_physical);
-        ic_chemical = (ImageView) rootView.findViewById(R.id.ic_chemical);
-//        ic_grade_required = (ImageView) rootView.findViewById(R.id.ic_grade_required);
-        ic_test_certificate = (ImageView) rootView.findViewById(R.id.ic_test_certificate);
+//        default_quantity_layout = rootView.findViewById(R.id.default_quantity_layout);
+        addMoreLayout = rootView.findViewById(R.id.layout_add_more);
+//        icon_remove = rootView.findViewById(R.id.icon_remove);
+        ic_physical = rootView.findViewById(R.id.ic_physical);
+        ic_chemical = rootView.findViewById(R.id.ic_chemical);
+//        ic_grade_required = rootView.findViewById(R.id.ic_grade_required);
+        ic_test_certificate = rootView.findViewById(R.id.ic_test_certificate);
 
-        MyButton btn_add_more = (MyButton) rootView.findViewById(R.id.btn_add_more);
+        MyButton btn_add_more = rootView.findViewById(R.id.btn_add_more);
         btn_add_more.setTransformationMethod(null);
-        MyButton btn_submit = (MyButton) rootView.findViewById(R.id.btn_submit);
+        MyButton btn_submit = rootView.findViewById(R.id.btn_submit);
         btn_submit.setTransformationMethod(null);
 
         /*     Checking the common data for dropdown usage     **/
@@ -157,7 +158,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             ModelManager.getInstance().getCommonDataManager().getTaxTypes(activity, true);
         }
 
-        /**     click events     **/
+        /*     click events     **/
         btn_add_more.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 //        layout_grade_required.setOnClickListener(this);
@@ -191,10 +192,10 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         dropDownDialog.setContentView(R.layout.dialog_dropdown_list);
         dropDownDialog.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        MyTextView titleView = (MyTextView) dropDownDialog
+        MyTextView titleView = dropDownDialog
                 .findViewById(R.id.title_name);
         titleView.setText(activity.getString(R.string.please_select_an_option));
-        final ListView listView = (ListView) dropDownDialog
+        final ListView listView = dropDownDialog
                 .findViewById(R.id.list_view);
 
         ArrayList<String> list = new ArrayList<>();
@@ -304,10 +305,10 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         dropDownDialog.setContentView(R.layout.dialog_dropdown_list);
         dropDownDialog.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        MyTextView titleView = (MyTextView) dropDownDialog
+        MyTextView titleView = dropDownDialog
                 .findViewById(R.id.title_name);
         titleView.setText(activity.getString(R.string.please_select_an_option));
-        final ListView listView = (ListView) dropDownDialog
+        final ListView listView = dropDownDialog
                 .findViewById(R.id.list_view);
 
         ArrayList<String> list = new ArrayList<>();
@@ -348,9 +349,9 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         LayoutInflater layoutInflater =
                 (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View addView = layoutInflater.inflate(R.layout.row_add_more, null);
-        MyEditText quantity = (MyEditText) addView.findViewById(R.id.quantity);
-        final MyTextView diameter = (MyTextView) addView.findViewById(R.id.diameter);
-        final ImageView remove = (ImageView) addView.findViewById(R.id.remove);
+        MyEditText quantity = addView.findViewById(R.id.quantity);
+        final MyTextView diameter = addView.findViewById(R.id.diameter);
+        final ImageView remove = addView.findViewById(R.id.remove);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -710,12 +711,12 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Do something when click positive button
-                String val = "";
+                StringBuilder val = new StringBuilder();
                 int j = 0;
                 for (int i = 0; i < checkedColors.length; i++) {
                     boolean checked = checkedColors[i];
                     if (checked) {
-                        val = val + colorsList.get(i) + ", ";
+                        val.append(colorsList.get(i)).append(", ");
                         j++;
                     }
                 }
@@ -728,8 +729,8 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                     }
 
                 if (val.length() > 0)
-                    val = val.substring(0, val.length() - 1);
-                et_preferred_brands.setText(val);
+                    val = new StringBuilder(val.substring(0, val.length() - 1));
+                et_preferred_brands.setText(val.toString());
             }
         });
 
@@ -738,6 +739,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Do something when click the neutral button
+                dialog.dismiss();
             }
         });
 

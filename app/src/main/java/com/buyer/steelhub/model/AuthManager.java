@@ -294,6 +294,8 @@ public class AuthManager {
 //                                        "exp_quantity": "10000",
                                 User user = new User();
                                 user.setId(jsonObject.getString("id"));
+                                Preferences.writeString(activity, Preferences.USER_ID, jsonObject.getString("id"));
+                                Preferences.writeString(activity, Preferences.USER_NAME, jsonObject.getString("name"));
                                 user.setName(jsonObject.getString("name"));
                                 user.setEmail(jsonObject.getString("email"));
                                 user.setCustomer_type(jsonObject.getString("customer_type"));

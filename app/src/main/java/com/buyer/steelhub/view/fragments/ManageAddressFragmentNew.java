@@ -77,7 +77,7 @@ public class ManageAddressFragmentNew extends Fragment implements View.OnClickLi
 
         ImageView img_add = (ImageView) activity.findViewById(R.id.img_add);
         img_add.setVisibility(View.VISIBLE);
-        img_add.setImageResource(R.drawable.new_requirement);
+        img_add.setImageResource(R.drawable.ic_add_address);
         img_add.setOnClickListener(this);
 
         txt_billing_address.setOnClickListener(this);
