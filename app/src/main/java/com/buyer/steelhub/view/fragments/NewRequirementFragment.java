@@ -21,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -61,7 +63,8 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
 
     private String TAG = NewRequirementFragment.class.getSimpleName();
     private Activity activity;
-    private MyEditText /*et_quantity,*/ et_preferred_brands, et_grade_required, et_required_by_date, et_city, et_state, et_budget_amount, et_tax_type;
+    private MyEditText /*et_quantity,*/ et_preferred_brands, et_grade_required, et_required_by_date,
+            et_city, et_state, et_budget_amount, et_tax_type;
     private MyTextView txt_random, txt_standard, txt_bend, txt_straight/*, txt_diameter*/;
     //    private MyButton btn_add_more;
     private LinearLayout addMoreLayout/*, default_quantity_layout*/;
@@ -299,7 +302,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         dropDownDialog.show();
     }
 
-    private void showDropDownForSteel(final MyTextView et_myText) {
+    private void showDropDownForSteel(final MyTextView et_myText, final MyEditText et_myEdit) {
         final Dialog dropDownDialog = new Dialog(activity);
         dropDownDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         dropDownDialog.setContentView(R.layout.dialog_dropdown_list);
@@ -338,6 +341,9 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
                 et_myText.setText(steelSizesArrayList.get(position).getSize() + "mm");
                 steelId = steelSizesArrayList.get(position).getId();
                 dropDownDialog.dismiss();
+                et_myEdit.requestFocus();
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             }
         });
 
@@ -349,7 +355,7 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         LayoutInflater layoutInflater =
                 (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View addView = layoutInflater.inflate(R.layout.row_add_more, null);
-        MyEditText quantity = addView.findViewById(R.id.quantity);
+        final MyEditText quantity = addView.findViewById(R.id.quantity);
         final MyTextView diameter = addView.findViewById(R.id.diameter);
         final ImageView remove = addView.findViewById(R.id.remove);
         remove.setOnClickListener(new View.OnClickListener() {
@@ -372,7 +378,9 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         diameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDropDownForSteel(diameter);
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(quantity.getWindowToken(), 0);
+                showDropDownForSteel(diameter, quantity);
             }
         });
 
@@ -383,13 +391,6 @@ public class NewRequirementFragment extends Fragment implements View.OnClickList
         if (addMoreLayout.getChildCount() == 1) {
             remove.setVisibility(View.GONE);
         }
-//        if (addMoreLayout != null)
-//            if (addMoreLayout.getChildCount() > 0)
-//                icon_remove.setVisibility(View.VISIBLE);
-//            else
-//                icon_remove.setVisibility(View.GONE);
-//        else
-//            icon_remove.setVisibility(View.GONE);
     }
 
     private boolean isValidate() {

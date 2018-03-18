@@ -72,13 +72,13 @@
     <string name="tin">TIN</string>
     <string name="pan">PAN</string>
     <string name="expected_req_monthly">Expected req (Monthly) in Tons</string>
-    <string name="submit">Submit</string>
-    <string name="preferred_tax">Preferred Tax</string>
+    <string name="submit">SUBMIT</string>
+    <string name="preferred_tax">Preferred Tax :</string>
 
     <!-- New Requirement Screen-->
     <string name="quantity">Quantity</string>
     <string name="diameter">Diameter</string>
-    <string name="grade_required">Grade Required</string>
+    <string name="grade_required">Grade Required :</string>
     <string name="physical">Physical</string>
     <string name="chemical">Chemical</string>
     <string name="test_cert_required">Certificate Required</string>
@@ -88,8 +88,8 @@
     <string name="type">Type</string>
     <string name="straight">Straight</string>
     <string name="bend">Bend</string>
-    <string name="preferred_brands">Preferred Brands</string>
-    <string name="required_by_date">Required By Date</string>
+    <string name="preferred_brands">Preferred Brands :</string>
+    <string name="required_by_date">Required By Date :</string>
     <string name="rate">Rate</string>
     <string name="approx_order_value">Approx Order Value</string>
     <string name="deliver_location">Delivery Location</string>
@@ -98,6 +98,8 @@
     <string name="option_from_seller">OPTIONS FROM SELLER</string>
     <string name="next">NEXT</string>
     <string name="specifications">Specifications</string>
+    <string name="et_state">State :</string>
+    <string name="et_city">Delivery City :</string>
 
 
     <string name="old_password">Old Password</string>
@@ -106,8 +108,8 @@
     <string name="send">Send</string>
     <string name="requirements">REQUIREMENTS</string>
     <string name="new_requirements">NEW REQUIREMENT</string>
-    <string name="budget_amount">Budget Amount (In Rupees)</string>
-    <string name="add_more">Add More</string>
+    <string name="budget_amount">Budget (Rs) :</string>
+    <string name="add_more">ADD MORE</string>
 
     <string name="please_enter_budget_amount">Please enter budget amount</string>
     <string name="please_enter_quantity">Please enter quantity</string>
@@ -120,11 +122,11 @@
     <string name="oops_something_went_wrong">Oops! something went wrong. Please try again later.</string>
     <string name="please_select_an_option">Please select an option</string>
     <string name="coming_soon">Work under progress. We are Coming Soon....</string>
-    <string name="amount">Amount (In Rupees)</string>
-    <string name="bargain_amount">Bargain Amount (In Rupees)</string>
+    <string name="amount">Amount (Rs) :</string>
+    <string name="bargain_amount">Bargain Amount (Rs) :</string>
     <string name="price">Price</string>
-    <string name="show_more">Show More</string>
-    <string name="show_less">Show Less</string>
+    <string name="show_more">SHOW MORE</string>
+    <string name="show_less">SHOW LESS</string>
     <string name="firm_name">Firm Name</string>
     <string name="address_line_1">Address Line 1</string>
     <string name="address_line_2">Address Line 1</string>

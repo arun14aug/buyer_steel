@@ -33,17 +33,17 @@
                     android:orientation="vertical"
                     android:padding="10dp">
 
-                    <com.buyer.steelhub.customUi.MyTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="start|center_vertical"
-                        android:text="@string/specifications"
-                        android:textColor="@color/dark_grey"
-                        android:textSize="@dimen/new_req_edit_text_size"
-                        customfontdemo:fontName="@string/raleway_medium" />
+                    <!--<com.buyer.steelhub.customUi.MyTextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:gravity="start|center_vertical"-->
+                        <!--android:text="@string/specifications"-->
+                        <!--android:textColor="@color/dark_grey"-->
+                        <!--android:textSize="@dimen/new_req_edit_text_size"-->
+                        <!--customfontdemo:fontName="@string/raleway_medium" />-->
 
                     <!--<LinearLayout-->
                         <!--android:id="@+id/default_quantity_layout"-->
@@ -385,37 +385,51 @@
                             android:id="@+id/layout_preferred_brands"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:background="@color/colorWhite"
+                            android:clickable="true"
+                            android:minHeight="@dimen/new_req_edit_text_height"
                             android:orientation="horizontal">
 
                             <com.buyer.steelhub.customUi.MyTextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:focusable="false"
                                 android:gravity="start|center_vertical"
-                                android:hint="@string/preferred_brands"
                                 android:inputType="text"
-                                android:padding="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="@string/preferred_brands"
                                 android:textColor="@color/dark_grey"
                                 android:textSize="@dimen/new_req_edit_text_size"
                                 customfontdemo:fontName="@string/raleway_medium" />
 
-                            <com.buyer.steelhub.customUi.MyEditText
-                                android:id="@+id/et_preferred_brands"
+                            <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/new_req_edit_text_height"
-                                android:layout_gravity="center"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                android:focusable="false"
-                                android:gravity="start|center_vertical"
-                                android:inputType="textMultiLine"
-                                android:padding="10dp"
-                                android:textColor="@color/dark_grey"
-                                android:textSize="@dimen/new_req_edit_text_size"
-                                customfontdemo:fontName="@string/raleway_medium" />
+                                android:orientation="vertical">
+
+                                <com.buyer.steelhub.customUi.MyEditText
+                                    android:id="@+id/et_preferred_brands"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:focusable="false"
+                                    android:enabled="false"
+                                    android:gravity="start|center_vertical"
+                                    android:inputType="textMultiLine"
+                                    android:maxHeight="120dp"
+                                    android:maxLines="3"
+                                    android:padding="10dp"
+                                    android:textColor="@color/dark_grey"
+                                    android:textSize="@dimen/new_req_edit_text_size"
+                                    customfontdemo:fontName="@string/raleway_medium" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -428,7 +442,7 @@
 
                             <com.buyer.steelhub.customUi.MyTextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:focusable="false"
@@ -443,7 +457,7 @@
                             <com.buyer.steelhub.customUi.MyEditText
                                 android:id="@+id/et_grade_required"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
@@ -466,7 +480,7 @@
 
                             <com.buyer.steelhub.customUi.MyTextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:focusable="false"
@@ -482,7 +496,7 @@
                             <com.buyer.steelhub.customUi.MyEditText
                                 android:id="@+id/et_required_by_date"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
@@ -505,14 +519,14 @@
 
                             <com.buyer.steelhub.customUi.MyTextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:focusable="false"
                                 android:gravity="start|center_vertical"
                                 android:inputType="text"
                                 android:padding="10dp"
-                                android:text="@string/city"
+                                android:text="@string/et_city"
                                 android:textColor="@color/dark_grey"
                                 android:textSize="@dimen/new_req_edit_text_size"
                                 customfontdemo:fontName="@string/raleway_medium" />
@@ -520,7 +534,7 @@
                             <com.buyer.steelhub.customUi.MyEditText
                                 android:id="@+id/et_city"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
@@ -542,14 +556,14 @@
 
                             <com.buyer.steelhub.customUi.MyTextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:focusable="false"
                                 android:gravity="start|center_vertical"
                                 android:inputType="text"
                                 android:padding="10dp"
-                                android:text="@string/state"
+                                android:text="@string/et_state"
                                 android:textColor="@color/dark_grey"
                                 android:textSize="@dimen/new_req_edit_text_size"
                                 customfontdemo:fontName="@string/raleway_medium" />
@@ -557,7 +571,7 @@
                             <com.buyer.steelhub.customUi.MyEditText
                                 android:id="@+id/et_state"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
@@ -580,7 +594,7 @@
 
                             <com.buyer.steelhub.customUi.MyTextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:focusable="false"
@@ -595,7 +609,7 @@
                             <com.buyer.steelhub.customUi.MyEditText
                                 android:id="@+id/et_budget_amount"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
@@ -617,7 +631,7 @@
 
                             <com.buyer.steelhub.customUi.MyTextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:focusable="false"
@@ -632,7 +646,7 @@
                             <com.buyer.steelhub.customUi.MyEditText
                                 android:id="@+id/et_tax_type"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/new_req_edit_text_height"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
@@ -656,7 +670,7 @@
 
                             <!--<com.buyer.steelhub.customUi.MyTextView-->
                                 <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="@dimen/new_req_edit_text_height"-->
+                                <!--android:layout_height="wrap_content"-->
                                 <!--android:layout_gravity="center"-->
                                 <!--android:background="@android:color/transparent"-->
                                 <!--android:focusable="false"-->
@@ -671,7 +685,7 @@
                             <!--<com.buyer.steelhub.customUi.MyEditText-->
                                 <!--android:id="@+id/et_amount"-->
                                 <!--android:layout_width="0dp"-->
-                                <!--android:layout_height="@dimen/new_req_edit_text_height"-->
+                                <!--android:layout_height="wrap_content"-->
                                 <!--android:layout_gravity="center"-->
                                 <!--android:layout_weight="1"-->
                                 <!--android:background="@android:color/transparent"-->
@@ -694,7 +708,7 @@
 
                             <!--<com.buyer.steelhub.customUi.MyTextView-->
                                 <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="@dimen/new_req_edit_text_height"-->
+                                <!--android:layout_height="wrap_content"-->
                                 <!--android:layout_gravity="center"-->
                                 <!--android:background="@android:color/transparent"-->
                                 <!--android:focusable="false"-->
@@ -709,7 +723,7 @@
                             <!--<com.buyer.steelhub.customUi.MyEditText-->
                                 <!--android:id="@+id/et_bargain_amount"-->
                                 <!--android:layout_width="0dp"-->
-                                <!--android:layout_height="@dimen/new_req_edit_text_height"-->
+                                <!--android:layout_height="wrap_content"-->
                                 <!--android:layout_gravity="center"-->
                                 <!--android:layout_weight="1"-->
                                 <!--android:background="@android:color/transparent"-->

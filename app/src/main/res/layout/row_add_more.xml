@@ -36,6 +36,7 @@
         android:gravity="start|center_vertical"
         android:hint="@string/quantity"
         android:inputType="numberDecimal"
+        android:maxLength="3"
         android:padding="7dp"
         android:textColor="@color/dark_grey"
         android:textSize="@dimen/new_req_edit_text_size"
@@ -52,10 +53,11 @@
         android:gravity="start|center_vertical"
         android:hint="@string/amount"
         android:inputType="numberDecimal"
+        android:maxLength="6"
         android:padding="7dp"
-        android:visibility="gone"
         android:textColor="@color/dark_grey"
         android:textSize="@dimen/new_req_edit_text_size"
+        android:visibility="gone"
         customfontdemo:fontName="@string/raleway_medium" />
 
     <ImageView
@@ -65,7 +67,7 @@
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/accept"
         android:padding="5dp"
-        android:src="@drawable/reply"
+        android:src="@drawable/ic_delete"
         android:visibility="visible" />
 
 </LinearLayout>
