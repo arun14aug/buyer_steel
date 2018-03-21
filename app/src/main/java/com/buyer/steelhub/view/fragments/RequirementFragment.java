@@ -25,6 +25,7 @@ import com.buyer.steelhub.R;
 import com.buyer.steelhub.customUi.MyButton;
 import com.buyer.steelhub.model.ModelManager;
 import com.buyer.steelhub.model.Requirements;
+import com.buyer.steelhub.model.States;
 import com.buyer.steelhub.utility.Preferences;
 import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.Utils;
@@ -73,14 +74,11 @@ public class RequirementFragment extends Fragment {
             }
         });
 
-
-        requirementsArrayList = ModelManager.getInstance().getRequirementManager().getRequirements(activity, false);
-        if (requirementsArrayList == null) {
-            Utils.showLoading(activity, activity.getString(R.string.please_wait));
-            ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
-        } else {
-            setData();
-            ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
+        ArrayList<States> statesArrayList = ModelManager.getInstance().getCommonDataManager().getStates(activity, false);
+        if (statesArrayList == null)
+            ModelManager.getInstance().getCommonDataManager().getStates(activity, true);
+        else {
+            getData();
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,6 +104,17 @@ public class RequirementFragment extends Fragment {
         });
         STLog.e("User Token :", Preferences.readString(activity, Preferences.USER_TOKEN, ""));
         return rootView;
+    }
+
+    private void getData() {
+        requirementsArrayList = ModelManager.getInstance().getRequirementManager().getRequirements(activity, false);
+        if (requirementsArrayList == null) {
+            Utils.showLoading(activity, activity.getString(R.string.please_wait));
+            ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
+        } else {
+            setData();
+            ModelManager.getInstance().getRequirementManager().getRequirements(activity, true);
+        }
     }
 
     private void showDialog(final String id, final String buyer_id) {
@@ -191,6 +200,10 @@ public class RequirementFragment extends Fragment {
             Utils.showMessage(activity, activity.getString(R.string.oops_something_went_wrong));
             STLog.e(TAG, "DeletePost False");
             Utils.dismissLoading();
+        } else if (message.contains("GetStateList")) {
+            Utils.dismissLoading();
+            getData();
+            STLog.e(TAG, "GetStateList True");
         }
 
     }

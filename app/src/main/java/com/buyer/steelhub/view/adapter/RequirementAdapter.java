@@ -3,6 +3,7 @@ package com.buyer.steelhub.view.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.widget.ImageView;
 
 import com.buyer.steelhub.R;
 import com.buyer.steelhub.customUi.MyTextView;
+import com.buyer.steelhub.model.ModelManager;
 import com.buyer.steelhub.model.Requirements;
+import com.buyer.steelhub.model.States;
 import com.buyer.steelhub.utility.Utils;
 
 import java.util.ArrayList;
@@ -63,9 +66,23 @@ public class RequirementAdapter extends BaseAdapter {
 
         try {
 
-            viewHolder.txt_city.setText(list.get(position).getCity());
-            viewHolder.txt_state.setText(list.get(position).getState());
-            viewHolder.txt_budget.setText(list.get(position).getBudget());
+            viewHolder.txt_city.setText(Utils.firstLetterCap(list.get(position).getCity()));
+//            ArrayList<States> statesArrayList = ModelManager.getInstance().getCommonDataManager().getStates(activity, false);
+//            String state = "";
+//            if (statesArrayList != null) {
+//                for (States states :
+//                        statesArrayList) {
+//                    if (states.getName().equalsIgnoreCase(list.get(position).getState())) {
+//                        state = states.getCode();
+//                        break;
+//                    }
+//                }
+//            }
+//            if (!TextUtils.isEmpty(state))
+//                state = list.get(position).getState();
+//            viewHolder.txt_state.setText(Utils.firstLetterCap(state));
+            viewHolder.txt_state.setText(Utils.firstLetterCap(list.get(position).getState()));
+            viewHolder.txt_budget.setText(list.get(position).getBudget() + "/- Rs");
 
             viewHolder.txt_date.setText(list.get(position).getRequired_by_date());
             String flag = list.get(position).getFlag();

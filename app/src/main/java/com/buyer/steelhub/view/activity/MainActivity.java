@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
+        ModelManager.getInstance().getAuthManager().getProfile(MainActivity.this, true);
+
         // display the first navigation drawer view on app launch
         displayView(0);
     }

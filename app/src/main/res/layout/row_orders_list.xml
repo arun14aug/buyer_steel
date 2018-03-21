@@ -19,7 +19,7 @@
         android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,11 +34,11 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/zip"
-                android:drawablePadding="3dp"
+                android:drawablePadding="7dp"
                 android:drawableStart="@drawable/zip"
                 android:ellipsize="end"
                 android:gravity="start|center_vertical"
-                android:maxLength="9"
+                android:maxLength="15"
                 android:maxLines="1"
                 android:text="@string/quantity"
                 android:textColor="@color/dark_grey"
@@ -53,11 +53,11 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/mm"
-                android:drawablePadding="3dp"
+                android:drawablePadding="7dp"
                 android:drawableStart="@drawable/mm"
                 android:ellipsize="end"
                 android:gravity="start|center_vertical"
-                android:maxLength="9"
+                android:maxLength="15"
                 android:maxLines="1"
                 android:text="@string/quantity"
                 android:textColor="@color/dark_grey"
@@ -68,7 +68,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <com.buyer.steelhub.customUi.MyTextView
@@ -79,7 +79,7 @@
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/date"
-                android:drawablePadding="3dp"
+                android:drawablePadding="7dp"
                 android:drawableStart="@drawable/date"
                 android:gravity="start|center_vertical"
                 android:text="@string/quantity"

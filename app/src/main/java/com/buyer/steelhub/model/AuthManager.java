@@ -13,6 +13,7 @@ import com.buyer.steelhub.utility.STLog;
 import com.buyer.steelhub.utility.ServiceApi;
 import com.buyer.steelhub.utility.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +32,15 @@ public class AuthManager {
     private String deviceToken;
     private String userToken;
     private ArrayList<User> userArrayList;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getUserToken() {
         return userToken;
@@ -275,23 +285,6 @@ public class AuthManager {
                                 JSONObject jsonObject = response.getJSONObject("data");
                                 userArrayList = new ArrayList<>();
 
-//                                "id": 23,
-//                                        "name": "buyer",
-//                                        "email": "buyer@gmail.com",
-//                                        "customer_type": "",
-//                                        "company_name": "ambuja",
-//                                        "contact": 9087789909,
-//                                        "address": "8phase",
-//                                        "state": "punjab",
-//                                        "city": "mohali",
-//                                        "latitude": "8789787878",
-//                                        "longitude": "66777787878",
-//                                        "role": "buyer",
-//                                        "zip": 189768,
-//                                        "tin": "5455",
-//                                        "pan": "455654467",
-//                                        "brand": null,
-//                                        "exp_quantity": "10000",
                                 User user = new User();
                                 user.setId(jsonObject.getString("id"));
                                 Preferences.writeString(activity, Preferences.USER_ID, jsonObject.getString("id"));
@@ -315,16 +308,17 @@ public class AuthManager {
                                 user.setBrand(jsonObject.getString("brand"));
                                 user.setExp_quantity(jsonObject.getString("exp_quantity"));
 
-//                                if (jsonObject.has("preffered_brands")) {
-//                                    JSONArray jsonArray1 = jsonObject.getJSONArray("preffered_brands");
-//                                    if (jsonArray1.length() > 0) {
-//                                        String[] brand = new String[jsonArray1.length()];
-//                                        for (int j = 0; j < jsonArray1.length(); j++) {
-//                                            brand[j] = jsonArray1.getString(j);
-//                                        }
-//                                        user.setPreffered_brands(brand);
-//                                    }
-//                                }
+                                if (jsonObject.has("brand")) {
+                                    JSONArray jsonArray1 = jsonObject.getJSONArray("brand");
+                                    if (jsonArray1.length() > 0) {
+                                        String[] brand = new String[jsonArray1.length()];
+                                        for (int j = 0; j < jsonArray1.length(); j++) {
+                                            brand[j] = jsonArray1.getString(j);
+                                        }
+                                        user.setPreffered_brands(brand);
+                                    }
+                                }
+                                setUser(user);
                                 userArrayList.add(user);
                                 EventBus.getDefault().post(token + " True");
                             } else

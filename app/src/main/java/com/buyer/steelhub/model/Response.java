@@ -12,6 +12,16 @@ public class Response {
 
     ArrayList<BargainUnit> bargainUnitArrayList;
 
+    private String[] brands;
+
+    public String[] getBrands() {
+        return brands;
+    }
+
+    public void setBrands(String[] brands) {
+        this.brands = brands;
+    }
+
     public ArrayList<BargainUnit> getBargainUnitArrayList() {
         return bargainUnitArrayList;
     }

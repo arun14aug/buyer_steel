@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -57,7 +58,7 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
     private ArrayList<Response> responseArrayList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.activity = super.getActivity();
         Intent intent = new Intent("Header");
@@ -107,6 +108,10 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
 
         btn_show_more = rootView.findViewById(R.id.btn_show_more);
         btn_show_more.setTransformationMethod(null);
+        btn_show_more.setVisibility(View.GONE);
+
+        layout_show_more.setVisibility(View.VISIBLE);
+
         btn_submit = rootView.findViewById(R.id.btn_submit);
         btn_submit.setTransformationMethod(null);
 
@@ -208,15 +213,15 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
 //                }
 
                 String[] preferredBrands = requirementsArrayList.get(i).getPreffered_brands();
-                String val = "";
+                StringBuilder val = new StringBuilder();
                 if (preferredBrands != null)
                     if (preferredBrands.length > 0) {
                         for (String preferredBrand : preferredBrands)
-                            val = val + preferredBrand + ", ";
+                            val.append(preferredBrand).append(", ");
                     }
                 if (val.length() > 0)
-                    val = val.substring(0, val.length() - 1);
-                et_preferred_brands.setText(val);
+                    val = new StringBuilder(val.substring(0, val.length() - 2));
+                et_preferred_brands.setText(val.toString());
 
                 ArrayList<Quantity> quantityArrayList = requirementsArrayList.get(i).getQuantityArrayList();
                 if (quantityArrayList != null)
@@ -257,35 +262,48 @@ public class RequirementDetailFragment extends Fragment implements View.OnClickL
                 LinearLayout row_layout = addView.findViewById(R.id.row_layout);
                 MyTextView txt_seller_name = addView.findViewById(R.id.txt_seller_name);
                 MyTextView txt_quotation_amount = addView.findViewById(R.id.txt_quotation_amount);
+                MyTextView txt_brands = addView.findViewById(R.id.txt_brands);
                 MyTextView txt_status = addView.findViewById(R.id.txt_status);
 
                 View color_view = addView.findViewById(R.id.color_view);
 
+                String[] brands = responseArrayList.get(k).getBrands();
+                StringBuilder val = new StringBuilder();
+                if (brands != null)
+                    if (brands.length > 0) {
+                        for (String preferredBrand : brands)
+                            val.append(preferredBrand).append(", ");
+                    }
+                if (val.length() > 0)
+                    val = new StringBuilder(val.substring(0, val.length() - 2));
+
+                txt_brands.setText("Brands : " + val);
+
                 txt_seller_name.setText("Seller : " + responseArrayList.get(k).getSeller_name());
-                txt_quotation_amount.setText("Quotation : " + responseArrayList.get(k).getInitial_amt());
+                txt_quotation_amount.setText("Quotation Amount : Rs " + responseArrayList.get(k).getInitial_amt());
                 if (responseArrayList.get(k).getIs_accepted().equalsIgnoreCase("1")) {
                     txt_status.setText("Deal Accepted");
                     txt_status.setTextColor(Utils.setColor(activity, R.color.green_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.green_color));
                 } else if (responseArrayList.get(k).getIs_buyer_read().equalsIgnoreCase("0")) {
-                    txt_status.setText("Bargain not requested");
+                    txt_status.setText("Bargain not Requested");
                     txt_status.setTextColor(Utils.setColor(activity, R.color.red_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.red_color));
                 } else if (responseArrayList.get(k).getIs_buyer_read_bargain().equalsIgnoreCase("0")
                         && responseArrayList.get(k).getReq_for_bargain().equalsIgnoreCase("1")) {
-                    txt_status.setText("Bargain requested");
+                    txt_status.setText("Bargain Requested");
                     txt_status.setTextColor(Utils.setColor(activity, R.color.orange_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.orange_color));
                 } else if (responseArrayList.get(k).getIs_buyer_read_bargain().equalsIgnoreCase("1")
                         && responseArrayList.get(k).getReq_for_bargain().equalsIgnoreCase("1")) {
                     if (Utils.isEmptyString(responseArrayList.get(k).getBargain_amt()))
-                        txt_status.setText("Bargain requested");
+                        txt_status.setText("Bargain Requested");
                     else
-                        txt_status.setText("Bargain amount " + responseArrayList.get(k).getBargain_amt());
+                        txt_status.setText("Bargain Amount " + responseArrayList.get(k).getBargain_amt());
                     txt_status.setTextColor(Utils.setColor(activity, R.color.purple_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.purple_color));
                 } else {
-                    txt_status.setText("Bargain not requested");
+                    txt_status.setText("Bargain not Requested");
                     txt_status.setTextColor(Utils.setColor(activity, R.color.k_blue_color));
                     color_view.setBackgroundColor(Utils.setColor(activity, R.color.k_blue_color));
                 }

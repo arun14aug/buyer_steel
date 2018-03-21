@@ -70,6 +70,7 @@ public class RequirementManager {
                                         requirements.setBudget(jsonArray.getJSONObject(i).getString("budget"));
                                         requirements.setState(jsonArray.getJSONObject(i).getString("state"));
                                         requirements.setCity(jsonArray.getJSONObject(i).getString("city"));
+                                        requirements.setTax_type(jsonArray.getJSONObject(i).getString("tax_type"));
 
                                         if (jsonArray.getJSONObject(i).has("quantity")) {
                                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("quantity");
@@ -105,7 +106,6 @@ public class RequirementManager {
                                             requirements.setIs_buyer_read(jsonArray.getJSONObject(i).getString("is_buyer_read"));
                                             requirements.setFlag(jsonArray.getJSONObject(i).getString("flag"));
                                             requirements.setInitial_amt(jsonArray.getJSONObject(i).getString("initial_amt"));
-                                            requirements.setTax_type(jsonArray.getJSONObject(i).getString("tax_type"));
                                         }
                                         if (jsonArray.getJSONObject(i).has("response")) {
                                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("response");
@@ -126,6 +126,17 @@ public class RequirementManager {
                                                     resp.setIs_seller_deleted(jsonArray1.getJSONObject(j).getString("is_seller_deleted"));
                                                     resp.setIs_accepted(jsonArray1.getJSONObject(j).getString("is_accepted"));
                                                     resp.setIs_buyer_deleted(jsonArray1.getJSONObject(j).getString("is_buyer_deleted"));
+
+                                                    if (jsonArray1.getJSONObject(j).has("brands")) {
+                                                        JSONArray jsonArray2 = jsonArray1.getJSONObject(j).getJSONArray("brands");
+                                                        if (jsonArray1.length() > 0) {
+                                                            String[] brand = new String[jsonArray2.length()];
+                                                            for (int k = 0; k < jsonArray2.length(); k++) {
+                                                                brand[k] = jsonArray2.getString(k);
+                                                            }
+                                                            resp.setBrands(brand);
+                                                        }
+                                                    }
 
                                                     if (jsonArray1.getJSONObject(j).has("initial_unit_price")) {
                                                         Object item = jsonArray1.getJSONObject(j).get("initial_unit_price");

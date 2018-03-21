@@ -6,6 +6,7 @@ package com.buyer.steelhub.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,7 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.buyer.steelhub.R;
+import com.buyer.steelhub.model.ModelManager;
 import com.buyer.steelhub.model.NavDrawerItem;
+import com.buyer.steelhub.model.User;
 import com.buyer.steelhub.utility.Preferences;
 import com.buyer.steelhub.view.adapter.NavigationDrawerAdapter;
 import com.buyer.steelhub.view.fragments.ProfileFragment;
@@ -72,19 +75,25 @@ public class FragmentDrawer extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        RecyclerView recyclerView = layout.findViewById(R.id.drawerList);
 
-        TextView txt_user = (TextView) layout.findViewById(R.id.txt_user);
-        TextView txt_email = (TextView) layout.findViewById(R.id.txt_email);
+        TextView txt_user = layout.findViewById(R.id.txt_user);
+        TextView txt_email = layout.findViewById(R.id.txt_email);
 
-        LinearLayout layout_profile = (LinearLayout) layout.findViewById(R.id.layout_profile);
+        LinearLayout layout_profile = layout.findViewById(R.id.layout_profile);
 
-        txt_email.setText(Preferences.readString(getActivity(), Preferences.EMAIL, ""));
-        txt_user.setText(Preferences.readString(getActivity(), Preferences.USER_NAME, ""));
+        User user = ModelManager.getInstance().getAuthManager().getUser();
+        if (user != null) {
+            txt_email.setText(user.getEmail());
+            txt_user.setText(user.getName());
+        } else {
+            txt_email.setText(Preferences.readString(getActivity(), Preferences.EMAIL, ""));
+            txt_user.setText(Preferences.readString(getActivity(), Preferences.USER_NAME, ""));
+        }
 
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);

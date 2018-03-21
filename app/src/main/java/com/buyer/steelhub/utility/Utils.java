@@ -84,6 +84,11 @@ public class Utils {
         }
     }
 
+    public static String firstLetterCap(String name) {
+        StringBuilder sb = new StringBuilder(name);
+        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+        return sb.toString();
+    }
 
     public static boolean isConnectingToInternet(Activity act) {
         ConnectivityManager connMgr = (ConnectivityManager) act.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -152,18 +157,16 @@ public class Utils {
 
     public static RequestQueue getVolleyRequestQueue(Activity activity) {
         HurlStack stack = null;
-        if (Build.VERSION.SDK_INT >= 9) {
-            try {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+        try {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
 // Use a socket factory that removes sslv3 and add TLS1.2
-                    stack = new HurlStack(null, new TLSSocketFactory());
-                } else {
-                    stack = new HurlStack();
-                }
-            } catch (Exception e) {
+                stack = new HurlStack(null, new TLSSocketFactory());
+            } else {
                 stack = new HurlStack();
-                Log.i("NetworkClient", "can no create custom socket factory");
             }
+        } catch (Exception e) {
+            stack = new HurlStack();
+            Log.i("NetworkClient", "can no create custom socket factory");
         }
         return Volley.newRequestQueue(activity, stack);
     }

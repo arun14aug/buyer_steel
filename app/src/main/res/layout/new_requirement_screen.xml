@@ -94,8 +94,8 @@
                             android:layout_gravity="center_vertical"
                             android:contentDescription="@string/accept"
                             android:padding="5dp"
-                            android:src="@drawable/reply"
-                            android:visibility="gone" />
+                            android:src="@drawable/ic_delete"
+                            android:visibility="invisible" />
 
                     </LinearLayout>
 
